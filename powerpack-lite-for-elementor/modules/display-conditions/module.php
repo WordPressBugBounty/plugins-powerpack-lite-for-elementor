@@ -150,6 +150,7 @@ class Module extends Module_Base {
 			// Misc
 			'os',
 			'browser',
+			'device_type',
 			'search_bot',
 			'request_parameter',
 		];
@@ -211,8 +212,8 @@ class Module extends Module_Base {
 				$name = $condition[ 'pp_condition_' . $key . '_name' ];
 			}
 
-			$operator   = $condition['pp_condition_operator'];
-			$value      = $condition[ 'pp_condition_' . $key . '_value' ];
+			$operator   = $condition[ 'pp_condition_operator' ];
+			$value      = ! empty( $condition[ 'pp_condition_' . $key . '_value' ] ) ? $condition[ 'pp_condition_' . $key . '_value' ] : '';
 
 			$_condition = $this->get_conditions( $key );
 

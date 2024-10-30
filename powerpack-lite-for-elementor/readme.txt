@@ -1,10 +1,10 @@
 === PowerPack Elementor Addons (Free Widgets, Extensions and Templates) ===
 Contributors: ideaboxcreations, simrandeep, puneetsahalot, ibachal, jainnidhi, nirbhay18, wpamitkumar
 Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
-Requires at least: 6.0
+Requires at least: 6.3
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 2.7.28
+Stable tag: 2.8.0
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -80,6 +80,8 @@ PowerPack Addon for Elementor comes from our team of experts, who always deliver
 36. [Posts](https://powerpackelements.com/elementor-widgets/posts/?utm_source=repo-readme&utm_medium=powerpack-lite&utm_campaign=repo-demo-link) - Display blog posts beautifully on your WordPress websites built through Elementor.
 37. [Content Reveal](https://powerpackelements.com/elementor-widgets/content-reveal/?utm_source=repo-readme&utm_medium=powerpack-lite&utm_campaign=repo-demo-link) - Organize the layout of your page by displaying more content in less area. Content Reveal widget allows you to display the extra information with a simple click of button.
 38. [Random Image](https://powerpackelements.com/elementor-widgets/random-image/?utm_source=repo-readme&utm_medium=powerpack-lite&utm_campaign=repo-demo-link) - Display Random Images from a set of the images on your webpage.
+39. [Interactive Circle](https://powerpackelements.com/elementor-widgets/interactive-circle/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - This widget lets you showcase content on your website in beautiful and eye-catchy circular layouts without using any additional HTML code and CSS.
+40. [Progress Bar](https://powerpackelements.com/elementor-widgets/progress-bar/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - Add interactive Progress Bars to your website. Showcase progress with horizontal, vertical, circular bars, and more using this versatile widget.
 
 ## CREATIVE EXTENSIONS - FREE
 
@@ -234,6 +236,21 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.8.0 - October 30, 2024 =
+* 	New: Interactive Circle widget
+* 	New: Progress Bar widget
+* 	Enhancement: Display Conditions - Added new Device Type display condition
+* 	Enhancement: Added additional size units and custom units to all the widgets and extensions
+* 	Enhancement: Conditionally loading widget styles only when the respective widgets are used
+* 	Enhancement: Gravity Forms - Added options to style sub-labels
+* 	Enhancement: Gravity Forms - Added options to style required text
+* 	Enhancement: Info Box - Added option to change button width
+* 	Enhancement: Info Box - Added option to change button icon spacing
+* 	Enhancement: Info Box - Added option to change button icon size
+* 	Enhancement: Image Comparison - Removed dependency on twentytwenty library
+* 	Fixed: Divider - Icon Rotation option
+* 	Fixed: Removed unnecessary calls to odometer lib files
 
 = 2.7.28 - September 13, 2024 =
 * 	Fixed: Info Box - Selector for icon hover style options

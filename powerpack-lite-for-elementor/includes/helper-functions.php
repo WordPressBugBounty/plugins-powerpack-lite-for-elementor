@@ -372,6 +372,8 @@ function pp_elements_lite_get_modules() {
 		'pp-logo-grid'              => esc_html__( 'Logo Grid', 'powerpack' ),
 		'pp-image-comparison'       => esc_html__( 'Image Comparison', 'powerpack' ),
 		'pp-instafeed'              => esc_html__( 'Instagram Feed', 'powerpack' ),
+		'pp-interactive-circle'     => esc_html__( 'Interactive Circle', 'powerpack' ),
+		'pp-progress-bar'           => esc_html__( 'Progress Bar', 'powerpack' ),
 		'pp-content-ticker'         => esc_html__( 'Content Ticker', 'powerpack' ),
 		'pp-scroll-image'           => esc_html__( 'Scroll Image', 'powerpack' ),
 		'pp-buttons'                => esc_html__( 'Buttons', 'powerpack' ),
@@ -381,7 +383,7 @@ function pp_elements_lite_get_modules() {
 		'pp-twitter-tweet'          => esc_html__( 'Twitter Tweet', 'powerpack' ),
 		'pp-fancy-heading'          => esc_html__( 'Fancy Heading', 'powerpack' ),
 		'pp-posts'                  => esc_html__( 'Posts', 'powerpack' ),
-		'pp-content-reveal'         => __( 'Content Reveal', 'powerpack' ),
+		'pp-content-reveal'         => esc_html__( 'Content Reveal', 'powerpack' ),
 		'pp-random-image'           => esc_html__( 'Random Image', 'powerpack' ),
 	);
 
@@ -407,12 +409,12 @@ function pp_elements_lite_get_modules() {
 
 	// Formidable Forms
 	if ( class_exists( 'FrmForm' ) ) {
-		$modules['pp-formidable-forms'] = __( 'Formidable Forms', 'powerpack' );
+		$modules['pp-formidable-forms'] = esc_html__( 'Formidable Forms', 'powerpack' );
 	}
 
 	// Fluent Forms
 	if ( function_exists( 'wpFluentForm' ) ) {
-		$modules['pp-fluent-forms'] = __( 'Fluent Forms', 'powerpack' );
+		$modules['pp-fluent-forms'] = esc_html__( 'Fluent Forms', 'powerpack' );
 	}
 
 	ksort( $modules );
@@ -422,10 +424,10 @@ function pp_elements_lite_get_modules() {
 
 function pp_elements_lite_get_extensions() {
 	$extensions = array(
-		'pp-display-conditions'           => __( 'Display Conditions', 'powerpack' ),
-		'pp-wrapper-link'                 => __( 'Wrapper Link', 'powerpack' ),
-		'pp-animated-gradient-background' => __( 'Animated Gradient Background', 'powerpack' ),
-		'pp-custom-cursor'                => __( 'Custom Cursor', 'powerpack' ),
+		'pp-display-conditions'           => esc_html__( 'Display Conditions', 'powerpack' ),
+		'pp-wrapper-link'                 => esc_html__( 'Wrapper Link', 'powerpack' ),
+		'pp-animated-gradient-background' => esc_html__( 'Animated Gradient Background', 'powerpack' ),
+		'pp-custom-cursor'                => esc_html__( 'Custom Cursor', 'powerpack' ),
 	);
 
 	return $extensions;

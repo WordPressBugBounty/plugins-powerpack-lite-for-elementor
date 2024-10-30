@@ -78,6 +78,20 @@ class Info_Table extends Powerpack_Widget {
 	}
 
 	/**
+	 * Get style dependencies.
+	 *
+	 * Retrieve the list of style dependencies the widget requires.
+	 *
+	 * @since 2.8.0
+	 * @access public
+	 *
+	 * @return array Widget style dependencies.
+	 */
+	public function get_style_depends(): array {
+		return [ 'widget-pp-info-table' ];
+	}
+
+	/**
 	 * Register info table widget controls.
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
@@ -97,7 +111,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_price_menu',
 			[
-				'label' => __( 'Icon', 'powerpack' ),
+				'label' => esc_html__( 'Icon', 'powerpack' ),
 			]
 		);
 		$this->add_control(
@@ -131,7 +145,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'selected_icon',
 			[
-				'label'                 => __( 'Icon', 'powerpack' ),
+				'label'                 => esc_html__( 'Icon', 'powerpack' ),
 				'type'                  => Controls_Manager::ICONS,
 				'fa4compatibility'      => 'icon',
 				'default'               => [
@@ -147,7 +161,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'image',
 			[
-				'label'     => __( 'Image', 'powerpack' ),
+				'label'     => esc_html__( 'Image', 'powerpack' ),
 				'type'      => Controls_Manager::MEDIA,
 				'default'   => [
 					'url' => Utils::get_placeholder_image_src(),
@@ -173,7 +187,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'icon_text',
 			[
-				'label'     => __( 'Icon Text', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Text', 'powerpack' ),
 				'type'      => Controls_Manager::TEXT,
 				'default'   => '1',
 				'condition' => [
@@ -191,60 +205,60 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_content',
 			[
-				'label' => __( 'Content', 'powerpack' ),
+				'label' => esc_html__( 'Content', 'powerpack' ),
 			]
 		);
 		$this->add_control(
 			'heading',
 			[
-				'label'   => __( 'Title', 'powerpack' ),
+				'label'   => esc_html__( 'Title', 'powerpack' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Title', 'powerpack' ),
+				'default' => esc_html__( 'Title', 'powerpack' ),
 			]
 		);
 		$this->add_control(
 			'title_html_tag',
 			[
-				'label'   => __( 'Title HTML Tag', 'powerpack' ),
+				'label'   => esc_html__( 'Title HTML Tag', 'powerpack' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'h4',
 				'options' => [
-					'h1'   => __( 'H1', 'powerpack' ),
-					'h2'   => __( 'H2', 'powerpack' ),
-					'h3'   => __( 'H3', 'powerpack' ),
-					'h4'   => __( 'H4', 'powerpack' ),
-					'h5'   => __( 'H5', 'powerpack' ),
-					'h6'   => __( 'H6', 'powerpack' ),
-					'div'  => __( 'div', 'powerpack' ),
-					'span' => __( 'span', 'powerpack' ),
-					'p'    => __( 'p', 'powerpack' ),
+					'h1'   => esc_html__( 'H1', 'powerpack' ),
+					'h2'   => esc_html__( 'H2', 'powerpack' ),
+					'h3'   => esc_html__( 'H3', 'powerpack' ),
+					'h4'   => esc_html__( 'H4', 'powerpack' ),
+					'h5'   => esc_html__( 'H5', 'powerpack' ),
+					'h6'   => esc_html__( 'H6', 'powerpack' ),
+					'div'  => esc_html__( 'div', 'powerpack' ),
+					'span' => esc_html__( 'span', 'powerpack' ),
+					'p'    => esc_html__( 'p', 'powerpack' ),
 				],
 			]
 		);
 		$this->add_control(
 			'sub_heading',
 			[
-				'label'   => __( 'Subtitle', 'powerpack' ),
+				'label'   => esc_html__( 'Subtitle', 'powerpack' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Subtitle', 'powerpack' ),
+				'default' => esc_html__( 'Subtitle', 'powerpack' ),
 			]
 		);
 		$this->add_control(
 			'sub_title_html_tag',
 			[
-				'label'     => __( 'Subtitle HTML Tag', 'powerpack' ),
+				'label'     => esc_html__( 'Subtitle HTML Tag', 'powerpack' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'h5',
 				'options'   => [
-					'h1'   => __( 'H1', 'powerpack' ),
-					'h2'   => __( 'H2', 'powerpack' ),
-					'h3'   => __( 'H3', 'powerpack' ),
-					'h4'   => __( 'H4', 'powerpack' ),
-					'h5'   => __( 'H5', 'powerpack' ),
-					'h6'   => __( 'H6', 'powerpack' ),
-					'div'  => __( 'div', 'powerpack' ),
-					'span' => __( 'span', 'powerpack' ),
-					'p'    => __( 'p', 'powerpack' ),
+					'h1'   => esc_html__( 'H1', 'powerpack' ),
+					'h2'   => esc_html__( 'H2', 'powerpack' ),
+					'h3'   => esc_html__( 'H3', 'powerpack' ),
+					'h4'   => esc_html__( 'H4', 'powerpack' ),
+					'h5'   => esc_html__( 'H5', 'powerpack' ),
+					'h6'   => esc_html__( 'H6', 'powerpack' ),
+					'div'  => esc_html__( 'div', 'powerpack' ),
+					'span' => esc_html__( 'span', 'powerpack' ),
+					'p'    => esc_html__( 'p', 'powerpack' ),
 				],
 				'condition' => [
 					'sub_heading!' => '',
@@ -254,23 +268,23 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'description',
 			[
-				'label'   => __( 'Description', 'powerpack' ),
+				'label'   => esc_html__( 'Description', 'powerpack' ),
 				'type'    => Controls_Manager::TEXTAREA,
-				'default' => __( 'Enter description', 'powerpack' ),
+				'default' => esc_html__( 'Enter description', 'powerpack' ),
 			]
 		);
 		$this->add_responsive_control(
 			'sale_badge',
 			[
-				'label'     => __( 'Sale Badge', 'powerpack' ),
+				'label'     => esc_html__( 'Sale Badge', 'powerpack' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'show'    => [
-						'title' => __( 'Show', 'powerpack' ),
+						'title' => esc_html__( 'Show', 'powerpack' ),
 						'icon'  => 'fa fa-eye',
 					],
 					'hide'  => [
-						'title' => __( 'Hide', 'powerpack' ),
+						'title' => esc_html__( 'Hide', 'powerpack' ),
 						'icon'  => 'fa fa-eye-slash',
 					],
 				],
@@ -280,9 +294,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'sale_badge_text',
 			[
-				'label'   => __( 'Sale Badge Text', 'powerpack' ),
+				'label'   => esc_html__( 'Sale Badge Text', 'powerpack' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => __( 'Sale', 'powerpack' ),
+				'default' => esc_html__( 'Sale', 'powerpack' ),
 				'condition' => [
 					'sale_badge' => 'show',
 				],
@@ -296,27 +310,27 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_link',
 			[
-				'label' => __( 'Link', 'powerpack' ),
+				'label' => esc_html__( 'Link', 'powerpack' ),
 			]
 		);
 		$this->add_control(
 			'link_type',
 			[
-				'label'   => __( 'Link Type', 'powerpack' ),
+				'label'   => esc_html__( 'Link Type', 'powerpack' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'none',
 				'options' => [
-					'none'  => __( 'None', 'powerpack' ),
-					'box'   => __( 'Box', 'powerpack' ),
-					'title' => __( 'Title', 'powerpack' ),
-					'button'    => __( 'Button', 'powerpack' ),
+					'none'  => esc_html__( 'None', 'powerpack' ),
+					'box'   => esc_html__( 'Box', 'powerpack' ),
+					'title' => esc_html__( 'Title', 'powerpack' ),
+					'button'    => esc_html__( 'Button', 'powerpack' ),
 				],
 			]
 		);
 		$this->add_control(
 			'link',
 			[
-				'label'       => __( 'Link', 'powerpack' ),
+				'label'       => esc_html__( 'Link', 'powerpack' ),
 				'type'        => Controls_Manager::URL,
 				'placeholder' => 'https://www.your-link.com',
 				'default'     => [
@@ -330,9 +344,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_text',
 			[
-				'label'     => __( 'Button Text', 'powerpack' ),
+				'label'     => esc_html__( 'Button Text', 'powerpack' ),
 				'type'      => Controls_Manager::TEXT,
-				'default'   => __( 'Get Started', 'powerpack' ),
+				'default'   => esc_html__( 'Get Started', 'powerpack' ),
 				'condition' => [
 					'link_type' => 'button',
 				],
@@ -342,7 +356,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'select_button_icon',
 			[
-				'label'                 => __( 'Button', 'powerpack' ) . ' ' . __( 'Icon', 'powerpack' ),
+				'label'                 => esc_html__( 'Button', 'powerpack' ) . ' ' . esc_html__( 'Icon', 'powerpack' ),
 				'type'                  => Controls_Manager::ICONS,
 				'fa4compatibility'      => 'button_icon',
 				'condition'             => [
@@ -354,12 +368,12 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_icon_position',
 			[
-				'label'     => __( 'Icon Position', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Position', 'powerpack' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'after',
 				'options'   => [
-					'after'  => __( 'After', 'powerpack' ),
-					'before' => __( 'Before', 'powerpack' ),
+					'after'  => esc_html__( 'After', 'powerpack' ),
+					'before' => esc_html__( 'Before', 'powerpack' ),
 				],
 				'condition' => [
 					'link_type'    => 'button',
@@ -383,7 +397,7 @@ class Info_Table extends Powerpack_Widget {
 			$this->start_controls_section(
 				'section_help_docs',
 				[
-					'label' => __( 'Help Docs', 'powerpack' ),
+					'label' => esc_html__( 'Help Docs', 'powerpack' ),
 				]
 			);
 
@@ -415,26 +429,26 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_info_table_style',
 			[
-				'label' => __( 'Info Table', 'powerpack' ),
+				'label' => esc_html__( 'Info Table', 'powerpack' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 		$this->add_responsive_control(
 			'align',
 			[
-				'label'     => __( 'Alignment', 'powerpack' ),
+				'label'     => esc_html__( 'Alignment', 'powerpack' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
-						'title' => __( 'Left', 'powerpack' ),
+						'title' => esc_html__( 'Left', 'powerpack' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'  => [
-						'title' => __( 'Center', 'powerpack' ),
+						'title' => esc_html__( 'Center', 'powerpack' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'   => [
-						'title' => __( 'Right', 'powerpack' ),
+						'title' => esc_html__( 'Right', 'powerpack' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -452,14 +466,14 @@ class Info_Table extends Powerpack_Widget {
 			$this->start_controls_tab(
 				'tab_info_table_normal',
 				[
-					'label' => __( 'Normal', 'powerpack' ),
+					'label' => esc_html__( 'Normal', 'powerpack' ),
 				]
 			);
 			$this->add_group_control(
 				Group_Control_Background::get_type(),
 				[
 					'name'     => 'info_table_bg',
-					'label'    => __( 'Background', 'powerpack' ),
+					'label'    => esc_html__( 'Background', 'powerpack' ),
 					'types'    => [ 'none', 'classic', 'gradient' ],
 					'selector' => '{{WRAPPER}} .pp-info-table-container',
 				]
@@ -468,7 +482,7 @@ class Info_Table extends Powerpack_Widget {
 				Group_Control_Border::get_type(),
 				[
 					'name'        => 'info_table_border',
-					'label'       => __( 'Border', 'powerpack' ),
+					'label'       => esc_html__( 'Border', 'powerpack' ),
 					'placeholder' => '1px',
 					'default'     => '1px',
 					'selector'    => '{{WRAPPER}} .pp-info-table-container',
@@ -477,9 +491,9 @@ class Info_Table extends Powerpack_Widget {
 			$this->add_control(
 				'info_table_border_radius',
 				[
-					'label'      => __( 'Border Radius', 'powerpack' ),
+					'label'      => esc_html__( 'Border Radius', 'powerpack' ),
 					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', '%', 'em' ],
+					'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 					'selectors'  => [
 						'{{WRAPPER}} .pp-info-table-container' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					],
@@ -500,14 +514,14 @@ class Info_Table extends Powerpack_Widget {
 			$this->start_controls_tab(
 				'tab_info_table_hover',
 				[
-					'label' => __( 'Hover', 'powerpack' ),
+					'label' => esc_html__( 'Hover', 'powerpack' ),
 				]
 			);
 			$this->add_group_control(
 				Group_Control_Background::get_type(),
 				[
 					'name'     => 'info_table_bg_hover',
-					'label'    => __( 'Background', 'powerpack' ),
+					'label'    => esc_html__( 'Background', 'powerpack' ),
 					'types'    => [ 'none', 'classic', 'gradient' ],
 					'selector' => '{{WRAPPER}} .pp-info-table-container:hover',
 				]
@@ -516,7 +530,7 @@ class Info_Table extends Powerpack_Widget {
 				Group_Control_Border::get_type(),
 				[
 					'name'        => 'info_table_border_hover',
-					'label'       => __( 'Border', 'powerpack' ),
+					'label'       => esc_html__( 'Border', 'powerpack' ),
 					'placeholder' => '1px',
 					'default'     => '1px',
 					'selector'    => '{{WRAPPER}} .pp-info-table-container:hover',
@@ -525,9 +539,9 @@ class Info_Table extends Powerpack_Widget {
 			$this->add_control(
 				'info_table_border_radius_hover',
 				[
-					'label'      => __( 'Border Radius', 'powerpack' ),
+					'label'      => esc_html__( 'Border Radius', 'powerpack' ),
 					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', '%', 'em' ],
+					'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 					'selectors'  => [
 						'{{WRAPPER}} .pp-info-table-container:hover' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 					],
@@ -547,9 +561,9 @@ class Info_Table extends Powerpack_Widget {
 			$this->add_responsive_control(
 				'info_table_padding',
 				[
-					'label'      => __( 'Padding', 'powerpack' ),
+					'label'      => esc_html__( 'Padding', 'powerpack' ),
 					'type'       => Controls_Manager::DIMENSIONS,
-					'size_units' => [ 'px', '%' ],
+					'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 					'separator'  => 'before',
 					'selectors'  => [
 						'{{WRAPPER}} .pp-info-table-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -566,14 +580,14 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_info_table_title_style',
 			[
-				'label' => __( 'Title', 'powerpack' ),
+				'label' => esc_html__( 'Title', 'powerpack' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 		$this->add_control(
 			'title_box_bg_color',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -584,7 +598,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => __( 'Color', 'powerpack' ),
+				'label'     => esc_html__( 'Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -600,7 +614,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'title_typography',
-				'label'    => __( 'Typography', 'powerpack' ),
+				'label'    => esc_html__( 'Typography', 'powerpack' ),
 				'global'   => [
 					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
 				],
@@ -610,9 +624,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'title_box_padding',
 			[
-				'label'      => __( 'Padding', 'powerpack' ),
+				'label'      => esc_html__( 'Padding', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-title-wrap' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -621,8 +635,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'title_margin',
 			[
-				'label'      => __( 'Margin Bottom', 'powerpack' ),
+				'label'      => esc_html__( 'Margin Bottom', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'default'    => [
 					'size' => 20,
 				],
@@ -638,7 +653,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-title' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
@@ -647,7 +661,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'subtitle_heading',
 			[
-				'label'     => __( 'Sub Title', 'powerpack' ),
+				'label'     => esc_html__( 'Sub Title', 'powerpack' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -659,7 +673,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'subtitle_color',
 			[
-				'label'     => __( 'Color', 'powerpack' ),
+				'label'     => esc_html__( 'Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_SECONDARY,
@@ -678,7 +692,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'subtitle_typography',
-				'label'     => __( 'Typography', 'powerpack' ),
+				'label'     => esc_html__( 'Typography', 'powerpack' ),
 				'global'    => [
 					'default' => Global_Typography::TYPOGRAPHY_SECONDARY,
 				],
@@ -692,8 +706,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'subtitle_margin',
 			[
-				'label'      => __( 'Margin Bottom', 'powerpack' ),
+				'label'      => esc_html__( 'Margin Bottom', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'default'    => [
 					'size' => 20,
 				],
@@ -709,7 +724,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', '%' ],
 				'condition'  => [
 					'sub_heading!' => '',
 				],
@@ -727,7 +741,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_info_table_icon_style',
 			[
-				'label'     => __( 'Icon / Image', 'powerpack' ),
+				'label'     => esc_html__( 'Icon / Image', 'powerpack' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'icon_type!' => 'none',
@@ -737,7 +751,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'icon_box_bg_color',
 			[
-				'label'     => __( 'Box Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Box Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -748,9 +762,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'icon_box_padding',
 			[
-				'label'      => __( 'Box Padding', 'powerpack' ),
+				'label'      => esc_html__( 'Box Padding', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-icon-container' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -759,8 +773,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'icon_size',
 			[
-				'label'      => __( 'Icon Size', 'powerpack' ),
+				'label'      => esc_html__( 'Icon Size', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range'      => [
 					'px' => [
 						'min'  => 5,
@@ -768,7 +783,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', 'em' ],
 				'condition'  => [
 					'icon_type' => 'icon',
 				],
@@ -780,8 +794,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'icon_box_size',
 			[
-				'label'      => __( 'Icon Box Size', 'powerpack' ),
+				'label'      => esc_html__( 'Icon Box Size', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range'      => [
 					'px' => [
 						'min'  => 5,
@@ -789,7 +804,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', 'em' ],
 				'condition'  => [
 					'icon_type' => 'icon',
 				],
@@ -801,8 +815,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'icon_img_width',
 			[
-				'label'      => __( 'Image Width', 'powerpack' ),
+				'label'      => esc_html__( 'Image Width', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'      => [
 					'px' => [
 						'min'  => 25,
@@ -815,7 +830,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-icon img' => 'width: {{SIZE}}{{UNIT}}',
 				],
@@ -828,7 +842,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'icon_typography',
-				'label'     => __( 'Typography', 'powerpack' ),
+				'label'     => esc_html__( 'Typography', 'powerpack' ),
 				'global'    => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
@@ -843,14 +857,14 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_icon_normal',
 			[
-				'label' => __( 'Normal', 'powerpack' ),
+				'label' => esc_html__( 'Normal', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color_normal',
 			[
-				'label'     => __( 'Icon Color', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -869,7 +883,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'icon_bg_color_normal',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -882,7 +896,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'        => 'icon_border',
-				'label'       => __( 'Border', 'powerpack' ),
+				'label'       => esc_html__( 'Border', 'powerpack' ),
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'condition'   => [
@@ -895,9 +909,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'icon_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'powerpack' ),
+				'label'      => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'condition'  => [
 					'icon_type!' => 'none',
 				],
@@ -910,8 +924,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'icon_rotation',
 			[
-				'label'      => __( 'Icon Rotation', 'powerpack' ),
+				'label'      => esc_html__( 'Icon Rotation', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => '',
 				'range'      => [
 					'px' => [
 						'min'  => 0,
@@ -919,7 +934,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => '',
 				'condition'  => [
 					'icon_type!' => 'none',
 					'icon_type!' => 'text',
@@ -933,9 +947,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'img_inside_padding',
 			[
-				'label'      => __( 'Inside Spacing', 'powerpack' ),
+				'label'      => esc_html__( 'Inside Spacing', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'condition'  => [
 					'icon_type!' => 'icon',
 				],
@@ -948,14 +962,14 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_icon_hover',
 			[
-				'label' => __( 'Hover', 'powerpack' ),
+				'label' => esc_html__( 'Hover', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'icon_color_hover',
 			[
-				'label'     => __( 'Icon Color', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -971,7 +985,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'icon_bg_color_hover',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'condition' => [
@@ -986,7 +1000,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'icon_border_color_hover',
 			[
-				'label'     => __( 'Border Color', 'powerpack' ),
+				'label'     => esc_html__( 'Border Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'condition' => [
@@ -1001,7 +1015,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'hover_animation_icon',
 			[
-				'label' => __( 'Icon Animation', 'powerpack' ),
+				'label' => esc_html__( 'Icon Animation', 'powerpack' ),
 				'type'  => Controls_Manager::HOVER_ANIMATION,
 			]
 		);
@@ -1019,7 +1033,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_info_description_style',
 			[
-				'label'     => __( 'Description', 'powerpack' ),
+				'label'     => esc_html__( 'Description', 'powerpack' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'description!' => '',
@@ -1029,7 +1043,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'description_bg_color',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -1040,7 +1054,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'description_color',
 			[
-				'label'     => __( 'Color', 'powerpack' ),
+				'label'     => esc_html__( 'Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1059,7 +1073,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'description_typography',
-				'label'     => __( 'Typography', 'powerpack' ),
+				'label'     => esc_html__( 'Typography', 'powerpack' ),
 				'global'    => [
 					'default' => Global_Typography::TYPOGRAPHY_TEXT,
 				],
@@ -1073,9 +1087,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'description_padding',
 			[
-				'label'      => __( 'Padding', 'powerpack' ),
+				'label'      => esc_html__( 'Padding', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'separator'  => 'before',
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-description' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
@@ -1085,8 +1099,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'description_margin',
 			[
-				'label'      => __( 'Margin Bottom', 'powerpack' ),
+				'label'      => esc_html__( 'Margin Bottom', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'default'    => [
 					'size' => 20,
 				],
@@ -1102,7 +1117,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-description' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
@@ -1117,7 +1131,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_info_table_button_style',
 			[
-				'label'     => __( 'Button', 'powerpack' ),
+				'label'     => esc_html__( 'Button', 'powerpack' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'link_type'    => 'button',
@@ -1129,15 +1143,15 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_size',
 			[
-				'label'     => __( 'Size', 'powerpack' ),
+				'label'     => esc_html__( 'Size', 'powerpack' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'md',
 				'options'   => [
-					'xs' => __( 'Extra Small', 'powerpack' ),
-					'sm' => __( 'Small', 'powerpack' ),
-					'md' => __( 'Medium', 'powerpack' ),
-					'lg' => __( 'Large', 'powerpack' ),
-					'xl' => __( 'Extra Large', 'powerpack' ),
+					'xs' => esc_html__( 'Extra Small', 'powerpack' ),
+					'sm' => esc_html__( 'Small', 'powerpack' ),
+					'md' => esc_html__( 'Medium', 'powerpack' ),
+					'lg' => esc_html__( 'Large', 'powerpack' ),
+					'xl' => esc_html__( 'Extra Large', 'powerpack' ),
 				],
 				'condition' => [
 					'link_type'    => 'button',
@@ -1151,7 +1165,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_button_normal',
 			[
-				'label'     => __( 'Normal', 'powerpack' ),
+				'label'     => esc_html__( 'Normal', 'powerpack' ),
 				'condition' => [
 					'link_type'    => 'button',
 					'button_text!' => '',
@@ -1162,7 +1176,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_bg_color_normal',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#000',
 				'selectors' => [
@@ -1178,7 +1192,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_text_color_normal',
 			[
-				'label'     => __( 'Text Color', 'powerpack' ),
+				'label'     => esc_html__( 'Text Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#fff',
 				'selectors' => [
@@ -1196,7 +1210,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'        => 'button_border_normal',
-				'label'       => __( 'Border', 'powerpack' ),
+				'label'       => esc_html__( 'Border', 'powerpack' ),
 				'placeholder' => '1px',
 				'default'     => '1px',
 				'selector'    => '{{WRAPPER}} .pp-info-table-button',
@@ -1210,9 +1224,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'powerpack' ),
+				'label'      => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1227,7 +1241,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'button_typography',
-				'label'     => __( 'Typography', 'powerpack' ),
+				'label'     => esc_html__( 'Typography', 'powerpack' ),
 				'global'    => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
@@ -1242,9 +1256,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'button_padding',
 			[
-				'label'      => __( 'Padding', 'powerpack' ),
+				'label'      => esc_html__( 'Padding', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', 'em', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1269,7 +1283,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'info_table_button_icon_heading',
 			[
-				'label'     => __( 'Button Icon', 'powerpack' ),
+				'label'     => esc_html__( 'Button Icon', 'powerpack' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -1282,9 +1296,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'button_icon_margin',
 			[
-				'label'       => __( 'Margin', 'powerpack' ),
+				'label'       => esc_html__( 'Margin', 'powerpack' ),
 				'type'        => Controls_Manager::DIMENSIONS,
-				'size_units'  => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'placeholder' => [
 					'top'    => '',
 					'right'  => '',
@@ -1306,7 +1320,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_button_hover',
 			[
-				'label'     => __( 'Hover', 'powerpack' ),
+				'label'     => esc_html__( 'Hover', 'powerpack' ),
 				'condition' => [
 					'link_type'    => 'button',
 					'button_text!' => '',
@@ -1317,7 +1331,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_bg_color_hover',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -1333,7 +1347,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_text_color_hover',
 			[
-				'label'     => __( 'Text Color', 'powerpack' ),
+				'label'     => esc_html__( 'Text Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -1350,7 +1364,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'     => __( 'Border Color', 'powerpack' ),
+				'label'     => esc_html__( 'Border Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -1366,7 +1380,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'button_animation',
 			[
-				'label'     => __( 'Animation', 'powerpack' ),
+				'label'     => esc_html__( 'Animation', 'powerpack' ),
 				'type'      => Controls_Manager::HOVER_ANIMATION,
 				'condition' => [
 					'link_type'    => 'button',
@@ -1398,7 +1412,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_info_sale_badge_style',
 			[
-				'label'     => __( 'Sale Badge', 'powerpack' ),
+				'label'     => esc_html__( 'Sale Badge', 'powerpack' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'sale_badge' => 'show',
@@ -1408,7 +1422,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'sale_badge_bg_color',
 			[
-				'label'     => __( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_ACCENT,
@@ -1427,7 +1441,7 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'sale_badge_color',
 			[
-				'label'     => __( 'Color', 'powerpack' ),
+				'label'     => esc_html__( 'Color', 'powerpack' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#fff',
 				'selectors' => [
@@ -1443,7 +1457,7 @@ class Info_Table extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'sale_badge_typography',
-				'label'     => __( 'Typography', 'powerpack' ),
+				'label'     => esc_html__( 'Typography', 'powerpack' ),
 				'global'    => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
@@ -1457,9 +1471,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'sale_badge_padding',
 			[
-				'label'      => __( 'Padding', 'powerpack' ),
+				'label'      => esc_html__( 'Padding', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'separator'  => 'before',
 				'default'    => [
 					'top'      => 5,
@@ -1479,8 +1493,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'sale_badge_width',
 			[
-				'label'      => __( 'Width', 'powerpack' ),
+				'label'      => esc_html__( 'Width', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'      => [
 					'px' => [
 						'min'  => 25,
@@ -1493,7 +1508,6 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-sale-badge' => 'width: {{SIZE}}{{UNIT}}',
 				],
@@ -1505,15 +1519,15 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'sale_badge_align',
 			[
-				'label'     => __( 'Alignment', 'powerpack' ),
+				'label'     => esc_html__( 'Alignment', 'powerpack' ),
 				'type'      => Controls_Manager::CHOOSE,
 				'options'   => [
 					'left'    => [
-						'title' => __( 'Left', 'powerpack' ),
+						'title' => esc_html__( 'Left', 'powerpack' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'right'   => [
-						'title' => __( 'Right', 'powerpack' ),
+						'title' => esc_html__( 'Right', 'powerpack' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -1523,8 +1537,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'sale_badge_position',
 			[
-				'label'      => __( 'Position From Top', 'powerpack' ),
+				'label'      => esc_html__( 'Position From Top', 'powerpack' ),
 				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'      => [
 					'%' => [
 						'min'  => -10,
@@ -1537,9 +1552,8 @@ class Info_Table extends Powerpack_Widget {
 						'step' => 1,
 					],
 				],
-				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
-					'{{WRAPPER}} .pp-info-table-sale-badge' => 'top: {{SIZE}}%',
+					'{{WRAPPER}} .pp-info-table-sale-badge' => 'top: {{SIZE}}{{UNIT}}',
 				],
 				'condition' => [
 					'sale_badge' => 'show',
@@ -1549,9 +1563,9 @@ class Info_Table extends Powerpack_Widget {
 		$this->add_control(
 			'sale_badge_border_radius',
 			[
-				'label'      => __( 'Border Radius', 'powerpack' ),
+				'label'      => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%', 'em' ],
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'  => [
 					'{{WRAPPER}} .pp-info-table-sale-badge' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],

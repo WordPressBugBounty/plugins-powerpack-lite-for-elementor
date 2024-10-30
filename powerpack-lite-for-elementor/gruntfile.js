@@ -5,7 +5,7 @@ module.exports = function( grunt ) {
 	const pluginName = 'powerpack-lite-for-elementor';
 	const textDomain = 'powerpack';
 	const buildPath = 'build/' + pluginName + '/';
-	const sass = require( 'node-sass' );
+	const sass = require( 'sass' );
 	const pkg = grunt.file.readJSON( 'package.json' );
 
 	grunt.initConfig({
@@ -76,6 +76,20 @@ module.exports = function( grunt ) {
 				files: [{
 					expand: true,
 					cwd: '<%= dirs.scss %>/',
+					src: ['*.scss'],
+					dest: '<%= dirs.css %>/',
+					ext: '.css'
+				},
+                {
+					expand: true,
+					cwd: '<%= dirs.scss %>/widgets/',
+					src: ['*.scss'],
+					dest: '<%= dirs.css %>/',
+					ext: '.css'
+				},
+                {
+					expand: true,
+					cwd: '<%= dirs.scss %>/extensions/',
 					src: ['*.scss'],
 					dest: '<%= dirs.css %>/',
 					ext: '.css'
@@ -329,6 +343,17 @@ module.exports = function( grunt ) {
 				]
 			},
 
+			readme: {
+				src: ['readme.txt'],
+				overwrite: true,
+				replacements: [
+					{
+						from: /Stable tag: \d{1,1}\.\d{1,2}\.\d{1,2}/g,
+						to: 'Stable tag: <%= pkg.version %>'
+					},
+				]
+			},
+
 			comments: {
 				src: [
 					'*.php',
@@ -350,7 +375,6 @@ module.exports = function( grunt ) {
 	});
 
 	// Load NPM tasks to be used here.
-	grunt.loadNpmTasks( 'grunt-phpcs' );
 	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-rtlcss' );
 	grunt.loadNpmTasks( 'grunt-postcss' );

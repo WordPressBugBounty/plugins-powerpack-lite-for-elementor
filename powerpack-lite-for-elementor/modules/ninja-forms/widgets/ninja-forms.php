@@ -50,6 +50,20 @@ class Ninja_Forms extends Powerpack_Widget {
 	}
 
 	/**
+	 * Get style dependencies.
+	 *
+	 * Retrieve the list of style dependencies the widget requires.
+	 *
+	 * @since 2.8.0
+	 * @access public
+	 *
+	 * @return array Widget style dependencies.
+	 */
+	public function get_style_depends(): array {
+		return [ 'widget-pp-ninja-forms' ];
+	}
+
+	/**
 	 * Register ninja forms widget controls.
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
@@ -84,15 +98,11 @@ class Ninja_Forms extends Powerpack_Widget {
 	 * Content Tab: Ninja Forms
 	 * -------------------------------------------------
 	 */
-	/**
-	 * Content Tab: Ninja Forms
-	 * -------------------------------------------------
-	 */
 	protected function register_content_form_controls() {
 		$this->start_controls_section(
 			'section_form',
 			[
-				'label'                 => __( 'Ninja Forms', 'powerpack' ),
+				'label'                 => esc_html__( 'Ninja Forms', 'powerpack' ),
 			]
 		);
 
@@ -110,10 +120,10 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'custom_title_description',
 			[
-				'label'                 => __( 'Custom Title & Description', 'powerpack' ),
+				'label'                 => esc_html__( 'Custom Title & Description', 'powerpack' ),
 				'type'                  => Controls_Manager::SWITCHER,
-				'label_on'              => __( 'Yes', 'powerpack' ),
-				'label_off'             => __( 'No', 'powerpack' ),
+				'label_on'              => esc_html__( 'Yes', 'powerpack' ),
+				'label_off'             => esc_html__( 'No', 'powerpack' ),
 				'return_value'          => 'yes',
 			]
 		);
@@ -121,11 +131,11 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'form_title',
 			[
-				'label'                 => __( 'Title', 'powerpack' ),
+				'label'                 => esc_html__( 'Title', 'powerpack' ),
 				'type'                  => Controls_Manager::SWITCHER,
 				'default'               => 'yes',
-				'label_on'              => __( 'Show', 'powerpack' ),
-				'label_off'             => __( 'Hide', 'powerpack' ),
+				'label_on'              => esc_html__( 'Show', 'powerpack' ),
+				'label_off'             => esc_html__( 'Hide', 'powerpack' ),
 				'return_value'          => 'yes',
 				'prefix_class'          => 'pp-ninja-form-title-',
 				'condition'             => [
@@ -162,11 +172,11 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'labels_switch',
 			[
-				'label'                 => __( 'Labels', 'powerpack' ),
+				'label'                 => esc_html__( 'Labels', 'powerpack' ),
 				'type'                  => Controls_Manager::SWITCHER,
 				'default'               => 'yes',
-				'label_on'              => __( 'Show', 'powerpack' ),
-				'label_off'             => __( 'Hide', 'powerpack' ),
+				'label_on'              => esc_html__( 'Show', 'powerpack' ),
+				'label_off'             => esc_html__( 'Hide', 'powerpack' ),
 				'return_value'          => 'yes',
 				'prefix_class'          => 'pp-ninja-form-labels-',
 			]
@@ -175,11 +185,11 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'placeholder_switch',
 			[
-				'label'                 => __( 'Placeholder', 'powerpack' ),
+				'label'                 => esc_html__( 'Placeholder', 'powerpack' ),
 				'type'                  => Controls_Manager::SWITCHER,
 				'default'               => 'yes',
-				'label_on'              => __( 'Show', 'powerpack' ),
-				'label_off'             => __( 'Hide', 'powerpack' ),
+				'label_on'              => esc_html__( 'Show', 'powerpack' ),
+				'label_off'             => esc_html__( 'Hide', 'powerpack' ),
 				'return_value'          => 'yes',
 			]
 		);
@@ -195,19 +205,19 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_errors',
 			[
-				'label'                 => __( 'Errors', 'powerpack' ),
+				'label'                 => esc_html__( 'Errors', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'error_messages',
 			[
-				'label'                 => __( 'Error Messages', 'powerpack' ),
+				'label'                 => esc_html__( 'Error Messages', 'powerpack' ),
 				'type'                  => Controls_Manager::SELECT,
 				'default'               => 'show',
 				'options'               => [
-					'show'          => __( 'Show', 'powerpack' ),
-					'hide'          => __( 'Hide', 'powerpack' ),
+					'show'          => esc_html__( 'Show', 'powerpack' ),
+					'hide'          => esc_html__( 'Hide', 'powerpack' ),
 				],
 				'selectors_dictionary'  => [
 					'show'          => 'block',
@@ -222,12 +232,12 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'validation_errors',
 			[
-				'label'                 => __( 'Validation Errors', 'powerpack' ),
+				'label'                 => esc_html__( 'Validation Errors', 'powerpack' ),
 				'type'                  => Controls_Manager::SELECT,
 				'default'               => 'show',
 				'options'               => [
-					'show'          => __( 'Show', 'powerpack' ),
-					'hide'          => __( 'Hide', 'powerpack' ),
+					'show'          => esc_html__( 'Show', 'powerpack' ),
+					'hide'          => esc_html__( 'Hide', 'powerpack' ),
 				],
 				'selectors_dictionary'  => [
 					'show'          => 'block',
@@ -288,7 +298,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_form_title_style',
 			[
-				'label'                 => __( 'Title & Description', 'powerpack' ),
+				'label'                 => esc_html__( 'Title & Description', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -296,19 +306,19 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'heading_alignment',
 			[
-				'label'                 => __( 'Alignment', 'powerpack' ),
+				'label'                 => esc_html__( 'Alignment', 'powerpack' ),
 				'type'                  => Controls_Manager::CHOOSE,
 				'options'               => [
 					'left'      => [
-						'title' => __( 'Left', 'powerpack' ),
+						'title' => esc_html__( 'Left', 'powerpack' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
-						'title' => __( 'Center', 'powerpack' ),
+						'title' => esc_html__( 'Center', 'powerpack' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
-						'title' => __( 'Right', 'powerpack' ),
+						'title' => esc_html__( 'Right', 'powerpack' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -322,7 +332,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'title_heading',
 			[
-				'label'                 => __( 'Title', 'powerpack' ),
+				'label'                 => esc_html__( 'Title', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'separator'             => 'before',
 			]
@@ -331,7 +341,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'form_title_text_color',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -344,7 +354,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'form_title_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-form-title h3, {{WRAPPER}} .pp-contact-form-title',
 			]
 		);
@@ -352,9 +362,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'form_title_margin',
 			[
-				'label'                 => __( 'Margin', 'powerpack' ),
+				'label'                 => esc_html__( 'Margin', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'allowed_dimensions'    => 'vertical',
 				'placeholder'           => [
 					'top'      => '',
@@ -371,7 +381,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'description_heading',
 			[
-				'label'                 => __( 'Description', 'powerpack' ),
+				'label'                 => esc_html__( 'Description', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'separator'             => 'before',
 			]
@@ -380,7 +390,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'form_description_text_color',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -393,7 +403,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'form_description_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'global'                => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
@@ -404,9 +414,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'form_description_margin',
 			[
-				'label'                 => __( 'Margin', 'powerpack' ),
+				'label'                 => esc_html__( 'Margin', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'allowed_dimensions'    => 'vertical',
 				'placeholder'           => [
 					'top'      => '',
@@ -431,7 +441,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_label_style',
 			[
-				'label'                 => __( 'Labels', 'powerpack' ),
+				'label'                 => esc_html__( 'Labels', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 				'condition'             => [
 					'labels_switch' => 'yes',
@@ -442,7 +452,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'text_color_label',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field-label label' => 'color: {{VALUE}}',
@@ -457,7 +467,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'typography_label',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-field-label label',
 				'condition'             => [
 					'labels_switch' => 'yes',
@@ -476,7 +486,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_fields_style',
 			[
-				'label'                 => __( 'Input & Textarea', 'powerpack' ),
+				'label'                 => esc_html__( 'Input & Textarea', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -484,19 +494,19 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'input_alignment',
 			[
-				'label'                 => __( 'Alignment', 'powerpack' ),
+				'label'                 => esc_html__( 'Alignment', 'powerpack' ),
 				'type'                  => Controls_Manager::CHOOSE,
 				'options'               => [
 					'left'      => [
-						'title' => __( 'Left', 'powerpack' ),
+						'title' => esc_html__( 'Left', 'powerpack' ),
 						'icon'  => 'eicon-text-align-left',
 					],
 					'center'    => [
-						'title' => __( 'Center', 'powerpack' ),
+						'title' => esc_html__( 'Center', 'powerpack' ),
 						'icon'  => 'eicon-text-align-center',
 					],
 					'right'     => [
-						'title' => __( 'Right', 'powerpack' ),
+						'title' => esc_html__( 'Right', 'powerpack' ),
 						'icon'  => 'eicon-text-align-right',
 					],
 				],
@@ -512,14 +522,14 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_fields_normal',
 			[
-				'label'                 => __( 'Normal', 'powerpack' ),
+				'label'                 => esc_html__( 'Normal', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'field_bg_color',
 			[
-				'label'                 => __( 'Background Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Background Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -531,7 +541,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'field_text_color',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -544,7 +554,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'field_border',
-				'label'                 => __( 'Border', 'powerpack' ),
+				'label'                 => esc_html__( 'Border', 'powerpack' ),
 				'placeholder'           => '1px',
 				'default'               => '1px',
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field textarea, {{WRAPPER}} .pp-ninja-form .nf-field select',
@@ -555,9 +565,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'field_radius',
 			[
-				'label'                 => __( 'Border Radius', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field textarea, {{WRAPPER}} .pp-ninja-form .nf-field select' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -567,8 +577,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'text_indent',
 			[
-				'label'                 => __( 'Text Indent', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Indent', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px'        => [
 						'min'   => 0,
@@ -581,7 +592,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field textarea, {{WRAPPER}} .pp-ninja-form .nf-field select' => 'text-indent: {{SIZE}}{{UNIT}}',
 				],
@@ -592,8 +602,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'input_width',
 			[
-				'label'                 => __( 'Input Width', 'powerpack' ),
+				'label'                 => esc_html__( 'Input Width', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px' => [
 						'min'   => 0,
@@ -601,7 +612,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field select' => 'width: {{SIZE}}{{UNIT}}',
 				],
@@ -612,8 +622,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'input_height',
 			[
-				'label'                 => __( 'Input Height', 'powerpack' ),
+				'label'                 => esc_html__( 'Input Height', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px' => [
 						'min'   => 0,
@@ -621,7 +632,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field select' => 'height: {{SIZE}}{{UNIT}}',
 				],
@@ -631,8 +641,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'textarea_width',
 			[
-				'label'                 => __( 'Textarea Width', 'powerpack' ),
+				'label'                 => esc_html__( 'Textarea Width', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px' => [
 						'min'   => 0,
@@ -640,7 +651,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field textarea' => 'width: {{SIZE}}{{UNIT}}',
 				],
@@ -650,8 +660,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'textarea_height',
 			[
-				'label'                 => __( 'Textarea Height', 'powerpack' ),
+				'label'                 => esc_html__( 'Textarea Height', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px' => [
 						'min'   => 0,
@@ -659,7 +670,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field textarea' => 'height: {{SIZE}}{{UNIT}}',
 				],
@@ -669,9 +679,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'field_padding',
 			[
-				'label'                 => __( 'Padding', 'powerpack' ),
+				'label'                 => esc_html__( 'Padding', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field textarea, {{WRAPPER}} .pp-ninja-form .nf-field select' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -682,8 +692,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'field_spacing',
 			[
-				'label'                 => __( 'Spacing', 'powerpack' ),
+				'label'                 => esc_html__( 'Spacing', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px'        => [
 						'min'   => 0,
@@ -691,7 +702,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field-container' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
@@ -702,7 +712,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'field_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-field input[type="text"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="email"], {{WRAPPER}} .pp-ninja-form .nf-field input[type="tel"], {{WRAPPER}} .pp-ninja-form .nf-field textarea, {{WRAPPER}} .pp-ninja-form .nf-field select',
 				'separator'             => 'before',
 			]
@@ -722,14 +732,14 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_fields_focus',
 			[
-				'label'                 => __( 'Focus', 'powerpack' ),
+				'label'                 => esc_html__( 'Focus', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'field_bg_color_focus',
 			[
-				'label'                 => __( 'Background Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Background Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -742,7 +752,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'focus_input_border',
-				'label'                 => __( 'Border', 'powerpack' ),
+				'label'                 => esc_html__( 'Border', 'powerpack' ),
 				'placeholder'       => '1px',
 				'default'               => '1px',
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-field input:focus, {{WRAPPER}} .pp-ninja-form .nf-field textarea:focus',
@@ -772,7 +782,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_field_description_style',
 			[
-				'label'                 => __( 'Field Description', 'powerpack' ),
+				'label'                 => esc_html__( 'Field Description', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -780,7 +790,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'field_description_text_color',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field .nf-field-description' => 'color: {{VALUE}}',
@@ -792,7 +802,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'field_description_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-field .nf-field-description',
 			]
 		);
@@ -800,8 +810,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'field_description_spacing',
 			[
-				'label'                 => __( 'Spacing', 'powerpack' ),
+				'label'                 => esc_html__( 'Spacing', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px'        => [
 						'min'   => 0,
@@ -809,7 +820,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field .nf-field-description' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
@@ -827,7 +837,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_placeholder_style',
 			[
-				'label'                 => __( 'Placeholder', 'powerpack' ),
+				'label'                 => esc_html__( 'Placeholder', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 				'condition'             => [
 					'placeholder_switch'   => 'yes',
@@ -838,7 +848,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'text_color_placeholder',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-field input::-webkit-input-placeholder, {{WRAPPER}} .pp-ninja-form .nf-field textarea::-webkit-input-placeholder' => 'color: {{VALUE}}',
@@ -863,7 +873,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_radio_checkbox_style',
 			[
-				'label'                 => __( 'Radio & Checkbox', 'powerpack' ),
+				'label'                 => esc_html__( 'Radio & Checkbox', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -871,10 +881,10 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'custom_radio_checkbox',
 			[
-				'label'                 => __( 'Custom Styles', 'powerpack' ),
+				'label'                 => esc_html__( 'Custom Styles', 'powerpack' ),
 				'type'                  => Controls_Manager::SWITCHER,
-				'label_on'              => __( 'Yes', 'powerpack' ),
-				'label_off'             => __( 'No', 'powerpack' ),
+				'label_on'              => esc_html__( 'Yes', 'powerpack' ),
+				'label_off'             => esc_html__( 'No', 'powerpack' ),
 				'return_value'          => 'yes',
 			]
 		);
@@ -882,8 +892,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'radio_checkbox_size',
 			[
-				'label'                 => __( 'Size', 'powerpack' ),
+				'label'                 => esc_html__( 'Size', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'default'               => [
 					'size'      => '15',
 					'unit'      => 'px',
@@ -895,7 +906,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-custom-radio-checkbox input[type="checkbox"], {{WRAPPER}} .pp-custom-radio-checkbox input[type="radio"]' => 'width: {{SIZE}}{{UNIT}} !important; height: {{SIZE}}{{UNIT}}',
 				],
@@ -910,7 +920,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'radio_checkbox_normal',
 			[
-				'label'                 => __( 'Normal', 'powerpack' ),
+				'label'                 => esc_html__( 'Normal', 'powerpack' ),
 				'condition'             => [
 					'custom_radio_checkbox' => 'yes',
 				],
@@ -920,7 +930,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'radio_checkbox_color',
 			[
-				'label'                 => __( 'Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -935,8 +945,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'radio_checkbox_border_width',
 			[
-				'label'                 => __( 'Border Width', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Width', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px'        => [
 						'min'   => 0,
@@ -944,7 +955,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-custom-radio-checkbox input[type="checkbox"], {{WRAPPER}} .pp-custom-radio-checkbox input[type="radio"]' => 'border-width: {{SIZE}}{{UNIT}}',
 				],
@@ -957,7 +967,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'radio_checkbox_border_color',
 			[
-				'label'                 => __( 'Border Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -972,7 +982,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'checkbox_heading',
 			[
-				'label'                 => __( 'Checkbox', 'powerpack' ),
+				'label'                 => esc_html__( 'Checkbox', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'condition'             => [
 					'custom_radio_checkbox' => 'yes',
@@ -983,9 +993,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'checkbox_border_radius',
 			[
-				'label'                 => __( 'Border Radius', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-custom-radio-checkbox input[type="checkbox"], {{WRAPPER}} .pp-custom-radio-checkbox input[type="checkbox"]:before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -998,7 +1008,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'radio_heading',
 			[
-				'label'                 => __( 'Radio Buttons', 'powerpack' ),
+				'label'                 => esc_html__( 'Radio Buttons', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'condition'             => [
 					'custom_radio_checkbox' => 'yes',
@@ -1009,9 +1019,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'radio_border_radius',
 			[
-				'label'                 => __( 'Border Radius', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-custom-radio-checkbox input[type="radio"], {{WRAPPER}} .pp-custom-radio-checkbox input[type="radio"]:before' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1026,7 +1036,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'radio_checkbox_checked',
 			[
-				'label'                 => __( 'Checked', 'powerpack' ),
+				'label'                 => esc_html__( 'Checked', 'powerpack' ),
 				'condition'             => [
 					'custom_radio_checkbox' => 'yes',
 				],
@@ -1036,7 +1046,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'radio_checkbox_color_checked',
 			[
-				'label'                 => __( 'Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1062,7 +1072,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_submit_button_style',
 			[
-				'label'                 => __( 'Submit Button', 'powerpack' ),
+				'label'                 => esc_html__( 'Submit Button', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1070,19 +1080,19 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'button_align',
 			[
-				'label'                 => __( 'Alignment', 'powerpack' ),
+				'label'                 => esc_html__( 'Alignment', 'powerpack' ),
 				'type'                  => Controls_Manager::CHOOSE,
 				'options'               => [
 					'left'        => [
-						'title'   => __( 'Left', 'powerpack' ),
+						'title'   => esc_html__( 'Left', 'powerpack' ),
 						'icon'    => 'eicon-h-align-left',
 					],
 					'center'      => [
-						'title'   => __( 'Center', 'powerpack' ),
+						'title'   => esc_html__( 'Center', 'powerpack' ),
 						'icon'    => 'eicon-h-align-center',
 					],
 					'right'       => [
-						'title'   => __( 'Right', 'powerpack' ),
+						'title'   => esc_html__( 'Right', 'powerpack' ),
 						'icon'    => 'eicon-h-align-right',
 					],
 				],
@@ -1099,12 +1109,12 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'button_width_type',
 			[
-				'label'                 => __( 'Width', 'powerpack' ),
+				'label'                 => esc_html__( 'Width', 'powerpack' ),
 				'type'                  => Controls_Manager::SELECT,
 				'default'               => 'custom',
 				'options'               => [
-					'full-width'    => __( 'Full Width', 'powerpack' ),
-					'custom'        => __( 'Custom', 'powerpack' ),
+					'full-width'    => esc_html__( 'Full Width', 'powerpack' ),
+					'custom'        => esc_html__( 'Custom', 'powerpack' ),
 				],
 				'prefix_class'          => 'pp-ninja-form-button-',
 			]
@@ -1113,8 +1123,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'button_width',
 			[
-				'label'                 => __( 'Width', 'powerpack' ),
+				'label'                 => esc_html__( 'Width', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'default'               => [
 					'size'      => '130',
 					'unit'      => 'px',
@@ -1126,7 +1137,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'width: {{SIZE}}{{UNIT}}',
 				],
@@ -1141,14 +1151,14 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_button_normal',
 			[
-				'label'                 => __( 'Normal', 'powerpack' ),
+				'label'                 => esc_html__( 'Normal', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'button_bg_color_normal',
 			[
-				'label'                 => __( 'Background Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Background Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1160,7 +1170,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'button_text_color_normal',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1173,7 +1183,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'                  => 'button_border_normal',
-				'label'                 => __( 'Border', 'powerpack' ),
+				'label'                 => esc_html__( 'Border', 'powerpack' ),
 				'placeholder'       => '1px',
 				'default'               => '1px',
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]',
@@ -1183,9 +1193,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'button_border_radius',
 			[
-				'label'                 => __( 'Border Radius', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Radius', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1195,9 +1205,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'button_padding',
 			[
-				'label'                 => __( 'Padding', 'powerpack' ),
+				'label'                 => esc_html__( 'Padding', 'powerpack' ),
 				'type'                  => Controls_Manager::DIMENSIONS,
-				'size_units'            => [ 'px', 'em', '%' ],
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
@@ -1207,8 +1217,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'button_margin',
 			[
-				'label'                 => __( 'Margin Top', 'powerpack' ),
+				'label'                 => esc_html__( 'Margin Top', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px'        => [
 						'min'   => 0,
@@ -1216,7 +1227,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'margin-top: {{SIZE}}{{UNIT}}',
 				],
@@ -1228,14 +1238,14 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_tab(
 			'tab_button_hover',
 			[
-				'label'                 => __( 'Hover', 'powerpack' ),
+				'label'                 => esc_html__( 'Hover', 'powerpack' ),
 			]
 		);
 
 		$this->add_control(
 			'button_bg_color_hover',
 			[
-				'label'                 => __( 'Background Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Background Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1247,7 +1257,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'button_text_color_hover',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1259,7 +1269,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'button_border_color_hover',
 			[
-				'label'                 => __( 'Border Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Border Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1276,7 +1286,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'button_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'global'                => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
@@ -1305,7 +1315,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_success_message_style',
 			[
-				'label'                 => __( 'Success Message', 'powerpack' ),
+				'label'                 => esc_html__( 'Success Message', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1313,7 +1323,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'success_message_text_color',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-response-msg' => 'color: {{VALUE}}',
@@ -1325,7 +1335,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'success_message_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-response-msg',
 			]
 		);
@@ -1341,7 +1351,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_required_notice_style',
 			[
-				'label'                 => __( 'Required Fields Notice', 'powerpack' ),
+				'label'                 => esc_html__( 'Required Fields Notice', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1349,7 +1359,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'required_notice_text_color',
 			[
-				'label'                 => __( 'Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1361,8 +1371,9 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'required_notice_spacing',
 			[
-				'label'                 => __( 'Spacing', 'powerpack' ),
+				'label'                 => esc_html__( 'Spacing', 'powerpack' ),
 				'type'                  => Controls_Manager::SLIDER,
+				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'range'                 => [
 					'px'        => [
 						'min'   => 0,
@@ -1370,7 +1381,6 @@ class Ninja_Forms extends Powerpack_Widget {
 						'step'  => 1,
 					],
 				],
-				'size_units'            => [ 'px', 'em', '%' ],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-ninja-form .nf-form-fields-required' => 'margin-bottom: {{SIZE}}{{UNIT}}',
 				],
@@ -1381,7 +1391,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'required_notice_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'global'                => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
@@ -1400,7 +1410,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_error_style',
 			[
-				'label'                 => __( 'Errors', 'powerpack' ),
+				'label'                 => esc_html__( 'Errors', 'powerpack' ),
 				'tab'                   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1408,7 +1418,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'error_messages_heading',
 			[
-				'label'                 => __( 'Error Messages', 'powerpack' ),
+				'label'                 => esc_html__( 'Error Messages', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'condition'             => [
 					'error_messages' => 'show',
@@ -1419,7 +1429,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'error_message_text_color',
 			[
-				'label'                 => __( 'Text Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Text Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1435,7 +1445,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'error_message_typography',
-				'label'                 => __( 'Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-error-wrap .nf-error-required-error',
 			]
 		);
@@ -1443,7 +1453,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'error_fields_heading',
 			[
-				'label'                 => __( 'Error Field', 'powerpack' ),
+				'label'                 => esc_html__( 'Error Field', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'separator'             => 'before',
 				'condition'             => [
@@ -1455,7 +1465,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'validation_error_field_input_border_color',
 			[
-				'label'                 => __( 'Error Field Input Border Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Error Field Input Border Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1470,7 +1480,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'validation_errors_heading',
 			[
-				'label'                 => __( 'Validation Errors', 'powerpack' ),
+				'label'                 => esc_html__( 'Validation Errors', 'powerpack' ),
 				'type'                  => Controls_Manager::HEADING,
 				'separator'             => 'before',
 				'condition'             => [
@@ -1482,7 +1492,7 @@ class Ninja_Forms extends Powerpack_Widget {
 		$this->add_control(
 			'validation_error_description_color',
 			[
-				'label'                 => __( 'Error Description Color', 'powerpack' ),
+				'label'                 => esc_html__( 'Error Description Color', 'powerpack' ),
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
@@ -1498,7 +1508,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Typography::get_type(),
 			[
 				'name'                  => 'validation_error_description_typography',
-				'label'                 => __( 'Error Description Typography', 'powerpack' ),
+				'label'                 => esc_html__( 'Error Description Typography', 'powerpack' ),
 				'selector'              => '{{WRAPPER}} .pp-ninja-form .nf-form-errors .nf-error-field-errors',
 			]
 		);
@@ -1556,11 +1566,11 @@ class Ninja_Forms extends Powerpack_Widget {
 				</div>
 				<?php
 			} else {
-				$placeholder = sprintf( 'Click here to edit the "%1$s" settings and choose a contact form from the dropdown list.', esc_attr( $this->get_title() ) );
+				$placeholder = sprintf( esc_html__( 'Click here to edit the "%1$s" settings and choose a contact form from the dropdown list.', 'powerpack' ), esc_attr( $this->get_title() ) );
 
 				echo esc_attr( $this->render_editor_placeholder(
 					[
-						'title' => __( 'No Contact Form Selected!', 'powerpack' ),
+						'title' => esc_html__( 'No Contact Form Selected!', 'powerpack' ),
 						'body' => $placeholder,
 					]
 				) );
