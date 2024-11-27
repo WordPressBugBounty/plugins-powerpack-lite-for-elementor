@@ -324,12 +324,12 @@ class PowerpackLitePlugin {
 		);
 
 		wp_register_script(
-			'pp-magnific-popup',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/magnific-popup/jquery.magnific-popup' . $suffix . '.js',
-			[
+			'jquery-event-move',
+			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/jquery-event-move/jquery.event.move' . $suffix . '.js',
+			array(
 				'jquery',
-			],
-			'2.2.1',
+			),
+			'2.0.0',
 			true
 		);
 
@@ -434,19 +434,12 @@ class PowerpackLitePlugin {
 		$suffix           = $direction_suffix . $debug_suffix;
 		$path             = ( PP_Helper::is_script_debug() ) ? 'assets/css/' : 'assets/css/min/';
 
-		wp_enqueue_style(
+		/* wp_enqueue_style(
 			'powerpack-frontend',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend' . $suffix . '.css',
 			[],
 			POWERPACK_ELEMENTS_LITE_VER
-		);
-
-		wp_register_style(
-			'pp-magnific-popup',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/magnific-popup/magnific-popup' . $suffix . '.css',
-			array(),
-			POWERPACK_ELEMENTS_LITE_VER
-		);
+		); */
 
 		if ( class_exists( 'GFCommon' ) && \Elementor\Plugin::$instance->preview->is_preview_mode() && PP_Helper::is_widget_active( 'Gravity_Forms' ) ) {
 			$gf_forms = \RGFormsModel::get_forms( null, 'title' );
@@ -528,10 +521,6 @@ class PowerpackLitePlugin {
 			POWERPACK_ELEMENTS_LITE_VER,
 			true
 		);
-
-		wp_enqueue_script(
-			'pp-magnific-popup'
-		);
 	}
 
 	public function enqueue_panel_scripts() {}
@@ -548,8 +537,6 @@ class PowerpackLitePlugin {
 			array(),
 			POWERPACK_ELEMENTS_LITE_VER
 		);
-
-		wp_enqueue_style( 'pp-magnific-popup' );
 	}
 
 	/**
