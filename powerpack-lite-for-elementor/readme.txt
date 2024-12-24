@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.8.2
+Stable tag: 2.8.3
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -236,6 +236,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.8.3 - December 24, 2024 =
+* 	Enhancement: Added has_widget_inner_wrapper to support “Optimized Markup” experiment
+* 	Enhancement: Advanced Posts - Added conditional check to scripts and styles
+* 	Enhancement: Instagram Feed - Updated Choose Arrow option
+* 	Fixed: Pricing Table - Default background color
+* 	Fixed: Issue with carousel widgets
+* 	Fixed: Animation Gradient Background
 
 = 2.8.2 - December 5, 2024 =
 * 	Enhancement: Advanced Accordion - Added Vertical Alignment option for Toggle Icon

@@ -3,6 +3,7 @@ namespace PowerpackElementsLite\Modules\Posts\Widgets;
 
 use PowerpackElementsLite\Base\Powerpack_Widget;
 use PowerpackElementsLite\Modules\Posts\Module;
+use PowerpackElementsLite\Classes\PP_Helper;
 use PowerpackElementsLite\Classes\PP_Posts_Helper;
 
 use Elementor\Controls_Manager;
@@ -38,12 +39,31 @@ abstract class Posts_Base extends Powerpack_Widget {
 	}
 
 	public function get_script_depends() {
-		return array(
-			'isotope',
-			'imagesloaded',
-			'swiper',
-			'powerpack-pp-posts',
-		);
+		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() || \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+			return [
+				'isotope',
+				'imagesloaded',
+				'swiper',
+				'powerpack-pp-posts',
+			];
+		}
+
+		$settings = $this->get_settings_for_display();
+		$scripts  = [];
+
+		if ( 'carousel' === $settings['classic_layout'] ) {
+			$scripts = array_merge( $scripts, [ 'swiper', 'powerpack-pp-posts' ] );
+		}
+
+		if ( 'masonry' === $settings['classic_layout'] ) {
+			$scripts = array_merge( $scripts, [ 'isotope', 'imagesloaded', 'powerpack-pp-posts' ] );
+		}
+
+		if ( 'none' !== $settings['classic_pagination_type'] ) {
+			$scripts = array_merge( $scripts, [ 'powerpack-pp-posts' ] );
+		}
+
+		return array_unique( $scripts );
 	}
 
 	/**
@@ -56,11 +76,29 @@ abstract class Posts_Base extends Powerpack_Widget {
 	 * @return array Widget styles dependencies.
 	 */
 	public function get_style_depends() {
-		return [
-			'pp-swiper',
-			'pp-elementor-grid',
-			'widget-pp-posts'
-		];
+		if ( \Elementor\Plugin::$instance->editor->is_edit_mode() || \Elementor\Plugin::$instance->preview->is_preview_mode() ) {
+			return [
+				'e-swiper',
+				'pp-swiper',
+				'pp-elementor-grid',
+				'widget-pp-posts'
+			];
+		}
+
+		$settings = $this->get_settings_for_display();
+		$styles = [ 'widget-pp-posts' ];
+
+		if ( 'carousel' === $settings['classic_layout'] ) {
+			array_push( $styles, 'e-swiper', 'pp-swiper' );
+		} else {
+			array_push( $styles, 'pp-elementor-grid' );
+		}
+
+		return $styles;
+	}
+
+	public function has_widget_inner_wrapper(): bool {
+		return ! PP_Helper::is_feature_active( 'e_optimized_markup' );
 	}
 
 	/**
