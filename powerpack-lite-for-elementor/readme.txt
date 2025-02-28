@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.8.3
+Stable tag: 2.8.4
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -223,19 +223,25 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Screenshots ==
 
-1. Pricing Table
+1. Instagram Feed
 2. Counter
-3. Dual Heading
-4. Image Comparison
-5. Countdown Timer (Pro)
-6. Tiled Post (Pro)
-7. Timeline (Pro)
-8. Forms Styler
-9. Team Member
-10. Logo Carousel
+3. Image Comparison
+4. Image Hotspots
+5. Info Box
+6. Logo Grid
+7. Pricing Table
+8. Team Member
 
 
 == Changelog ==
+
+= 2.8.4 - February 28, 2025 =
+* 	Enhancement: Price Menu - Added 1 new style
+* 	Enhancement: Image Accordion - Added option to apply link on button or item container
+* 	Enhancement: Info Grid & Carousel - Added Icon Position option
+* 	Enhancement: Info Table - Added Icon Position option
+* 	Fixed: Logo Grid - Minor CSS glitch when link is added to logo
+* 	Fixed: Display Conditions - Deprecated code in Request Parameter condition
 
 = 2.8.3 - December 24, 2024 =
 * 	Enhancement: Added has_widget_inner_wrapper to support “Optimized Markup” experiment
