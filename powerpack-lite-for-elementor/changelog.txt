@@ -1,3 +1,8 @@
+== 2.9.0 ==
+Release date: March 5, 2025
+* New: Charts widget
+* Fixed: Instagram Feed - Lightbox arrows were not showing
+
 == 2.8.4 ==
 Release date: February 28, 2025
 * Enhancement: Price Menu - Added 1 new style
