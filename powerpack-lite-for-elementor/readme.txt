@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.9.1
+Stable tag: 2.9.2
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -235,6 +235,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.9.2 - July 4, 2025 =
+* 	Enhancement: Promo Box - Updated description control type to WYSIWYG
+* 	Enhancement: Promo Box - Added option to show icon above or below content
+* 	Enhancement: Interactive Circle - Added an option to use image as tab icon
+* 	Enhancement: Gravity Forms - Added option to reload the page
+* 	Fix: Image Accordion - Dynamic links support for URL field
+* 	Fix: Image Scroll - Fixed JS error with scroll trigger
 
 = 2.9.1 - March 26, 2025 =
 * 	Enhancement: Advanced Charts - Added option to show chart title
