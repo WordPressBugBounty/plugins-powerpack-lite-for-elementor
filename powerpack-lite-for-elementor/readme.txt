@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.9.2
+Stable tag: 2.9.3
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -235,6 +235,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.9.3 - August 6, 2025 =
+* 	Enhancement: Updated Elementor compatibility tags
+* 	Fix: Charts - Added missing chart.js lib
 
 = 2.9.2 - July 4, 2025 =
 * 	Enhancement: Promo Box - Updated description control type to WYSIWYG
