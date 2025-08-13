@@ -4,7 +4,7 @@ Tags: elementor, addons, elementor addon, elementor addons, elementor widgets
 Requires at least: 6.3
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 2.9.3
+Stable tag: 2.9.4
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -235,6 +235,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.9.4 - August 13, 2025 =
+* 	Enhancement: Pricing Table - Added Table style options
+* 	Enhancement: Pricing Table - Added fraction style option
+* 	Security Fix
 
 = 2.9.3 - August 6, 2025 =
 * 	Enhancement: Updated Elementor compatibility tags
