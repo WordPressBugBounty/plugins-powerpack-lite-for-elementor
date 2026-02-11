@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.9.8
+Stable tag: 2.9.9
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -239,6 +239,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.9.9 - February 11, 2026 =
+* 	Fix: Counter - Ending number was using default value when 0 was used
+* 	Fix: Fluent Forms - Fixed width issue when prefix is set
+* 	Development: Tested compatibility with Elementor 3.35.0
+
+= 2.9.9 - December 23, 2025 =
+* 	Development: Tested compatibility with Elementor 3.34.0
 
 = 2.9.8 - December 4, 2025 =
 * 	Enhancement: Updated compatibility with WordPress 6.9
