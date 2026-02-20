@@ -51,7 +51,7 @@ class PowerpackLitePlugin {
 	 */
 	public function __clone() {
 		// Cloning instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'powerpack' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'powerpack-lite-for-elementor' ), '1.0.0' );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class PowerpackLitePlugin {
 	 */
 	public function __wakeup() {
 		// Unserializing instances of the class is forbidden
-		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'powerpack' ), '1.0.0' );
+		_doing_it_wrong( __FUNCTION__, esc_html__( 'Cheatin&#8217; huh?', 'powerpack-lite-for-elementor' ), '1.0.0' );
 	}
 
 	/**
@@ -432,13 +432,17 @@ class PowerpackLitePlugin {
 			true
 		);
 
-		$pp_localize = apply_filters(
+		$localize_data = PP_Helper::apply_deprecated_filter(
 			'pp_elements_lite_js_localize',
-			array(
+			'powerpack_elements_js_localize',
+			[
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-			)
+			],
+			[],
+			'2.9.10'
 		);
-		wp_localize_script( 'jquery', 'pp', $pp_localize );
+
+		wp_localize_script( 'jquery', 'pp', $localize_data );
 	}
 
 	/**
@@ -612,7 +616,7 @@ class PowerpackLitePlugin {
 		$manager->add_category(
 			'powerpack-elements', // This is the name of your addon's category and will be used to group your widgets/elements in the Edit sidebar pane!
 			array(
-				'title' => __( 'PowerPack Elements', 'powerpack' ), // The title of your modules category - keep it simple and short!
+				'title' => __( 'PowerPack Elements', 'powerpack-lite-for-elementor' ), // The title of your modules category - keep it simple and short!
 				'icon'  => 'font',
 			),
 			1

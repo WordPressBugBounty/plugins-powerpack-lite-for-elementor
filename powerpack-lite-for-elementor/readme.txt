@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.9.9
+Stable tag: 2.9.10
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -205,6 +205,20 @@ This feature gives you full control over the WordPress welcome screen. You can p
 - **[TableMaster for Elementor](https://wordpress.org/plugins/tablemaster-for-elementor/)**
 Build advanced responsive tables directly inside Elementor editor. Build tables manually or by importing data from CSV sheets.
 
+## Use of 3rd-Party Services
+
+PowerPack Lite for Elementor connects to our secure feedback endpoint only when a user voluntarily submits feedback (for example, during plugin deactivation).
+
+Data is transmitted only after explicit user consent. No data is collected automatically, no background tracking is performed, and no frontend visitor or website user data is collected.
+
+For more details, please review our [Privacy Policy](https://powerpackelements.com/privacy-policy/) and [Terms of Service](https://powerpackelements.com/terms-conditions/).
+
+## Disclaimer
+
+PowerPack Lite for Elementor is an independent product developed by IdeaBox Creations. It is not affiliated with, endorsed by, sponsored by, or officially associated with Elementor Ltd.
+
+“Elementor” is a registered trademark of Elementor Ltd. The use of the term “Elementor” within this plugin name and description is strictly for identification and compatibility purposes only, to indicate that this plugin extends functionality of the Elementor page builder.
+
 == Installation ==
 
 1. Install PowerPack Lite either via the WordPress plugin directory or by uploading the files to your server at wp-content/plugins.
@@ -239,6 +253,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.9.10 - February 20, 2026 =
+* 	Enhancement: Dual Heading - Improved CSS of the widget
+* 	Enhancement: Improved the code to make it more secure
 
 = 2.9.9 - February 11, 2026 =
 * 	Fix: Counter - Ending number was using default value when 0 was used

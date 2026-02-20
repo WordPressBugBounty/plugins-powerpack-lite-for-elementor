@@ -144,49 +144,51 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_general',
 			[
-				'label' => esc_html__( 'General', 'powerpack' ),
+				'label' => esc_html__( 'General', 'powerpack-lite-for-elementor' ),
 			]
 		);
 
 		$this->add_control(
 			'source',
 			[
-				'label'       => esc_html__( 'Source', 'powerpack' ),
+				'label'       => esc_html__( 'Source', 'powerpack-lite-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'custom',
 				'label_block' => false,
 				'options'     => [
-					'custom' => esc_html__( 'Custom', 'powerpack' ),
-					'posts'  => esc_html__( 'Posts', 'powerpack' ),
+					'custom' => esc_html__( 'Custom', 'powerpack-lite-for-elementor' ),
+					'posts'  => esc_html__( 'Posts', 'powerpack-lite-for-elementor' ),
 				],
 			]
 		);
 
 		$this->add_control(
 			'show_source_notice',
-			[
+			array(
 				'label'           => '',
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'This feature is available in PowerPack Pro.', 'powerpack' ) . ' ' . apply_filters( 'upgrade_powerpack_message', sprintf( esc_html__( 'Upgrade to %1$s Pro Version %2$s for 90+ widgets, exciting extensions and advanced features.', 'powerpack' ), '<a href="#" target="_blank" rel="noopener">', '</a>' ) ),
+				'raw'             => PP_Helper::get_pro_feature_notice(
+					esc_html__( 'This feature is available in PowerPack Pro.', 'powerpack-lite-for-elementor' )
+				),
 				'content_classes' => 'upgrade-powerpack-notice elementor-panel-alert elementor-panel-alert-info',
-				'condition'       => [
+				'condition'       => array(
 					'source' => 'posts',
-				],
-			]
+				),
+			)
 		);
 
 		$this->add_control(
 			'skin',
 			[
-				'label'       => esc_html__( 'Skin', 'powerpack' ),
+				'label'       => esc_html__( 'Skin', 'powerpack-lite-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'skin-1',
 				'label_block' => false,
 				'options'     => [
-					'skin-1' => esc_html__( 'Skin 1', 'powerpack' ),
-					'skin-2' => esc_html__( 'Skin 2', 'powerpack' ),
-					'skin-3' => esc_html__( 'Skin 3', 'powerpack' ),
-					'skin-4' => esc_html__( 'Skin 4', 'powerpack' ),
+					'skin-1' => esc_html__( 'Skin 1', 'powerpack-lite-for-elementor' ),
+					'skin-2' => esc_html__( 'Skin 2', 'powerpack-lite-for-elementor' ),
+					'skin-3' => esc_html__( 'Skin 3', 'powerpack-lite-for-elementor' ),
+					'skin-4' => esc_html__( 'Skin 4', 'powerpack-lite-for-elementor' ),
 				],
 			]
 		);
@@ -194,7 +196,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tabs_heading',
 			[
-				'label'     => esc_html__( 'Tabs', 'powerpack' ),
+				'label'     => esc_html__( 'Tabs', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -203,7 +205,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tabs_icon',
 			[
-				'label'        => esc_html__( 'Show Icon', 'powerpack' ),
+				'label'        => esc_html__( 'Show Icon', 'powerpack-lite-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -213,7 +215,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tabs_title',
 			[
-				'label'        => esc_html__( 'Show Title', 'powerpack' ),
+				'label'        => esc_html__( 'Show Title', 'powerpack-lite-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -223,7 +225,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_heading',
 			[
-				'label'     => esc_html__( 'Content', 'powerpack' ),
+				'label'     => esc_html__( 'Content', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -232,14 +234,14 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_icon_type',
 			[
-				'label'       => esc_html__( 'Icon Type', 'powerpack' ),
+				'label'       => esc_html__( 'Icon Type', 'powerpack-lite-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => '',
 				'label_block' => false,
 				'options'     => [
-					''      => esc_html__( 'None', 'powerpack' ),
-					'icon'  => esc_html__( 'Icon', 'powerpack' ),
-					'image' => esc_html__( 'Image', 'powerpack' ),
+					''      => esc_html__( 'None', 'powerpack-lite-for-elementor' ),
+					'icon'  => esc_html__( 'Icon', 'powerpack-lite-for-elementor' ),
+					'image' => esc_html__( 'Image', 'powerpack-lite-for-elementor' ),
 				],
 			]
 		);
@@ -247,13 +249,13 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_icon_location',
 			[
-				'label'       => esc_html__( 'Icon Location', 'powerpack' ),
+				'label'       => esc_html__( 'Icon Location', 'powerpack-lite-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'start',
 				'label_block' => false,
 				'options'     => [
-					'start' => esc_html__( 'Above Title', 'powerpack' ),
-					'end'   => esc_html__( 'Below Content', 'powerpack' ),
+					'start' => esc_html__( 'Above Title', 'powerpack-lite-for-elementor' ),
+					'end'   => esc_html__( 'Below Content', 'powerpack-lite-for-elementor' ),
 				],
 				'condition' => [
 					'content_icon_type!' => '',
@@ -265,7 +267,7 @@ class Interactive_Circle extends Powerpack_Widget {
 			Group_Control_Image_Size::get_type(),
 			[
 				'name'      => 'image',
-				'label'     => esc_html__( 'Image Size', 'powerpack' ),
+				'label'     => esc_html__( 'Image Size', 'powerpack-lite-for-elementor' ),
 				'default'   => 'full',
 				'condition' => [
 					'content_icon_type' => 'image',
@@ -280,7 +282,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_items',
 			[
-				'label'     => esc_html__( 'Items', 'powerpack' ),
+				'label'     => esc_html__( 'Items', 'powerpack-lite-for-elementor' ),
 				'condition' => [
 					'source' => 'custom',
 				],
@@ -291,7 +293,7 @@ class Interactive_Circle extends Powerpack_Widget {
 			'max_items_notice',
 			[
 				'type'            => Controls_Manager::RAW_HTML,
-				'raw'             => esc_html__( 'Interactive Circle supports maximum 8 items. Adding more than 8 items will break the layout.', 'powerpack' ),
+				'raw'             => esc_html__( 'Interactive Circle supports maximum 8 items. Adding more than 8 items will break the layout.', 'powerpack-lite-for-elementor' ),
 				'content_classes' => 'pp-editor-info',
 				'condition'       => [
 					'source' => 'custom',
@@ -303,15 +305,15 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$repeater->start_controls_tabs( 'interactive_circle_tabs' );
 
-		$repeater->start_controls_tab( 'interactive_circle_content_tab', [ 'label' => __( 'Content', 'powerpack' ) ] );
+		$repeater->start_controls_tab( 'interactive_circle_content_tab', [ 'label' => __( 'Content', 'powerpack-lite-for-elementor' ) ] );
 
 		$repeater->add_control(
 			'item_title',
 			[
-				'label'       => esc_html__( 'Title', 'powerpack' ),
+				'label'       => esc_html__( 'Title', 'powerpack-lite-for-elementor' ),
 				'label_block' => true,
 				'type'        => Controls_Manager::TEXT,
-				'default'     => esc_html__( 'Item Title', 'powerpack' ),
+				'default'     => esc_html__( 'Item Title', 'powerpack-lite-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -319,9 +321,9 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_control(
 			'item_content',
 			[
-				'label'   => esc_html__( 'Content', 'powerpack' ),
+				'label'   => esc_html__( 'Content', 'powerpack-lite-for-elementor' ),
 				'type'    => Controls_Manager::WYSIWYG,
-				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, neque qui velit. Magni dolorum quidem ipsam eligendi, totam, facilis laudantium cum accusamus ullam voluptatibus commodi numquam, error, est. Ea, consequatur.', 'powerpack' ),
+				'default' => esc_html__( 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio, neque qui velit. Magni dolorum quidem ipsam eligendi, totam, facilis laudantium cum accusamus ullam voluptatibus commodi numquam, error, est. Ea, consequatur.', 'powerpack-lite-for-elementor' ),
 				'dynamic' => [ 'active' => true ],
 			]
 		);
@@ -329,7 +331,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_control(
 			'tab_label',
 			[
-				'label'   => esc_html__( 'Tab Label', 'powerpack' ),
+				'label'   => esc_html__( 'Tab Label', 'powerpack-lite-for-elementor' ),
 				'type'    => Controls_Manager::TEXT,
 				'default' => '',
 				'dynamic' => [ 'active' => true ],
@@ -341,12 +343,12 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$repeater->end_controls_tab();
 
-		$repeater->start_controls_tab( 'interactive_circle_icon_tab', [ 'label' => __( 'Icon/Image', 'powerpack' ) ] );
+		$repeater->start_controls_tab( 'interactive_circle_icon_tab', [ 'label' => __( 'Icon/Image', 'powerpack-lite-for-elementor' ) ] );
 
 		$repeater->add_responsive_control(
 			'tab_icon_separator',
 			[
-				'label' => esc_html__( 'Tab', 'powerpack' ),
+				'label' => esc_html__( 'Tab', 'powerpack-lite-for-elementor' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -354,13 +356,13 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_control(
 			'tab_icon_type',
 			[
-				'label'       => esc_html__( 'Icon Type', 'powerpack' ),
+				'label'       => esc_html__( 'Icon Type', 'powerpack-lite-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'default'     => 'icon',
 				'label_block' => false,
 				'options'     => [
-					'icon'  => esc_html__( 'Icon', 'powerpack' ),
-					'image' => esc_html__( 'Image', 'powerpack' ),
+					'icon'  => esc_html__( 'Icon', 'powerpack-lite-for-elementor' ),
+					'image' => esc_html__( 'Image', 'powerpack-lite-for-elementor' ),
 				],
 			]
 		);
@@ -368,7 +370,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_control(
 			'tab_icon',
 			[
-				'label'     => esc_html__( 'Icon', 'powerpack' ),
+				'label'     => esc_html__( 'Icon', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'fas fa-home',
@@ -383,7 +385,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_control(
 			'tab_icon_image',
 			[
-				'label'     => __( 'Icon Image', 'powerpack' ),
+				'label'     => __( 'Icon Image', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::MEDIA,
 				'dynamic'   => [
 					'active' => true,
@@ -400,7 +402,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_responsive_control(
 			'tab_content_separator',
 			[
-				'label'     => esc_html__( 'Content', 'powerpack' ),
+				'label'     => esc_html__( 'Content', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -409,7 +411,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$repeater->add_control(
 			'tab_image',
 			[
-				'label'     => __( 'Image', 'powerpack' ),
+				'label'     => __( 'Image', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::MEDIA,
 				'dynamic'   => [
 					'active' => true,
@@ -422,12 +424,12 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$repeater->end_controls_tab();
 
-		$repeater->start_controls_tab( 'interactive_circle_style_tab', [ 'label' => __( 'Style', 'powerpack' ) ] );
+		$repeater->start_controls_tab( 'interactive_circle_style_tab', [ 'label' => __( 'Style', 'powerpack-lite-for-elementor' ) ] );
 
 		$repeater->add_control(
 			'interactive_circle_tab_border_color',
 			[
-				'label'     => esc_html__( 'Border Color', 'powerpack' ),
+				'label'     => esc_html__( 'Border Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-wrapper:not(.pp-circle-skin-4) {{CURRENT_ITEM}} .pp-circle-tab-icon,
@@ -452,48 +454,48 @@ class Interactive_Circle extends Powerpack_Widget {
 							'value'   => 'fas fa-leaf',
 							'library' => 'fa-solid',
 						],
-						'tab_label'    => esc_html__( 'Item 1', 'powerpack' ),
-						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 1. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack' ),
+						'tab_label'    => esc_html__( 'Item 1', 'powerpack-lite-for-elementor' ),
+						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 1. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack-lite-for-elementor' ),
 					],
 					[
 						'tab_icon'     => [
 							'value'   => 'fas fa-comment',
 							'library' => 'fa-solid',
 						],
-						'tab_label'    => esc_html__( 'Item 2', 'powerpack' ),
-						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 2. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack' ),
+						'tab_label'    => esc_html__( 'Item 2', 'powerpack-lite-for-elementor' ),
+						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 2. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack-lite-for-elementor' ),
 					],
 					[
 						'tab_icon'     => [
 							'value'   => 'fas fa-map-marker-alt',
 							'library' => 'fa-solid',
 						],
-						'tab_label'    => esc_html__( 'Item 3', 'powerpack' ),
-						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 3. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack' ),
+						'tab_label'    => esc_html__( 'Item 3', 'powerpack-lite-for-elementor' ),
+						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 3. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack-lite-for-elementor' ),
 					],
 					[
 						'tab_icon'     => [
 							'value'   => 'fas fa-rocket',
 							'library' => 'fa-solid',
 						],
-						'tab_label'    => esc_html__( 'Item 4', 'powerpack' ),
-						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 4. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack' ),
+						'tab_label'    => esc_html__( 'Item 4', 'powerpack-lite-for-elementor' ),
+						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 4. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack-lite-for-elementor' ),
 					],
 					[
 						'tab_icon'     => [
 							'value'   => 'fas fa-hourglass-half',
 							'library' => 'fa-solid',
 						],
-						'tab_label'    => esc_html__( 'Item 5', 'powerpack' ),
-						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 5. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack' ),
+						'tab_label'    => esc_html__( 'Item 5', 'powerpack-lite-for-elementor' ),
+						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 5. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack-lite-for-elementor' ),
 					],
 					[
 						'tab_icon'     => [
 							'value'   => 'fas fa-tag',
 							'library' => 'fa-solid',
 						],
-						'tab_label'    => esc_html__( 'Item 6', 'powerpack' ),
-						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 6. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack' ),
+						'tab_label'    => esc_html__( 'Item 6', 'powerpack-lite-for-elementor' ),
+						'item_content' => esc_html__( 'Present your content in an attractive Circle layout item 6. You can highlight key information with click or hover effects and style it as per your preference.', 'powerpack-lite-for-elementor' ),
 					],
 				],
 				'fields'      => $repeater->get_controls(),
@@ -510,7 +512,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_additional_options',
 			[
-				'label' => esc_html__( 'Additional Options', 'powerpack' ),
+				'label' => esc_html__( 'Additional Options', 'powerpack-lite-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_CONTENT,
 			]
 		);
@@ -518,8 +520,8 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'active_tab',
 			[
-				'label'       => esc_html__( 'Default Active Item', 'powerpack' ),
-				'description' => esc_html__( 'Add item number to make that item active by default. For example: Add 1 to make first item active by default.', 'powerpack' ),
+				'label'       => esc_html__( 'Default Active Item', 'powerpack-lite-for-elementor' ),
+				'description' => esc_html__( 'Add item number to make that item active by default. For example: Add 1 to make first item active by default.', 'powerpack-lite-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
 				'min'         => 1,
 				'max'         => 100,
@@ -532,14 +534,14 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'open_on',
 			[
-				'label'              => esc_html__( 'Show Tab Content On', 'powerpack' ),
+				'label'              => esc_html__( 'Show Tab Content On', 'powerpack-lite-for-elementor' ),
 				'type'               => Controls_Manager::SELECT,
 				'default'            => 'click',
 				'label_block'        => false,
 				'frontend_available' => true,
 				'options'            => [
-					'click' => esc_html__( 'Click', 'powerpack' ),
-					'hover' => esc_html__( 'Hover', 'powerpack' ),
+					'click' => esc_html__( 'Click', 'powerpack-lite-for-elementor' ),
+					'hover' => esc_html__( 'Hover', 'powerpack-lite-for-elementor' ),
 				],
 				'conditions'         => [
 					'relation' => 'or',
@@ -567,16 +569,16 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'circle_animation',
 			[
-				'label'              => esc_html__( 'Entrance Animation', 'powerpack' ),
+				'label'              => esc_html__( 'Entrance Animation', 'powerpack-lite-for-elementor' ),
 				'type'               => Controls_Manager::SELECT,
 				'default'            => 'none',
 				'label_block'        => false,
 				'frontend_available' => true,
 				'options'            => [
-					'none'      => esc_html__( 'None', 'powerpack' ),
-					'bounce-in' => esc_html__( 'Bounce In', 'powerpack' ),
-					'rotate'    => esc_html__( 'Rotate', 'powerpack' ),
-					'spin'      => esc_html__( 'Spin', 'powerpack' ),
+					'none'      => esc_html__( 'None', 'powerpack-lite-for-elementor' ),
+					'bounce-in' => esc_html__( 'Bounce In', 'powerpack-lite-for-elementor' ),
+					'rotate'    => esc_html__( 'Rotate', 'powerpack-lite-for-elementor' ),
+					'spin'      => esc_html__( 'Spin', 'powerpack-lite-for-elementor' ),
 				],
 			]
 		);
@@ -584,7 +586,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'circle_rotation',
 			[
-				'label'        => esc_html__( 'Rotate Animation', 'powerpack' ),
+				'label'        => esc_html__( 'Rotate Animation', 'powerpack-lite-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
@@ -597,7 +599,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'circle_rotation_speed',
 			[
-				'label'      => esc_html__( 'Rotation Speed', 'powerpack' ),
+				'label'      => esc_html__( 'Rotation Speed', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 's', 'ms', 'custom' ],
 				'default'    => [
@@ -629,7 +631,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'circle_rotation_pause_hover',
 			[
-				'label'        => esc_html__( 'Pause on Hover', 'powerpack' ),
+				'label'        => esc_html__( 'Pause on Hover', 'powerpack-lite-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
@@ -643,7 +645,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'autoplay_tabs',
 			[
-				'label'              => esc_html__( 'Autoplay Tabs', 'powerpack' ),
+				'label'              => esc_html__( 'Autoplay Tabs', 'powerpack-lite-for-elementor' ),
 				'type'               => Controls_Manager::SWITCHER,
 				'frontend_available' => true,
 				'condition'          => [
@@ -655,7 +657,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'autoplay_tabs_interval',
 			[
-				'label'              => esc_html__( 'Interval', 'powerpack' ) . ' (ms)',
+				'label'              => esc_html__( 'Interval', 'powerpack-lite-for-elementor' ) . ' (ms)',
 				'type'               => Controls_Manager::NUMBER,
 				'default'            => 2000,
 				'frontend_available' => true,
@@ -672,7 +674,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_circle_style',
 			[
-				'label' => esc_html__( 'Circle', 'powerpack' ),
+				'label' => esc_html__( 'Circle', 'powerpack-lite-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -680,7 +682,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'circle_size',
 			[
-				'label'      => __( 'Size', 'powerpack' ),
+				'label'      => __( 'Size', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range'      => [
@@ -712,7 +714,7 @@ class Interactive_Circle extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'     => 'circle_border',
-				'label'    => esc_html__( 'Border', 'powerpack' ),
+				'label'    => esc_html__( 'Border', 'powerpack-lite-for-elementor' ),
 				'selector' => '{{WRAPPER}} .pp-circle-inner, {{WRAPPER}}.pp-circle-stacked .pp-circle-inner .pp-circle-item',
 			]
 		);
@@ -720,7 +722,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'circle_margin',
 			[
-				'label'      => esc_html__( 'Margin', 'powerpack' ),
+				'label'      => esc_html__( 'Margin', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%', 'custom' ],
 				'selectors'  => [
@@ -731,7 +733,7 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$breakpoints = PP_Helper::elementor()->breakpoints->get_active_breakpoints();
 
-		$stack_on_options = ['none' => esc_html__( 'None', 'powerpack' )];
+		$stack_on_options = ['none' => esc_html__( 'None', 'powerpack-lite-for-elementor' )];
 
 		foreach ( $breakpoints as $breakpoint_key => $breakpoint ) {
 			// This feature is meant for mobile screens.
@@ -741,7 +743,7 @@ class Interactive_Circle extends Powerpack_Widget {
 
 			$stack_on_options[ $breakpoint_key ] = sprintf(
 				/* translators: 1: `<` character, 2: Breakpoint value. */
-				esc_html__( '%1$s (%2$s %3$dpx)', 'powerpack' ),
+				esc_html__( '%1$s (%2$s %3$dpx)', 'powerpack-lite-for-elementor' ),
 				$breakpoint->get_label(),
 				'<',
 				$breakpoint->get_value()
@@ -751,7 +753,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'stack_on',
 			[
-				'label'              => esc_html__( 'Stack On', 'powerpack' ),
+				'label'              => esc_html__( 'Stack On', 'powerpack-lite-for-elementor' ),
 				'type'               => Controls_Manager::SELECT,
 				'default'            => 'mobile',
 				'options'            => $stack_on_options,
@@ -762,7 +764,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'circle_connectors',
 			[
-				'label'     => esc_html__( 'Connectors', 'powerpack' ),
+				'label'     => esc_html__( 'Connectors', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -773,7 +775,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'circle_connector_color',
 			[
-				'label'     => esc_html__( 'Color', 'powerpack' ),
+				'label'     => esc_html__( 'Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-shape-1, {{WRAPPER}} .pp-shape-2' => 'background: {{VALUE}};',
@@ -791,7 +793,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_tabs_style',
 			[
-				'label' => esc_html__( 'Tabs', 'powerpack' ),
+				'label' => esc_html__( 'Tabs', 'powerpack-lite-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -799,7 +801,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'tab_size',
 			[
-				'label'      => __( 'Tab Size', 'powerpack' ),
+				'label'      => __( 'Tab Size', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'em', 'rem', 'custom' ],
 				'range'      => [
@@ -818,7 +820,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'tab_icon_size',
 			[
-				'label'      => __( 'Icon Size', 'powerpack' ),
+				'label'      => __( 'Icon Size', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'default'    => [
 					'size' => 16,
@@ -842,7 +844,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'tab_icon_image_width',
 			[
-				'label'      => __( 'Icon Image Width', 'powerpack' ),
+				'label'      => __( 'Icon Image Width', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => [
 					'px' => [
@@ -871,12 +873,12 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$this->start_controls_tabs( 'circle_tabs_style' );
 
-		$this->start_controls_tab( 'circle_tabs_style_normal', [ 'label' => esc_html__( 'Normal', 'powerpack' ) ] );
+		$this->start_controls_tab( 'circle_tabs_style_normal', [ 'label' => esc_html__( 'Normal', 'powerpack-lite-for-elementor' ) ] );
 
 		$this->add_control(
 			'tab_background_color',
 			[
-				'label'     => esc_html__( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-wrapper.pp-circle-skin-1 .pp-circle-item .pp-circle-tab .pp-circle-tab-icon, {{WRAPPER}} .pp-circle-wrapper.pp-circle-skin-2 .pp-circle-item .pp-circle-tab .pp-circle-tab-icon'     => 'background-color: {{VALUE}};',
@@ -887,7 +889,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'powerpack' ),
+				'label'     => esc_html__( 'Text Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab .pp-circle-tab-icon .pp-circle-icon-inner span.pp-circle-tab-text' => 'color: {{VALUE}};',
@@ -898,7 +900,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab .pp-circle-tab-icon i'   => 'color: {{VALUE}};',
@@ -913,7 +915,7 @@ class Interactive_Circle extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'     => 'tab_border',
-				'label'    => esc_html__( 'Border', 'powerpack' ),
+				'label'    => esc_html__( 'Border', 'powerpack-lite-for-elementor' ),
 				'selector' => '{{WRAPPER}} .pp-circle-wrapper .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab-icon',
 			]
 		);
@@ -928,12 +930,12 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$this->end_controls_tab();
 
-		$this->start_controls_tab( 'circle_tabs_style_hover', [ 'label' => esc_html__( 'Hover', 'powerpack' ) ] );
+		$this->start_controls_tab( 'circle_tabs_style_hover', [ 'label' => esc_html__( 'Hover', 'powerpack-lite-for-elementor' ) ] );
 
 		$this->add_control(
 			'tab_background_color_hover',
 			[
-				'label'     => esc_html__( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_PRIMARY,
@@ -950,7 +952,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_text_color_hover',
 			[
-				'label'     => esc_html__( 'Text Color', 'powerpack' ),
+				'label'     => esc_html__( 'Text Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab:hover .pp-circle-tab-icon .pp-circle-icon-inner span.pp-circle-tab-text'            => 'color: {{VALUE}};',
@@ -963,7 +965,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_icon_color_hover',
 			[
-				'label'     => esc_html__( 'Icon Color', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab:hover .pp-circle-tab-icon i, {{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab.active:hover .pp-circle-tab-icon i'     => 'color: {{VALUE}};',
@@ -978,7 +980,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_border_color_hover',
 			[
-				'label'     => esc_html__( 'Border Color', 'powerpack' ),
+				'label'     => esc_html__( 'Border Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-item .pp-circle-tab:hover .pp-circle-tab-icon, {{WRAPPER}} .pp-circle-item .pp-circle-tab.active:hover .pp-circle-tab-icon' => 'border-color: {{VALUE}};',
@@ -1000,12 +1002,12 @@ class Interactive_Circle extends Powerpack_Widget {
 
 		$this->end_controls_tab();
 
-		$this->start_controls_tab( 'circle_tabs_style_active', [ 'label' => esc_html__( 'Active', 'powerpack' ) ] );
+		$this->start_controls_tab( 'circle_tabs_style_active', [ 'label' => esc_html__( 'Active', 'powerpack-lite-for-elementor' ) ] );
 
 		$this->add_control(
 			'tab_background_color_active',
 			[
-				'label'     => esc_html__( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-wrapper.pp-circle-skin-1 .pp-circle-tab.active .pp-circle-tab-icon,
@@ -1020,7 +1022,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_text_color_active',
 			[
-				'label'     => esc_html__( 'Text Color', 'powerpack' ),
+				'label'     => esc_html__( 'Text Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-tab.active .pp-circle-tab-icon .pp-circle-icon-inner span.pp-circle-tab-text' => 'color: {{VALUE}};',
@@ -1032,7 +1034,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_icon_color_active',
 			[
-				'label'     => esc_html__( 'Icon Color', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-tab.active i'   => 'color: {{VALUE}};',
@@ -1051,7 +1053,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'tab_border_color_active',
 			[
-				'label'     => esc_html__( 'Border Color', 'powerpack' ),
+				'label'     => esc_html__( 'Border Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-item .pp-circle-tab.active .pp-circle-tab-icon' => 'border-color: {{VALUE}};',
@@ -1081,7 +1083,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->start_controls_section(
 			'section_content_style',
 			[
-				'label' => esc_html__( 'Content', 'powerpack' ),
+				'label' => esc_html__( 'Content', 'powerpack-lite-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -1089,7 +1091,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_bg_color',
 			[
-				'label'     => esc_html__( 'Background Color', 'powerpack' ),
+				'label'     => esc_html__( 'Background Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '',
 				'selectors' => [
@@ -1105,7 +1107,7 @@ class Interactive_Circle extends Powerpack_Widget {
 			Group_Control_Border::get_type(),
 			[
 				'name'      => 'content_border',
-				'label'     => esc_html__( 'Border', 'powerpack' ),
+				'label'     => esc_html__( 'Border', 'powerpack-lite-for-elementor' ),
 				'selector'  => '{{WRAPPER}} .pp-circle-content',
 				'condition' => [
 					'skin!' => 'skin-2'
@@ -1127,7 +1129,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'content_margin',
 			[
-				'label'      => esc_html__( 'Margin', 'powerpack' ),
+				'label'      => esc_html__( 'Margin', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%', 'custom' ],
 				'selectors'  => [
@@ -1142,7 +1144,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'content_padding',
 			[
-				'label'      => esc_html__( 'Padding', 'powerpack' ),
+				'label'      => esc_html__( 'Padding', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', 'rem', '%', 'custom' ],
 				'selectors'  => [
@@ -1154,7 +1156,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_icon_heading_style',
 			[
-				'label'     => esc_html__( 'Icon/Image', 'powerpack' ),
+				'label'     => esc_html__( 'Icon/Image', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [
@@ -1166,7 +1168,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'content_icon_size',
 			[
-				'label'      => __( 'Icon Size', 'powerpack' ),
+				'label'      => __( 'Icon Size', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'default'    => [
 					'size' => 50,
@@ -1193,7 +1195,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'powerpack' ),
+				'label'     => esc_html__( 'Icon Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
 					'{{WRAPPER}} .pp-circle-info .pp-circle-inner .pp-circle-item .pp-circle-content .pp-circle-content-icon i'   => 'color: {{VALUE}};',
@@ -1208,7 +1210,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_responsive_control(
 			'circle_content_image_width',
 			[
-				'label'      => __( 'Image Width', 'powerpack' ),
+				'label'      => __( 'Image Width', 'powerpack-lite-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'range'      => [
 					'px' => [
@@ -1234,7 +1236,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'title_heading_style',
 			[
-				'label'     => esc_html__( 'Title', 'powerpack' ),
+				'label'     => esc_html__( 'Title', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1243,7 +1245,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_title_color',
 			[
-				'label'     => esc_html__( 'Title Color', 'powerpack' ),
+				'label'     => esc_html__( 'Title Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_ACCENT,
@@ -1267,7 +1269,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'content_heading_style',
 			[
-				'label'     => esc_html__( 'Content', 'powerpack' ),
+				'label'     => esc_html__( 'Content', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1276,7 +1278,7 @@ class Interactive_Circle extends Powerpack_Widget {
 		$this->add_control(
 			'circle_content_text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'powerpack' ),
+				'label'     => esc_html__( 'Text Color', 'powerpack-lite-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'global'    => [
 					'default' => Global_Colors::COLOR_TEXT,
@@ -1374,7 +1376,8 @@ class Interactive_Circle extends Powerpack_Widget {
 		?>
 		<div class="pp-circle-content-title"><?php echo wp_kses_post( $item['item_title'] ); ?></div>
 		<?php
-		echo wpautop( wp_kses_post( $item['item_content'] ) );
+		$content = wpautop( $item['item_content'] );
+		echo wp_kses_post( $content );
 
 		if ( $icon_type && 'end' === $settings['content_icon_location'] ) {
 			$this->render_content_icon( $item, $icon_type );
@@ -1392,9 +1395,31 @@ class Interactive_Circle extends Powerpack_Widget {
 				foreach ( $items as $index => $item ) :
 					$item_count = $index + 1;
 					$is_active  = $index === $active_tab ? 'active' : '';
+
+					$circle_item_setting_key = $this->get_repeater_setting_key( 'item', 'circle_items', $index );
+					$circle_tab_setting_key  = $this->get_repeater_setting_key( 'tab', 'circle_items', $index );
+
+					$this->add_render_attribute( $circle_tab_setting_key, [
+						'id'              => 'pp-circle-item-' . $item_count,
+						'class'           => [
+							'pp-circle-tab',
+							$is_active
+						],
+						'aria-controls' => 'pp-interactive-' . esc_attr( $item_count ),
+						'tabindex'      => '0',
+					] );
+
+					$this->add_render_attribute( $circle_item_setting_key, [
+						'id'              => 'pp-circle-item-' . $item_count,
+						'class'           => [
+							'pp-circle-tab-content',
+							'pp-circle-item-' . $item_count . ' ' . $is_active
+						],
+						'aria-labelledby' => 'pp-circle-item-' . esc_attr( $item_count ),
+					] );
 					?>
 					<div class="pp-circle-item elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
-						<div aria-controls="pp-interactive-<?php echo esc_attr( $item_count ); ?>" tabindex="0" class="pp-circle-tab <?php echo $is_active; ?>" id="pp-circle-item-<?php echo $item_count; ?>">
+						<div <?php $this->print_render_attribute_string( $circle_tab_setting_key ); ?>>
 							<?php if ( in_array( $settings['skin'], [ 'skin-3', 'skin-4'] ) ) { ?>
 								<div class="pp-circle-icon-shapes">
 									<div class="pp-shape-1"></div>
@@ -1407,7 +1432,7 @@ class Interactive_Circle extends Powerpack_Widget {
 								</div>
 							</div>
 						</div>
-						<div id="pp-interactive-<?php echo esc_attr( $item_count ); ?>" aria-labelledby="pp-circle-item-<?php echo esc_attr( $item_count ); ?>" class="pp-circle-tab-content pp-circle-item-<?php echo $item_count . ' ' . $is_active; ?>">
+						<div <?php $this->print_render_attribute_string( $circle_item_setting_key ); ?>>
 							<div class="pp-circle-content">
 								<?php $this->render_circle_content( $item ); ?>
 							</div>
@@ -1423,16 +1448,35 @@ class Interactive_Circle extends Powerpack_Widget {
 		$settings   = $this->get_settings_for_display();
 		$active_tab = ( '' !== $settings['active_tab'] ) ? $settings['active_tab'] : 1;
 		$active_tab = $active_tab - 1;
+		$item_count = absint( $item_count );
 		?>
 		<div class="pp-circle-info">
-			<div class="pp-circle-inner" data-items="<?php echo $item_count; ?>">
+			<div class="pp-circle-inner" data-items="<?php echo esc_attr( $item_count ); ?>">
 				<?php
 				foreach ( $items as $index => $item ) :
 					$item_count = $index + 1;
 					$is_active  = $index === $active_tab ? 'active' : '';
+
+					$tab_content_setting_key = $this->get_repeater_setting_key( 'item', 'half_items', $index );
+					$tab_setting_key = $this->get_repeater_setting_key( 'tab', 'half_items', $index );
+
+					$this->add_render_attribute( $tab_content_setting_key, 'class', [
+						'pp-circle-tab-content',
+						'pp-circle-item-' . $item_count . ' ' . $is_active
+					] );
+
+					$this->add_render_attribute( $tab_setting_key, [
+						'id'              => 'pp-circle-item-' . $item_count,
+						'class'           => [
+							'pp-circle-tab',
+							$is_active
+						],
+						'aria-controls' => 'pp-interactive-' . esc_attr( $item_count ),
+						'tabindex'      => '0',
+					] );
 					?>
 					<div class="pp-circle-item elementor-repeater-item-<?php echo esc_attr( $item['_id'] ); ?>">
-						<div aria-controls="pp-interactive-<?php echo esc_attr( $item_count ); ?>" tabindex="0" class="pp-circle-tab <?php echo $is_active; ?>" id="pp-circle-item-<?php echo $item_count; ?>">
+						<div <?php $this->print_render_attribute_string( $tab_setting_key ); ?>>
 							<div class="pp-circle-icon-shapes">
 								<div class="pp-shape-1"></div>
 								<div class="pp-shape-2"></div>
@@ -1443,7 +1487,7 @@ class Interactive_Circle extends Powerpack_Widget {
 								</div>
 							</div>
 						</div>
-						<div class="pp-circle-tab-content pp-circle-item-<?php echo $item_count . ' ' . $is_active; ?>">
+						<div <?php $this->print_render_attribute_string( $tab_content_setting_key ); ?>>
 							<div id="pp-interactive<?php echo esc_attr( $item_count ); ?>" aria-labelledby="pp-circle-item-<?php echo esc_attr( $item_count ); ?>" class="pp-circle-content">
 								<?php $this->render_circle_content( $item ); ?>
 							</div>

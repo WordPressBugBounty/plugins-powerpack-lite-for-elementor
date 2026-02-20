@@ -161,7 +161,13 @@ class PP_Posts_Helper {
 			self::$post_tax[ $post_type ] = $data;
 		}
 
-		return apply_filters( 'pp_post_loop_taxonomies', $data, $taxonomies, $post_type );
+		return PP_Helper::apply_deprecated_filter(
+			'pp_post_loop_taxonomies',
+			'powerpack_elements_post_loop_taxonomies',
+			$data,
+			[ $taxonomies, $post_type ],
+			'2.9.10'
+		);
 	}
 
 	public static function get_tax_terms( $taxonomy ) {
@@ -267,7 +273,7 @@ class PP_Posts_Helper {
 		);
 
 		if ( empty( $taxonomies ) ) {
-			$options[''] = esc_html__( 'No taxonomies found', 'powerpack' );
+			$options[''] = esc_html__( 'No taxonomies found', 'powerpack-lite-for-elementor' );
 			return $options;
 		}
 

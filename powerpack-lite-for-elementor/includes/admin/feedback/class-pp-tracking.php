@@ -70,11 +70,6 @@ class UsageTracking {
 	 * @access public
 	 */
 	public function __construct( $config = [] ) {
-		//add_action( 'init', array( $this, 'schedule_send' ) );
-		//add_action( 'init', array( $this, 'create_recurring_schedule' ) );
-		//add_filter( 'cron_schedules', array( $this, 'cron_add_weekly' ) );
-		//add_action( 'pp_admin_after_settings_saved', array( $this, 'check_for_settings_optin' ), 10, 2 );
-		//add_action( 'admin_init', array( $this, 'act_on_tracking_decision' ) );
 		$this->config = wp_parse_args( $config, $this->get_default_config() );
 
 		// Normalize slug to a key-safe value.
@@ -145,9 +140,9 @@ class UsageTracking {
 				'plugin_slug' => $this->plugin_slug,
 				'nonce'       => wp_create_nonce( $this->plugin_slug . '_feedback_nonce' ),
 				'strings'     => [
-					'submitting' => esc_html__( 'Submitting...', 'powerpack' ),
-					'error'      => esc_html__( 'An error occurred. Please try again.', 'powerpack' ),
-					'success'    => esc_html__( 'Thank you for your feedback!', 'powerpack' )
+					'submitting' => esc_html__( 'Submitting...', 'powerpack-lite-for-elementor' ),
+					'error'      => esc_html__( 'An error occurred. Please try again.', 'powerpack-lite-for-elementor' ),
+					'success'    => esc_html__( 'Thank you for your feedback!', 'powerpack-lite-for-elementor' )
 				]
 			]
 		);
@@ -160,7 +155,7 @@ class UsageTracking {
 	 */
 	public function hook_notices() {
 		$action = isset( $_GET['pp_admin_action'] ) ? sanitize_key( wp_unslash( $_GET['pp_admin_action'] ) ) : '';
-		$nonce  = isset( $_GET['_nonce'] ) ? wp_unslash( $_GET['_nonce'] ) : '';
+		$nonce  = isset( $_GET['_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_nonce'] ) ) : '';
 
 		if ( $action && $nonce && wp_verify_nonce( $nonce, 'pp_admin_notice_nonce' ) ) {
 			switch ( $action ) {
@@ -189,58 +184,13 @@ class UsageTracking {
 	}
 
 	/**
-	 * Add weekly schedule for cron.
-	 *
-	 * @param 	array $schedules Array of cron schedules.
-	 * @access 	public
-	 * @return 	array
-	 */
-	public function cron_add_weekly( $schedules ) {
-		$schedules['ppeweekly'] = array(
-			'interval' => 604800,
-			'display' => 'Weekly',
-		);
-		return $schedules;
-	}
-
-	/**
-	 * Create recurring schedule.
-	 *
-	 * @access public
-	 */
-	public function create_recurring_schedule() {
-		// check if event scheduled before.
-		if ( ! wp_next_scheduled( 'pp_recurring_cron_job' ) ) {
-			// schedule event to run after every day.
-			wp_schedule_event( time(), 'ppeweekly', 'pp_recurring_cron_job' );
-		}
-	}
-
-	/**
-	 * Check if the user has opted into tracking.
-	 *
-	 * @access private
-	 * @return bool
-	 */
-	private function tracking_allowed() {
-		$setting = get_option( 'pp_allowed_tracking', false );
-
-		return 'on' === $setting;
-	}
-
-	/**
 	 * Setup the data that is going to be tracked.
 	 *
 	 * @access private
 	 * @return void
 	 */
 	private function setup_data() {
-		if ( ! $this->tracking_allowed() ) {
-			$this->data = [];
-			return;
-		}
-
-		$theme       = wp_get_theme();
+		$theme        = wp_get_theme();
 		$current_user = wp_get_current_user();
 
 		if ( ! function_exists( 'get_plugins' ) ) {
@@ -281,12 +231,16 @@ class UsageTracking {
 	public function send_checkin( $override = false, $ignore_last_checkin = false ) {
 		$home_url = trailingslashit( home_url() );
 
-		// Allows us to stop our own site from checking in, and a filter for our additional sites.
-		if ( $this->site_url === $home_url || apply_filters( 'pp_disable_tracking_checkin', false ) ) {
-			return false;
-		}
+		$disable_tracking = PP_Helper::apply_deprecated_filter(
+			'pp_disable_tracking_checkin',
+			'powerpack_elements_disable_tracking_checkin',
+			false,
+			[],
+			'2.9.10'
+		);
 
-		if ( ! $this->tracking_allowed() && ! $override ) {
+		// Allows us to stop our own site from checking in, and a filter for our additional sites.
+		if ( $this->site_url === $home_url || $disable_tracking ) {
 			return false;
 		}
 
@@ -320,47 +274,12 @@ class UsageTracking {
 	}
 
 	/**
-	 * Check for a new opt-in on settings save.
-	 *
-	 * This runs during the sanitation of General settings, thus the return.
-	 *
-	 * @access public
-	 * @return mixed
-	 */
-	public function check_for_settings_optin() {
-		// Send an initial check in on settings save.
-		if ( isset( $_POST['pp_allowed_tracking'] ) && 'on' === wp_unslash( $_POST['pp_allowed_tracking'] ) ) { // @codingStandardsIgnoreLine.
-			$this->send_checkin( true );
-		}
-	}
-
-	/**
-	 * Act on tracking descision.
-	 *
-	 * @access 	public
-	 * @return 	void
-	 */
-	public function act_on_tracking_decision() {
-		if ( isset( $_GET['pp_admin_action'] ) ) {
-			if ( 'pp_opt_into_tracking' === $_GET['pp_admin_action'] ) {
-				$this->check_for_optin();
-			}
-
-			if ( 'pp_opt_out_of_tracking' === $_GET['pp_admin_action'] ) {
-				$this->check_for_optout();
-			}
-		}
-	}
-
-	/**
 	 * Check for a new opt-in via the admin notice.
 	 *
 	 * @access public
 	 * @return void
 	 */
 	public function check_for_optin() {
-		update_option( 'pp_allowed_tracking', 'on' );
-
 		$this->send_checkin( true );
 
 		update_option( 'pp_tracking_notice', '1' );
@@ -375,7 +294,6 @@ class UsageTracking {
 	 * @return void
 	 */
 	public function check_for_optout() {
-		delete_option( 'pp_allowed_tracking' );
 		update_option( 'pp_tracking_notice', '1' );
 		wp_safe_redirect( remove_query_arg( 'pp_admin_action' ) );
 		exit;
@@ -392,17 +310,6 @@ class UsageTracking {
 	}
 
 	/**
-	 * Schedule a weekly checkin.
-	 *
-	 * @access public
-	 * @return void
-	 */
-	public function schedule_send() {
-		// We send once a week (while tracking is allowed) to check in, which can be used to determine active sites.
-		add_action( 'pp_recurring_cron_job', array( $this, 'send_checkin' ) );
-	}
-
-	/**
 	 * Display the admin notice to users that have not opted-in or out.
 	 *
 	 * @access public
@@ -411,7 +318,7 @@ class UsageTracking {
 	public function tracking_admin_notice() {
 		$hide_notice = get_option( 'pp_tracking_notice' );
 
-		if ( $hide_notice || $this->tracking_allowed() || ! current_user_can( 'manage_options' ) ) {
+		if ( $hide_notice || ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 
@@ -433,21 +340,33 @@ class UsageTracking {
 		$store_url = $this->site_url . 'pricing/?utm_source=' . $source . '&utm_medium=admin&utm_term=notice&utm_campaign=PPEUsageTracking';
 
 		echo '<div class="notice notice-info updated"><p>';
+		$plugin_name  = 'PowerPack Elements';
+		$collect_title = __( 'Click here to check what we collect.', 'powerpack-lite-for-elementor' );
+		$upgrade_text  = __( 'Premium Upgrade', 'powerpack-lite-for-elementor' );
+
 		printf(
-			// translators: %1$s denotes plugin name, %2$s denotes title text, %3$s denotes percentile, %4$s denotes store URL.
-			__( 'Want to help make %1$s even more awesome? Allow us to <a href="#pp-what-we-collect" title="%2$s">collect non-sensitive</a> diagnostic data and plugin usage information. Opt-in to tracking and we will send you a special 15%3$s discount code for <a href="%4$s">Premium Upgrade</a>.', 'powerpack' ),
-			'<strong>PowerPack Elements</strong>',
-			esc_html__( 'Click here to check what we collect.', 'powerpack' ),
-			'%',
-			esc_url( $store_url )
+			wp_kses_post(
+				/* translators: 1: Plugin name, 2: Title attribute text, 3: Upgrade link. */
+				__(
+					'Want to help make %1$s even more awesome? Allow us to <a href="#pp-what-we-collect" title="%2$s">collect non-sensitive</a> diagnostic data and plugin usage information. Opt-in to tracking and we will send you a special 15%% discount code for %3$s.',
+					'powerpack-lite-for-elementor'
+				)
+			),
+			'<strong>' . esc_html( $plugin_name ) . '</strong>',
+			esc_attr( $collect_title ),
+			sprintf(
+				'<a href="%1$s">%2$s</a>',
+				esc_url( $store_url ),
+				esc_html( $upgrade_text )
+			)
 		);
 		echo '</p>';
 		echo '<p id="pp-what-we-collect" style="display: none;">';
-		echo esc_html__( 'We collect WordPress and PHP version, plugin and theme version, server environment, website, user first name, user last name, and email address to send you the discount code. No sensitive data is tracked.', 'powerpack' );
+		echo esc_html__( 'We collect WordPress and PHP version, plugin and theme version, server environment, website, user first name, user last name, and email address to send you the discount code. No sensitive data is tracked.', 'powerpack-lite-for-elementor' );
 		echo '</p>';
 		echo '<p>';
-		echo '<a href="' . esc_url( $optin_url ) . '" class="button-primary">' . esc_html__( 'Sure! I\'d love to help', 'powerpack' ) . '</a>';
-		echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary">' . esc_html__( 'No thanks', 'powerpack' ) . '</a>';
+		echo '<a href="' . esc_url( $optin_url ) . '" class="button-primary">' . esc_html__( 'Sure! I\'d love to help', 'powerpack-lite-for-elementor' ) . '</a>';
+		echo '&nbsp;<a href="' . esc_url( $optout_url ) . '" class="button-secondary">' . esc_html__( 'No thanks', 'powerpack-lite-for-elementor' ) . '</a>';
 		echo '</p></div>';
 		?>
 		<script type="text/javascript">
@@ -483,7 +402,7 @@ class UsageTracking {
 
 		$nonce = wp_create_nonce( 'pp_admin_notice_nonce' );
 
-		$review_url = 'https://wordpress.org/support/plugin/powerpack-lite-for-elementor/reviews/?filter=5#new-post';
+		$review_url = 'https://wordpress.org/support/plugin/powerpack-lite-for-elementor/reviews/#new-post';
 		$maybe_later_url = add_query_arg(
 			array(
 				'pp_admin_action' 	=> 'review_maybe_later',
@@ -499,7 +418,7 @@ class UsageTracking {
 
 		$notice = sprintf(
 			// translators: %1$s denotes plugin name, %2$s denotes opening anchor tag, %3$s denots closing anchor tag.
-			__( 'Hey, It seems you have been using %1$s for at least 7 days now - that\'s awesome!<br>Could you please do us a BIG favor and give it a %2$s5-star rating on WordPress?%3$s This will help us spread the word and boost our motivation - thanks!', 'powerpack' ),
+			__( 'Hey, It seems you have been using %1$s for at least 7 days now - that\'s awesome!<br>Could you please do us a BIG favor and give it a %2$s5-star rating on WordPress?%3$s This will help us spread the word and boost our motivation - thanks!', 'powerpack-lite-for-elementor' ),
 			'<strong>PowerPack Elements Lite</strong>',
 			'<a href="' . esc_url( $review_url ) . '" target="_blank">',
 			'</a>'
@@ -529,11 +448,11 @@ class UsageTracking {
 		<div class="pp-review-notice pp--notice notice notice-info is-dismissible">
 			<p><?php echo $notice; // @codingStandardsIgnoreLine. ?></p>
 			<div class="pp-notice-buttons">
-				<a href="<?php echo esc_url( $review_url ); ?>" target="_blank" class="pp-button-primary"><?php esc_html_e( 'Ok, you deserve it', 'powerpack' ); ?></a>
+				<a href="<?php echo esc_url( $review_url ); ?>" target="_blank" class="pp-button-primary"><?php esc_html_e( 'Ok, you deserve it', 'powerpack-lite-for-elementor' ); ?></a>
 				<span class="dashicons dashicons-calendar"></span>
-				<a href="<?php echo esc_url_raw( $maybe_later_url ); ?>"><?php esc_html_e( 'Nope, maybe later', 'powerpack' ); ?></a>
+				<a href="<?php echo esc_url_raw( $maybe_later_url ); ?>"><?php esc_html_e( 'Nope, maybe later', 'powerpack-lite-for-elementor' ); ?></a>
 				<span class="dashicons dashicons-smiley"></span>
-				<a href="<?php echo esc_url_raw( $already_did_url ); ?>"><?php esc_html_e( 'I already did', 'powerpack' ); ?></a>
+				<a href="<?php echo esc_url_raw( $already_did_url ); ?>"><?php esc_html_e( 'I already did', 'powerpack-lite-for-elementor' ); ?></a>
 			</div>
 		</div>
 		<?php
@@ -572,13 +491,13 @@ class UsageTracking {
 			)
 		);
 
-		$notice = __( '<strong>Exclusive Offer!</strong> We don\'t run promotions very often. But for a limited time we are offering an exclusive <strong>20% discount</strong> to all users of Free PowerPack Elementor addon.', 'powerpack' );
-		$button_text = __( 'Get this offer', 'powerpack' );
+		$notice = __( '<strong>Exclusive Offer!</strong> We don\'t run promotions very often. But for a limited time we are offering an exclusive <strong>20% discount</strong> to all users of Free PowerPack Elementor addon.', 'powerpack-lite-for-elementor' );
+		$button_text = __( 'Get this offer', 'powerpack-lite-for-elementor' );
 
 		if ( class_exists( 'WooCommerce' ) ) {
-			$notice = __( 'Upgrade to <strong>PowerPack Pro for Elementor</strong> and Get WooCommerce Elementor Widgets like Product Grid, Checkout Styler, Off-Canvas Cart, etc.', 'powerpack' );
+			$notice = __( 'Upgrade to <strong>PowerPack Pro for Elementor</strong> and Get WooCommerce Elementor Widgets like Product Grid, Checkout Styler, Off-Canvas Cart, etc.', 'powerpack-lite-for-elementor' );
 			$upgrade_url = 'http://powerpackelements.com/woocommerce-elementor-widgets/?utm_source=wporg&utm_medium=notice&utm_campaign=woo_upgrade';
-			$button_text = __( 'Explore now', 'powerpack' );
+			$button_text = __( 'Explore now', 'powerpack-lite-for-elementor' );
 		}
 		?>
 		<?php $this->print_notices_common_style(); ?>
@@ -625,13 +544,15 @@ class UsageTracking {
 		<div class="pp-upgrade-notice pp--notice notice notice-success is-dismissible">
 			<div class="pp-notice-wrap">
 				<div class="pp-notice-col-left">
-					<img src="<?php echo POWERPACK_ELEMENTS_LITE_URL; ?>assets/images/icon-256x256.png" />
+					<?php $icon_url = POWERPACK_ELEMENTS_LITE_URL . 'assets/images/icon-256x256.png'; ?>
+
+					<img src="<?php echo esc_url( $icon_url ); ?>" alt="" />
 				</div>
 				<div class="pp-notice-col-right">
 					<p><?php echo $notice; // @codingStandardsIgnoreLine. ?></p>
 					<div class="pp-notice-buttons">
-						<a href="<?php echo esc_url( $upgrade_url ); ?>" target="_blank" class="pp-button-primary"><?php echo $button_text; ?></a>
-						<a href="<?php echo esc_url_raw( $no_upgrade_url ); ?>"><?php esc_html_e( 'I\'m not interested', 'powerpack' ); ?></a>
+						<a href="<?php echo esc_url( $upgrade_url ); ?>" target="_blank" class="pp-button-primary"><?php echo esc_html( $button_text ); ?></a>
+						<a href="<?php echo esc_url_raw( $no_upgrade_url ); ?>"><?php esc_html_e( 'I\'m not interested', 'powerpack-lite-for-elementor' ); ?></a>
 					</div>
 				</div>
 			</div>
@@ -702,7 +623,7 @@ class UsageTracking {
 		check_ajax_referer( 'pp_admin_notice_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized.', 'powerpack' ) ], 403 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized.', 'powerpack-lite-for-elementor' ) ], 403 );
 		}
 
 		$notice_type = isset( $_POST['notice_type'] ) ? sanitize_key( $_POST['notice_type'] ) : '';
@@ -715,10 +636,10 @@ class UsageTracking {
 				update_option( 'pp_do_not_upgrade_to_pro', 'yes' );
 				break;
 			default:
-				wp_send_json_error( [ 'message' => esc_html__( 'Invalid notice type.', 'powerpack' ) ] );
+				wp_send_json_error( [ 'message' => esc_html__( 'Invalid notice type.', 'powerpack-lite-for-elementor' ) ] );
 		}
 
-		wp_send_json_success( [ 'message' => esc_html__( 'Notice dismissed.', 'powerpack' ) ] );
+		wp_send_json_success( [ 'message' => esc_html__( 'Notice dismissed.', 'powerpack-lite-for-elementor' ) ] );
 	}
 
 	/**
@@ -735,7 +656,7 @@ class UsageTracking {
 		<div id="<?php echo esc_attr( $this->plugin_slug ); ?>-feedback-popup" class="feedback-popup-overlay">
 			<div class="feedback-popup-container">
 				<div class="feedback-popup-header">
-					<h3><?php esc_html_e( 'Quick Feedback', 'powerpack' ); ?></h3>
+					<h3><?php esc_html_e( 'Quick Feedback', 'powerpack-lite-for-elementor' ); ?></h3>
 				</div>
 
 				<div class="feedback-popup-content">
@@ -745,7 +666,13 @@ class UsageTracking {
 
 					<div class="feedback-form-container">
 						<p class="feedback-form-title">
-							<?php printf( esc_html__( 'If you have a moment, please let us know why you\'re deactivating %s:', 'powerpack' ), $this->plugin_name ); ?>
+							<?php
+							printf(
+								/* translators: %s: Plugin name. */
+								esc_html__( 'If you have a moment, please let us know why you\'re deactivating %s:', 'powerpack-lite-for-elementor' ),
+								esc_html( $this->plugin_name )
+							);
+							?>
 						</p>
 
 						<form class="feedback-form" data-plugin-slug="<?php echo esc_attr( $this->plugin_slug ); ?>">
@@ -772,7 +699,13 @@ class UsageTracking {
 									<label class="feedback-consent-label">
 										<input type="checkbox" class="feedback-consent-checkbox" required>
 										<span class="feedback-consent-text">
-											<?php printf( esc_html__( 'I agree to share anonymous usage data and basic site details to help improve %s.', 'powerpack' ), $this->plugin_name ); ?>
+											<?php
+											printf(
+												/* translators: %s: Plugin name. */
+												esc_html__( 'I agree to share anonymous usage data and basic site details to help improve %s.', 'powerpack-lite-for-elementor' ),
+												esc_html( $this->plugin_name )
+											);
+											?>
 										</span>
 									</label>
 								</div>
@@ -780,13 +713,13 @@ class UsageTracking {
 
 							<div class="feedback-actions">
 								<button type="submit" class="button button-primary feedback-submit-btn">
-									<?php esc_html_e( 'Submit & Deactivate', 'powerpack' ); ?>
+									<?php esc_html_e( 'Submit & Deactivate', 'powerpack-lite-for-elementor' ); ?>
 								</button>
 								<button type="button" class="button button-secondary feedback-skip-btn">
-									<?php esc_html_e( 'Skip & Deactivate', 'powerpack' ); ?>
+									<?php esc_html_e( 'Skip & Deactivate', 'powerpack-lite-for-elementor' ); ?>
 								</button>
 								<button type="button" class="button button-secondary feedback-cancel-btn">
-									<?php esc_html_e( 'Cancel', 'powerpack' ); ?>
+									<?php esc_html_e( 'Cancel', 'powerpack-lite-for-elementor' ); ?>
 								</button>
 							</div>
 						</form>
@@ -805,28 +738,28 @@ class UsageTracking {
 	private function get_deactivation_reasons() {
 		$default_reasons = [
 			'not_working' => [
-				'title' => esc_html__( 'The plugin is not working', 'powerpack' ),
-				'placeholder' => esc_html__( 'Please describe the issue you encountered', 'powerpack' ),
+				'title' => esc_html__( 'The plugin is not working', 'powerpack-lite-for-elementor' ),
+				'placeholder' => esc_html__( 'Please describe the issue you encountered', 'powerpack-lite-for-elementor' ),
 			],
 			'found_better' => [
-				'title' => esc_html__( 'I found a better alternative', 'powerpack' ),
-				'placeholder' => esc_html__( 'Please share which plugin you\'re switching to', 'powerpack' ),
+				'title' => esc_html__( 'I found a better alternative', 'powerpack-lite-for-elementor' ),
+				'placeholder' => esc_html__( 'Please share which plugin you\'re switching to', 'powerpack-lite-for-elementor' ),
 			],
 			'no_longer_required' => [
-				'title' => esc_html__( 'I no longer need the plugin', 'powerpack' ),
+				'title' => esc_html__( 'I no longer need the plugin', 'powerpack-lite-for-elementor' ),
 				'placeholder' => ''
 			],
 			'temporary' => [
-				'title' => esc_html__( 'It\'s a temporary deactivation', 'powerpack' ),
+				'title' => esc_html__( 'It\'s a temporary deactivation', 'powerpack-lite-for-elementor' ),
 				'placeholder' => ''
 			],
 			'missing_feature' => [
-				'title' => esc_html__( 'Missing a feature I need', 'powerpack' ),
-				'placeholder' => esc_html__( 'What feature were you looking for?', 'powerpack' ),
+				'title' => esc_html__( 'Missing a feature I need', 'powerpack-lite-for-elementor' ),
+				'placeholder' => esc_html__( 'What feature were you looking for?', 'powerpack-lite-for-elementor' ),
 			],
 			'other' => [
-				'title' => esc_html__( 'Other', 'powerpack' ),
-				'placeholder' => esc_html__( 'Please share your reason', 'powerpack' ),
+				'title' => esc_html__( 'Other', 'powerpack-lite-for-elementor' ),
+				'placeholder' => esc_html__( 'Please share your reason', 'powerpack-lite-for-elementor' ),
 			]
 		];
 
@@ -845,7 +778,7 @@ class UsageTracking {
 		check_ajax_referer( $this->plugin_slug . '_feedback_nonce', 'nonce' );
 
 		if ( ! current_user_can( 'activate_plugins' ) ) {
-			wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized.', 'powerpack' ) ], 403 );
+			wp_send_json_error( [ 'message' => esc_html__( 'Unauthorized.', 'powerpack-lite-for-elementor' ) ], 403 );
 		}
 
 		$reason  = isset( $_POST['reason'] )  ? sanitize_text_field( wp_unslash( $_POST['reason'] ) ) : '';
@@ -871,10 +804,10 @@ class UsageTracking {
 		$response = $this->send_feedback( $data );
 
 		if ( is_wp_error( $response ) ) {
-			wp_send_json_error( [ 'message' => esc_html__( 'Failed to send feedback', 'powerpack' ) ] );
+			wp_send_json_error( [ 'message' => esc_html__( 'Failed to send feedback', 'powerpack-lite-for-elementor' ) ] );
 		}
 
-		wp_send_json_success( [ 'message' => esc_html__( 'Feedback submitted successfully', 'powerpack' ) ] );
+		wp_send_json_success( [ 'message' => esc_html__( 'Feedback submitted successfully', 'powerpack-lite-for-elementor' ) ] );
 	}
 
 	/**
@@ -890,7 +823,7 @@ class UsageTracking {
 		return [
 			'wp_version'      => get_bloginfo( 'version' ),
 			'php_version'     => PHP_VERSION,
-			'mysql_version'   => $wpdb->get_var( 'SELECT VERSION()' ),
+			'mysql_version'   => $wpdb->db_version(),
 			'server_software' => $server,
 			'wp_memory_limit' => ini_get( 'memory_limit' ),
 			'wp_debug'        => ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? 'Enabled' : 'Disabled',
@@ -938,7 +871,7 @@ class UsageTracking {
 		$api_url = isset( $this->config['feedback_api_url'] ) ? esc_url_raw( $this->config['feedback_api_url'] ) : '';
 
 		if ( empty( $api_url ) ) {
-			return new \WP_Error( 'no_api_url', esc_html__( 'No feedback API URL configured', 'powerpack' ) );
+			return new \WP_Error( 'no_api_url', esc_html__( 'No feedback API URL configured', 'powerpack-lite-for-elementor' ) );
 		}
 
 		$json_data = json_encode( $data );

@@ -41,13 +41,25 @@ abstract class Powerpack_Widget extends Widget_Base {
 	}
 
 	public function upgrade_powerpack_title() {
-		$upgrade_title = esc_html__( 'Get PowerPack Pro', 'powerpack' );
+		$upgrade_title = esc_html__( 'Get PowerPack Pro', 'powerpack-lite-for-elementor' );
 
 		return $upgrade_title;
 	}
 
 	public function upgrade_powerpack_message() {
-		$upgrade_message = sprintf( __( 'Upgrade to %1$s Pro Version %2$s for 90+ widgets, exciting extensions and advanced features.', 'powerpack' ), '<a href="https://powerpackelements.com/upgrade/?utm_medium=pp-elements-lite&utm_source=pp-widget-upgrade-section&utm_campaign=pp-pro-upgrade" target="_blank" rel="noopener">', '</a>' );
+		$upgrade_url = 'https://powerpackelements.com/upgrade/?utm_medium=pp-elements-lite&utm_source=pp-widget-upgrade-section&utm_campaign=pp-pro-upgrade';
+
+		$upgrade_message = sprintf(
+			/* translators: 1: Opening anchor tag, 2: Closing anchor tag. */
+			__(
+				'Upgrade to %1$sPro Version%2$s for 90+ widgets, exciting extensions and advanced features.',
+				'powerpack-lite-for-elementor'
+			),
+			'<a href="' . $upgrade_url . '" target="_blank" rel="noopener">',
+			'</a>'
+		);
+
+		$upgrade_message = wp_kses_post( $upgrade_message );
 
 		return $upgrade_message;
 	}
@@ -126,8 +138,8 @@ abstract class Powerpack_Widget extends Widget_Base {
 		}
 
 		$defaults = [
-			'title' => $this->get_title() . ' - ' . esc_html__( 'ID', 'powerpack' ) . ' ' . $this->get_id(),
-			'body'  => esc_html__( 'This is a placeholder for this widget and is visible only in the editor.', 'powerpack' ),
+			'title' => $this->get_title() . ' - ' . esc_html__( 'ID', 'powerpack-lite-for-elementor' ) . ' ' . $this->get_id(),
+			'body'  => esc_html__( 'This is a placeholder for this widget and is visible only in the editor.', 'powerpack-lite-for-elementor' ),
 		];
 
 		$args = wp_parse_args( $args, $defaults );
