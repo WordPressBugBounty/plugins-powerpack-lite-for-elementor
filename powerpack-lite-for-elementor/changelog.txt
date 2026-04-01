@@ -1,3 +1,8 @@
+== 2.9.11 ==
+Release date: April 1, 2026
+* Enhancement: Content Ticker - Optimized post image HTML output
+* Enhancement: Tested compatibility with Elementor 4.0.0
+
 == 2.9.10 ==
 Release date: February 20, 2026
 * Enhancement: Dual Heading - Improved CSS of the widget
