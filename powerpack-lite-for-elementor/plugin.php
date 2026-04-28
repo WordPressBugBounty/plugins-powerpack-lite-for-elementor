@@ -154,6 +154,20 @@ class PowerpackLitePlugin {
 			array(),
 			POWERPACK_ELEMENTS_LITE_VER
 		);
+
+		wp_register_style(
+			'pp-image-filters',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'image-filters' . $suffix . '.css',
+			array(),
+			POWERPACK_ELEMENTS_LITE_VER
+		);
+
+		wp_register_style(
+			'pp-interactive-circle-animations',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'widget-interactive-circle-animations' . $suffix . '.css',
+			array(),
+			POWERPACK_ELEMENTS_LITE_VER
+		);
 	}
 
 	public function register_style_scripts() {
@@ -266,6 +280,16 @@ class PowerpackLitePlugin {
 		wp_register_script(
 			'pp-interactive-circle',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-interactive-circle' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-marquee',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-marquee' . $suffix . '.js',
 			array(
 				'jquery',
 			),

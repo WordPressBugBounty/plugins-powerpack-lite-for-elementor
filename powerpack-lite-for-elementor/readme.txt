@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.9.11
+Stable tag: 2.10.0
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -253,6 +253,16 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.10.0 - April 28, 2026 =
+*	New: Marquee widget
+*	Enhancement: Advanced Charts - Added option to import chart data from CSV file
+*	Enhancement: Random Image - Added Instagram-style image filter presets
+*	Enhancement: Updated accessibility for carousels and sliders
+*	Enhancement: Optimized image filter CSS loading to reduce frontend payload
+*	Fix: Interactive Circle - Animations stylesheet was not loading due to missing style handle registration
+*	Development: Removed bundled languages directory and POT generation in favor of translations from translate.wordpress.org
+*	Development: Removed orphaned duplicate copies of jquery.event.move from assets/js/
 
 = 2.9.11 - April 1, 2026 =
 *	Enhancement: Content Ticker - Optimized post image HTML output
