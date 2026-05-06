@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.10.0
+Stable tag: 2.10.1
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -83,6 +83,7 @@ PowerPack adds a carefully selected set of essential addons for Elementor users 
 38. [**Interactive Circle**](https://powerpackelements.com/elementor-widgets/interactive-circle/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - This widget lets you showcase content on your website in beautiful and eye-catchy circular layouts without using any additional HTML code and CSS.
 39. [**Progress Bar**](https://powerpackelements.com/elementor-widgets/progress-bar/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - Add interactive Progress Bars to your website. Showcase progress with horizontal, vertical, circular bars, and more using this versatile widget.
 40. [**Charts**](https://powerpackelements.com/elementor-widgets/advanced-charts/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - Add interactive charts to your Elementor website. Display data in different interactive chart layouts such as Lines and Bars.
+41. [**Marquee**](https://powerpackelements.com/elementor-widgets/marquee/?utm_medium=powerpack-lite&utm_source=repo-readme&utm_campaign=repo-demo-link) - Create eye-catching scrolling marquees with text, images, or icons. Customize speed, direction, gap, and pause-on-hover behavior to highlight announcements, logos, or featured content.
 
 ## CREATIVE EXTENSIONS - FREE
 
@@ -253,6 +254,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.10.1 - May 6, 2026 =
+*	Fix: Dual Heading - Second heading overflowed adjacent columns in narrow layouts and the Alignment option did not apply to individual headings
+*	Development: Removed unused JS files
 
 = 2.10.0 - April 28, 2026 =
 *	New: Marquee widget
