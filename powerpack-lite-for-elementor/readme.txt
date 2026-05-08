@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.10.1
+Stable tag: 2.10.2
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -254,6 +254,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.10.2 - May 8, 2026 =
+*	Enhancement: WPML - Added translation support for Advanced Charts and Marquee widgets
+*	Enhancement: WPML - Added missing translation for other widgets
 
 = 2.10.1 - May 6, 2026 =
 *	Fix: Dual Heading - Second heading overflowed adjacent columns in narrow layouts and the Alignment option did not apply to individual headings
