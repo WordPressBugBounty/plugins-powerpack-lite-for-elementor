@@ -2,9 +2,9 @@
 Contributors: ideaboxcreations, simrandeep, puneetsahalot, ibachal, jainnidhi, nirbhay18, wpamitkumar
 Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor templates
 Requires at least: 6.3
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.10.3
+Stable tag: 2.10.4
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -254,6 +254,10 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 2.10.4 - May 26, 2026 =
+*	Fix: WPML - Content Reveal template was not translated on the frontend when Content Type was set to Template
+*	Fix: WPML - Image Hotspots, Price Menu, Scroll Image, Team Member, and Team Member Carousel images were not replaced with their translations on translated pages
 
 = 2.10.3 - May 14, 2026 =
 *	Enhancement: Tested compatibility with WordPress 7.0
