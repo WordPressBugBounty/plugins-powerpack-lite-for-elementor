@@ -7,6 +7,7 @@ use PowerpackElementsLite\Classes\PP_Config;
 
 // Elementor Classes
 use Elementor\Controls_Manager;
+use Elementor\Control_Media;
 use Elementor\Utils;
 use Elementor\Icons_Manager;
 use Elementor\Group_Control_Background;
@@ -109,7 +110,6 @@ class Flipbox extends Powerpack_Widget {
 		$this->register_content_front_controls();
 		$this->register_content_back_controls();
 		$this->register_content_settings_controls();
-		$this->register_content_help_docs_controls();
 
 		/* Style Tab */
 		$this->register_style_front_controls();
@@ -595,42 +595,6 @@ class Flipbox extends Powerpack_Widget {
 		$this->end_controls_section();
 	}
 
-	protected function register_content_help_docs_controls() {
-
-		$help_docs = PP_Config::get_widget_help_links( 'Flipbox' );
-
-		if ( ! empty( $help_docs ) ) {
-
-			/**
-			 * Content Tab: Help Docs
-			 *
-			 * @since 1.4.8
-			 * @access protected
-			 */
-			$this->start_controls_section(
-				'section_help_docs',
-				[
-					'label' => esc_html__( 'Help Docs', 'powerpack-lite-for-elementor' ),
-				]
-			);
-
-			$hd_counter = 1;
-			foreach ( $help_docs as $hd_title => $hd_link ) {
-				$this->add_control(
-					'help_doc_' . $hd_counter,
-					[
-						'type'            => Controls_Manager::RAW_HTML,
-						'raw'             => sprintf( '%1$s ' . $hd_title . ' %2$s', '<a href="' . $hd_link . '" target="_blank" rel="noopener">', '</a>' ),
-						'content_classes' => 'pp-editor-doc-links',
-					]
-				);
-
-				$hd_counter++;
-			}
-
-			$this->end_controls_section();
-		}
-	}
 
 	/*-----------------------------------------------------------------------------------*/
 	/*	STYLE TAB
@@ -887,6 +851,7 @@ class Flipbox extends Powerpack_Widget {
 				],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-flipbox-icon-image, {{WRAPPER}} .pp-flipbox-icon-image i' => 'font-size: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .pp-flipbox-icon-image svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				],
 				'condition'             => [
 					'icon_type' => 'icon',
@@ -1304,6 +1269,7 @@ class Flipbox extends Powerpack_Widget {
 				],
 				'selectors'             => [
 					'{{WRAPPER}} .pp-flipbox-icon-image-back, {{WRAPPER}} .pp-flipbox-icon-image-back i' => 'font-size: {{SIZE}}{{UNIT}}; line-height: {{SIZE}}{{UNIT}}; width: {{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .pp-flipbox-icon-image-back svg' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}};',
 				],
 				'condition'             => [
 					'icon_type_back'    => 'icon',
@@ -1712,6 +1678,7 @@ class Flipbox extends Powerpack_Widget {
 				'default'               => '',
 				'selectors'             => [
 					'{{WRAPPER}} .pp-flipbox-button:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-flipbox-button:hover .pp-button-icon svg' => 'fill: {{VALUE}}',
 				],
 				'condition'             => [
 					'link_type'    => 'button',
@@ -1810,7 +1777,7 @@ class Flipbox extends Powerpack_Widget {
 								$flipbox_image_url = ( empty( $flipbox_image_url ) ) ? $flipbox_image['url'] : $flipbox_image_url;
 							?>
 							<?php if ( $flipbox_image_url ) { ?>
-								<img src="<?php echo esc_url( $flipbox_image_url ); ?>" alt="">
+								<img src="<?php echo esc_url( $flipbox_image_url ); ?>" alt="<?php echo esc_attr( Control_Media::get_image_alt( $flipbox_image ) ); ?>">
 							<?php } ?>
 						<?php } elseif ( 'text' === $settings['icon_type'] ) { ?>
 							<span class="pp-icon-text">
@@ -1870,7 +1837,7 @@ class Flipbox extends Powerpack_Widget {
 					'icon-image-back',
 					[
 						'src'   => $flipbox_back_image_url,
-						'alt'   => 'flipbox-image',
+						'alt'   => Control_Media::get_image_alt( $flipbox_image_back ),
 					]
 				);
 			} elseif ( 'icon' === $settings['icon_type_back'] ) {

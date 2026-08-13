@@ -75,13 +75,34 @@ class PP_Helper {
 	/**
 	 * Get widgets list.
 	 *
+	 * The widgets this edition actually ships — which is not the whole
+	 * catalogue. PP_Config::get_widget_info() also carries the paid edition's
+	 * widgets so the settings screen and the editor can promote them, and this
+	 * is the one place they are dropped. Everything downstream registers
+	 * widgets or decides what a save is allowed to enable, and neither may see
+	 * a widget whose class this plugin does not contain.
+	 *
 	 * @since 2.3.0
 	 * @return array()
 	 */
 	public static function get_widgets_list() {
 
 		if ( ! isset( self::$widgets_list ) ) {
-			self::$widgets_list = PP_Config::get_widget_info();
+			// The catalogue is grouped by category; every caller below wants it
+			// keyed by widget, so it is flattened once here.
+			$widgets_list = [];
+
+			foreach ( PP_Config::get_widget_info() as $widgets ) {
+				foreach ( $widgets as $key => $widget ) {
+					if ( ! empty( $widget['is_pro'] ) ) {
+						continue;
+					}
+
+					$widgets_list[ $key ] = $widget;
+				}
+			}
+
+			self::$widgets_list = $widgets_list;
 		}
 
 		return apply_filters( 'ppe_lite_widgets_list', self::$widgets_list );
@@ -96,7 +117,7 @@ class PP_Helper {
 	 */
 	public static function get_widget_name( $slug = '' ) {
 
-		self::$widgets_list = PP_Config::get_widget_info();
+		self::$widgets_list = self::get_widgets_list();
 
 		$widget_name = '';
 
@@ -122,7 +143,7 @@ class PP_Helper {
 	 */
 	public static function get_widget_title( $slug = '' ) {
 
-		self::$widgets_list = PP_Config::get_widget_info();
+		self::$widgets_list = self::get_widgets_list();
 
 		$widget_name = '';
 
@@ -148,7 +169,7 @@ class PP_Helper {
 	 */
 	public static function get_widget_categories( $slug = '' ) {
 
-		self::$widgets_list = PP_Config::get_widget_info();
+		self::$widgets_list = self::get_widgets_list();
 
 		$widget_categories = '';
 
@@ -174,7 +195,7 @@ class PP_Helper {
 	 */
 	public static function get_widget_icon( $slug = '' ) {
 
-		self::$widgets_list = PP_Config::get_widget_info();
+		self::$widgets_list = self::get_widgets_list();
 
 		$widget_icon = '';
 
@@ -192,6 +213,26 @@ class PP_Helper {
 	}
 
 	/**
+	 * Provide Widget Docs URL
+	 *
+	 * @param string $slug Module slug.
+	 * @return string
+	 * @since 3.0.0
+	 */
+	public static function get_widget_docs( $slug = '' ) {
+
+		self::$widgets_list = self::get_widgets_list();
+
+		$widget_docs = '';
+
+		if ( isset( self::$widgets_list[ $slug ]['docs'] ) ) {
+			$widget_docs = self::$widgets_list[ $slug ]['docs'];
+		}
+
+		return apply_filters( 'pp_elements_lite_widget_docs', $widget_docs );
+	}
+
+	/**
 	 * Provide Widget Name
 	 *
 	 * @param string $slug Module slug.
@@ -200,7 +241,7 @@ class PP_Helper {
 	 */
 	public static function get_widget_keywords( $slug = '' ) {
 
-		self::$widgets_list = PP_Config::get_widget_info();
+		self::$widgets_list = self::get_widgets_list();
 
 		$widget_keywords = '';
 
@@ -619,6 +660,48 @@ class PP_Helper {
 		if ( has_action( $old_hook ) ) {
 			_deprecated_hook( esc_html( $old_hook ), esc_html( $version ), esc_html( $new_hook ) );
 			do_action_ref_array( $old_hook, $args );
+		}
+	}
+
+	/**
+	 * Get the list of PHP timezone identifiers, keyed by identifier.
+	 *
+	 * @since 3.0.0
+	 * @access public
+	 *
+	 * @return array Timezone identifier => identifier.
+	 */
+	public static function get_timezones() {
+		$timezone_list = [];
+		foreach ( timezone_identifiers_list() as $timezone ) {
+			$timezone_list[ $timezone ] = $timezone;
+		}
+		return $timezone_list;
+	}
+
+	/**
+	 * Convert a date string from the site timezone to another timezone.
+	 *
+	 * @since 3.0.0
+	 * @access public
+	 * @param string $date         The source date string.
+	 * @param string $formate      The output date format.
+	 * @param string $new_timezone Target timezone identifier.
+	 * @return string The formatted date, or the original value on failure.
+	 */
+	public static function get_timezones_converted_date( $date, $formate, $new_timezone ) {
+		if ( empty( $date ) ) {
+			return '';
+		}
+
+		$timezone_string = ( '' !== get_option( 'timezone_string' ) ) ? get_option( 'timezone_string' ) : 'UTC';
+
+		try {
+			$datetime = new \DateTime( $date, new \DateTimeZone( $timezone_string ) );
+			$datetime->setTimezone( new \DateTimeZone( $new_timezone ) );
+			return $datetime->format( $formate );
+		} catch ( \Exception $e ) {
+			return $date;
 		}
 	}
 }

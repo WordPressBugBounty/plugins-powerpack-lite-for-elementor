@@ -3,23 +3,54 @@
  * Plugin Name: PowerPack Lite for Elementor
  * Plugin URI: https://powerpackelements.com
  * Description: Extend Elementor Page Builder with 40+ Creative Widgets and exciting extensions.
- * Version: 2.10.4
+ * Version: 3.0.0
  * Author: PowerPack Addons Team - IdeaBox Creations
  * Author URI: http://ideabox.io/
  * License: GNU General Public License v2.0
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: powerpack-lite-for-elementor
- * Elementor tested up to: 4.0.0
- * Elementor Pro tested up to: 4.0.0
+ * Elementor tested up to: 4.2.0
+ * Elementor Pro tested up to: 4.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
+/*
+ * The paid edition supersedes this one, so when both are active only the paid
+ * one runs. Both may stay active: this file simply stops here, before defining
+ * a constant, including a file, or declaring anything at all.
+ *
+ * The answer is read from the active plugin list rather than from a constant
+ * the paid edition sets, because a constant only answers once that edition has
+ * already loaded, and which of the two WordPress loads first is decided by the
+ * order of a stored option. Reading the list answers the same either way, which
+ * is what lets the paid edition run without knowing this plugin exists.
+ *
+ * The plugin is matched on its own file name, so installing it into a
+ * differently named folder still counts.
+ */
 if ( defined( 'POWERPACK_ELEMENTS_VER' ) ) {
 	return;
 }
 
-define( 'POWERPACK_ELEMENTS_LITE_VER', '2.10.4' );
+$pp_lite_active_plugins = (array) get_option( 'active_plugins', array() );
+
+if ( is_multisite() ) {
+	$pp_lite_active_plugins = array_merge(
+		$pp_lite_active_plugins,
+		array_keys( (array) get_site_option( 'active_sitewide_plugins', array() ) )
+	);
+}
+
+foreach ( $pp_lite_active_plugins as $pp_lite_active_plugin ) {
+	if ( 'powerpack-elements.php' === basename( $pp_lite_active_plugin ) ) {
+		return;
+	}
+}
+
+unset( $pp_lite_active_plugins, $pp_lite_active_plugin );
+
+define( 'POWERPACK_ELEMENTS_LITE_VER', '3.0.0' );
 define( 'POWERPACK_ELEMENTS_LITE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_BASE', plugin_basename( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_URL', plugins_url( '/', __FILE__ ) );
@@ -33,6 +64,11 @@ require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-config.php';
 require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-helper.php';
 require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-posts-helper.php';
 require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-wpml.php';
+require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-settings-registry.php';
+require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-settings-rest-controller.php';
+require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-rollback.php';
+require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-widgets-notice.php';
+
 require_once POWERPACK_ELEMENTS_LITE_PATH . 'plugin.php';
 if ( did_action( 'elementor/loaded' ) ) {
 	require_once POWERPACK_ELEMENTS_LITE_PATH . 'classes/class-pp-templates-lib.php';

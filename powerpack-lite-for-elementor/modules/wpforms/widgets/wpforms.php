@@ -37,6 +37,18 @@ class WPforms extends Powerpack_Widget {
 	}
 
 	/**
+	 * This widget's class name does not match its catalogue key, so the key has
+	 * to be named here for the "Need Help?" link to resolve.
+	 *
+	 * @since 3.0.0
+	 * @param string $slug Optional. Catalogue key.
+	 * @return string
+	 */
+	public function get_custom_help_url( $slug = 'WP_Forms' ) {
+		return parent::get_custom_help_url( $slug );
+	}
+
+	/**
 	 * Get widget keywords.
 	 *
 	 * Retrieve the list of keywords the widget belongs to.
@@ -215,39 +227,6 @@ class WPforms extends Powerpack_Widget {
 
 		$this->end_controls_section();
 
-		$help_docs = PP_Config::get_widget_help_links( 'WP_Forms' );
-
-		if ( ! empty( $help_docs ) ) {
-
-			/**
-			 * Content Tab: Help Docs
-			 *
-			 * @since 1.4.15
-			 * @access protected
-			 */
-			$this->start_controls_section(
-				'section_help_docs',
-				[
-					'label' => esc_html__( 'Help Docs', 'powerpack-lite-for-elementor' ),
-				]
-			);
-
-			$hd_counter = 1;
-			foreach ( $help_docs as $hd_title => $hd_link ) {
-				$this->add_control(
-					'help_doc_' . $hd_counter,
-					[
-						'type'            => Controls_Manager::RAW_HTML,
-						'raw'             => sprintf( '%1$s ' . $hd_title . ' %2$s', '<a href="' . $hd_link . '" target="_blank" rel="noopener">', '</a>' ),
-						'content_classes' => 'pp-editor-doc-links',
-					]
-				);
-
-				$hd_counter++;
-			}
-
-			$this->end_controls_section();
-		}
 
 		/*-----------------------------------------------------------------------------------*/
 		/*	STYLE TAB
@@ -498,6 +477,7 @@ class WPforms extends Powerpack_Widget {
 				'default'           => '',
 				'selectors'         => [
 					'{{WRAPPER}} .pp-wpforms .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]), {{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .choices__inner, {{WRAPPER}} .pp-wpforms .wpforms-field textarea, {{WRAPPER}} .pp-wpforms .wpforms-field select' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .wpforms-field.wpforms-field-select-style-modern .choices .choices__inner .choices__list--single .choices__item--selectable' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -791,6 +771,11 @@ class WPforms extends Powerpack_Widget {
 				'type'              => Controls_Manager::COLOR,
 				'selectors'         => [
 					'{{WRAPPER}} .pp-wpforms .wpforms-field input::-webkit-input-placeholder, {{WRAPPER}} .pp-wpforms .wpforms-field textarea::-webkit-input-placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input::-moz-placeholder, {{WRAPPER}} .pp-wpforms .wpforms-field textarea::-moz-placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input:-ms-input-placeholder, {{WRAPPER}} .pp-wpforms .wpforms-field textarea:-ms-input-placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field input::placeholder, {{WRAPPER}} .pp-wpforms .wpforms-field textarea::placeholder' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-wpforms .wpforms-field select option.placeholder' => 'color: {{VALUE}}; opacity: 1;',
+					'{{WRAPPER}} .pp-wpforms .wpforms-container .wpforms-form .wpforms-field.wpforms-field-select-style-modern .choices .choices__inner .choices__list--single .choices__placeholder' => 'color: {{VALUE}}; opacity: 1;',
 				],
 				'condition'             => [
 					'placeholder_switch'   => 'yes',

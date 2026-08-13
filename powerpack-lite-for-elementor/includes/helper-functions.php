@@ -3,76 +3,50 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+/**
+ * Every widget this plugin ships and this site can actually use.
+ *
+ * Derived from the catalogue rather than listed again here. The two were
+ * maintained separately and had drifted: this list carried 'pp-link-effects'
+ * and 'pp-hotspots', which no widget answers to — the catalogue registers them
+ * as 'pa-link-effects' and 'pp-image-hotspots' — so neither name could ever
+ * enable anything.
+ *
+ * PP_Helper::get_widgets_list() is what drops the paid edition's widgets, which
+ * the catalogue also carries so the settings screen can promote them.
+ *
+ * @since 3.0.0
+ * @return array
+ */
 function powerpack_elements_lite_get_modules() {
-	$modules = array(
-		'pp-advanced-accordion'     => esc_html__( 'Advanced Accordion', 'powerpack-lite-for-elementor' ),
-		'pp-link-effects'           => esc_html__( 'Link Effects', 'powerpack-lite-for-elementor' ),
-		'pp-divider'                => esc_html__( 'Divider', 'powerpack-lite-for-elementor' ),
-		'pp-flipbox'                => esc_html__( 'Flipbox', 'powerpack-lite-for-elementor' ),
-		'pp-image-accordion'        => esc_html__( 'Image Accordion', 'powerpack-lite-for-elementor' ),
-		'pp-info-box'               => esc_html__( 'Info Box', 'powerpack-lite-for-elementor' ),
-		'pp-info-box-carousel'      => esc_html__( 'Info Grid & Carousel', 'powerpack-lite-for-elementor' ),
-		'pp-info-list'              => esc_html__( 'Info List', 'powerpack-lite-for-elementor' ),
-		'pp-info-table'             => esc_html__( 'Info Table', 'powerpack-lite-for-elementor' ),
-		'pp-pricing-table'          => esc_html__( 'Pricing Table', 'powerpack-lite-for-elementor' ),
-		'pp-price-menu'             => esc_html__( 'Price Menu', 'powerpack-lite-for-elementor' ),
-		'pp-business-hours'         => esc_html__( 'Business Hours', 'powerpack-lite-for-elementor' ),
-		'pp-team-member'            => esc_html__( 'Team Member', 'powerpack-lite-for-elementor' ),
-		'pp-team-member-carousel'   => esc_html__( 'Team Member Carousel', 'powerpack-lite-for-elementor' ),
-		'pp-counter'                => esc_html__( 'Counter', 'powerpack-lite-for-elementor' ),
-		'pp-hotspots'               => esc_html__( 'Image Hotspots', 'powerpack-lite-for-elementor' ),
-		'pp-icon-list'              => esc_html__( 'Icon List', 'powerpack-lite-for-elementor' ),
-		'pp-dual-heading'           => esc_html__( 'Dual Heading', 'powerpack-lite-for-elementor' ),
-		'pp-promo-box'              => esc_html__( 'Promo Box', 'powerpack-lite-for-elementor' ),
-		'pp-logo-carousel'          => esc_html__( 'Logo Carousel', 'powerpack-lite-for-elementor' ),
-		'pp-logo-grid'              => esc_html__( 'Logo Grid', 'powerpack-lite-for-elementor' ),
-		'pp-marquee'                => esc_html__( 'Marquee', 'powerpack-lite-for-elementor' ),
-		'pp-image-comparison'       => esc_html__( 'Image Comparison', 'powerpack-lite-for-elementor' ),
-		'pp-instafeed'              => esc_html__( 'Instagram Feed', 'powerpack-lite-for-elementor' ),
-		'pp-interactive-circle'     => esc_html__( 'Interactive Circle', 'powerpack-lite-for-elementor' ),
-		'pp-progress-bar'           => esc_html__( 'Progress Bar', 'powerpack-lite-for-elementor' ),
-		'pp-content-ticker'         => esc_html__( 'Content Ticker', 'powerpack-lite-for-elementor' ),
-		'pp-scroll-image'           => esc_html__( 'Scroll Image', 'powerpack-lite-for-elementor' ),
-		'pp-buttons'                => esc_html__( 'Buttons', 'powerpack-lite-for-elementor' ),
-		'pp-twitter-buttons'        => esc_html__( 'Twitter Buttons', 'powerpack-lite-for-elementor' ),
-		'pp-twitter-grid'           => esc_html__( 'Twitter Grid', 'powerpack-lite-for-elementor' ),
-		'pp-twitter-timeline'       => esc_html__( 'Twitter Timeline', 'powerpack-lite-for-elementor' ),
-		'pp-twitter-tweet'          => esc_html__( 'Twitter Tweet', 'powerpack-lite-for-elementor' ),
-		'pp-fancy-heading'          => esc_html__( 'Fancy Heading', 'powerpack-lite-for-elementor' ),
-		'pp-posts'                  => esc_html__( 'Posts', 'powerpack-lite-for-elementor' ),
-		'pp-content-reveal'         => esc_html__( 'Content Reveal', 'powerpack-lite-for-elementor' ),
-		'pp-random-image'           => esc_html__( 'Random Image', 'powerpack-lite-for-elementor' ),
-		'pp-charts'                 => esc_html__( 'Advanced Charts', 'powerpack-lite-for-elementor' ),
-	);
+	/*
+	 * Form stylers are only offered when the form plugin they style is here.
+	 * Nothing is gained by putting a Gravity Forms switch in front of someone
+	 * who does not have Gravity Forms.
+	 */
+	$requires = [
+		'pp-contact-form-7'   => 'wpcf7',
+		'pp-gravity-forms'    => 'GFCommon',
+		'pp-ninja-forms'      => 'Ninja_Forms',
+		'pp-wpforms'          => 'wpforms',
+		'pp-formidable-forms' => 'FrmForm',
+		'pp-fluent-forms'     => 'wpFluentForm',
+	];
 
-	// Contact Form 7
-	if ( function_exists( 'wpcf7' ) ) {
-		$modules['pp-contact-form-7'] = esc_html__( 'Contact Form 7', 'powerpack-lite-for-elementor' );
-	}
+	$modules = [];
 
-	// Gravity Forms
-	if ( class_exists( 'GFCommon' ) ) {
-		$modules['pp-gravity-forms'] = esc_html__( 'Gravity Forms', 'powerpack-lite-for-elementor' );
-	}
+	foreach ( \PowerpackElementsLite\Classes\PP_Helper::get_widgets_list() as $widget ) {
+		if ( empty( $widget['name'] ) ) {
+			continue;
+		}
 
-	// Ninja Forms
-	if ( class_exists( 'Ninja_Forms' ) ) {
-		$modules['pp-ninja-forms'] = esc_html__( 'Ninja Forms', 'powerpack-lite-for-elementor' );
-	}
+		$name = $widget['name'];
 
-	// WPForms
-	if ( function_exists( 'wpforms' ) ) {
-		$modules['pp-wpforms'] = esc_html__( 'WPForms', 'powerpack-lite-for-elementor' );
-	}
+		if ( isset( $requires[ $name ] ) && ! function_exists( $requires[ $name ] ) && ! class_exists( $requires[ $name ] ) ) {
+			continue;
+		}
 
-	// Formidable Forms
-	if ( class_exists( 'FrmForm' ) ) {
-		$modules['pp-formidable-forms'] = esc_html__( 'Formidable Forms', 'powerpack-lite-for-elementor' );
-	}
-
-	// Fluent Forms
-	if ( function_exists( 'wpFluentForm' ) ) {
-		$modules['pp-fluent-forms'] = esc_html__( 'Fluent Forms', 'powerpack-lite-for-elementor' );
+		$modules[ $name ] = $widget['title'];
 	}
 
 	ksort( $modules );
@@ -91,14 +65,166 @@ function powerpack_elements_lite_get_extensions() {
 	return $extensions;
 }
 
+/**
+ * Widgets that ship switched off.
+ *
+ * Read from the 'default_off' flag in the catalogue, so the fact lives next to
+ * the widget it describes and cannot drift out of sync with a rename the way a
+ * separate list of names does.
+ *
+ * This reads the same filtered list the catalogue accessors use, so a paid
+ * widget carrying the flag can never reach the default set.
+ *
+ * @since 3.0.0
+ *
+ * @return array List of widget names.
+ */
+function powerpack_elements_lite_get_default_off_modules() {
+	$default_off = [];
+
+	foreach ( \PowerpackElementsLite\Classes\PP_Helper::get_widgets_list() as $widget ) {
+		if ( ! empty( $widget['default_off'] ) && ! empty( $widget['name'] ) ) {
+			$default_off[] = $widget['name'];
+		}
+	}
+
+	return $default_off;
+}
+
+/**
+ * The widgets that are switched on, as a list of names.
+ *
+ * Three shapes reach here. An unsaved option is false, and means every widget
+ * that does not ship switched off is on. The string 'disabled' is what the old
+ * settings screen wrote when every widget was switched off — it is not an array
+ * either, so it used to fall through to "everything on" and turn the whole
+ * library back on. Anything else is the stored list.
+ *
+ * @since 3.0.0
+ * @return array
+ */
 function powerpack_elements_lite_get_enabled_modules() {
 	$enabled_modules = \PowerpackElementsLite\Classes\PP_Admin_Settings::get_option( 'pp_elementor_modules', true );
 
-	if ( ! is_array( $enabled_modules ) ) {
-		return array_keys( powerpack_elements_lite_get_modules() );
-	} else {
-		return $enabled_modules;
+	if ( 'disabled' === $enabled_modules ) {
+		$enabled_modules = [];
+	} elseif ( ! is_array( $enabled_modules ) ) {
+		$enabled_modules = array_values(
+			array_diff(
+				array_keys( powerpack_elements_lite_get_modules() ),
+				powerpack_elements_lite_get_default_off_modules()
+			)
+		);
 	}
+
+	return apply_filters( 'pp_elementor_enabled_modules', $enabled_modules );
+}
+
+/**
+ * The widgets that are switched on, as a lookup table.
+ *
+ * The stored option is a plain list of widget names, but the "nothing saved
+ * yet" fallback above builds its list from the catalogue, which is keyed by
+ * name. Both shapes are flattened here to 'name => true'.
+ *
+ * Module_Base::is_widget_active() runs once per widget on every registration
+ * pass, and now once more per module before the module is booted at all, so
+ * this is one of the hottest paths in the plugin. The option is read and
+ * filtered once per request, and membership becomes a single isset() instead
+ * of an in_array() scan over the whole library.
+ *
+ * @since 3.0.0
+ * @param bool $reset Internal. Flush the cached lookup, see
+ *                    powerpack_elements_lite_flush_enabled_modules_cache().
+ * @return array Map of enabled widget name => true.
+ */
+function powerpack_elements_lite_get_enabled_modules_lookup( $reset = false ) {
+	static $lookup = null;
+
+	if ( $reset ) {
+		$lookup = null;
+
+		return [];
+	}
+
+	if ( null !== $lookup ) {
+		return $lookup;
+	}
+
+	$enabled_modules = powerpack_elements_lite_get_enabled_modules();
+	$lookup          = [];
+
+	if ( is_array( $enabled_modules ) ) {
+		foreach ( $enabled_modules as $key => $value ) {
+			$module_name = is_int( $key ) ? $value : $key;
+
+			if ( is_string( $module_name ) ) {
+				$lookup[ $module_name ] = true;
+			}
+		}
+	}
+
+	return $lookup;
+}
+
+/**
+ * Flush the cached enabled widgets lookup.
+ *
+ * Hooked to the option writes so a settings save is picked up within the same
+ * request that performed it. The site option hooks matter on multisite, where
+ * PP_Admin_Settings::get_option() may read the network copy.
+ *
+ * @since 3.0.0
+ * @return void
+ */
+function powerpack_elements_lite_flush_enabled_modules_cache() {
+	powerpack_elements_lite_get_enabled_modules_lookup( true );
+}
+add_action( 'add_option_pp_elementor_modules', 'powerpack_elements_lite_flush_enabled_modules_cache' );
+add_action( 'update_option_pp_elementor_modules', 'powerpack_elements_lite_flush_enabled_modules_cache' );
+add_action( 'delete_option_pp_elementor_modules', 'powerpack_elements_lite_flush_enabled_modules_cache' );
+add_action( 'add_site_option_pp_elementor_modules', 'powerpack_elements_lite_flush_enabled_modules_cache' );
+add_action( 'update_site_option_pp_elementor_modules', 'powerpack_elements_lite_flush_enabled_modules_cache' );
+add_action( 'delete_site_option_pp_elementor_modules', 'powerpack_elements_lite_flush_enabled_modules_cache' );
+
+/**
+ * The enabled widget names, limited to widgets this plugin still ships.
+ *
+ * Names left behind by widgets that have since been removed or that this site
+ * cannot use are dropped, so counts always line up with the current library.
+ *
+ * @since 3.0.0
+ * @return array
+ */
+function powerpack_elements_lite_get_enabled_module_names() {
+	$all_modules = array_keys( powerpack_elements_lite_get_modules() );
+	$enabled     = array_keys( powerpack_elements_lite_get_enabled_modules_lookup() );
+
+	return array_values( array_intersect( $all_modules, $enabled ) );
+}
+
+/**
+ * Counts for the widget library, used to decide whether it is worth nudging
+ * someone to switch off widgets their site is not using.
+ *
+ * @since 3.0.0
+ * @return array {
+ *     @type int $total    Widgets this plugin ships that this site can use.
+ *     @type int $enabled  Widgets switched on.
+ *     @type int $disabled Widgets switched off.
+ *     @type int $percent  Percentage of the library switched on, rounded.
+ * }
+ */
+function powerpack_elements_lite_get_modules_stats() {
+	$total   = count( powerpack_elements_lite_get_modules() );
+	$enabled = count( powerpack_elements_lite_get_enabled_module_names() );
+
+	return [
+		'total'    => $total,
+		'enabled'  => $enabled,
+		'disabled' => max( 0, $total - $enabled ),
+		'percent'  => $total > 0 ? (int) round( ( $enabled / $total ) * 100 ) : 0,
+	];
 }
 
 function powerpack_elements_lite_get_filter_modules( $status = '' ) {
@@ -238,3 +364,26 @@ function powerpack_elements_lite_get_enabled_extensions() {
 function powerpack_elements_lite_get_elementor() {
 	return \Elementor\Plugin::$instance;
 }
+
+/**
+ * Send "upgrade" on the settings screen to the page that sells the paid edition.
+ *
+ * The settings app, its REST controller and the settings registry are the same
+ * code as the paid edition's, which is why the destination arrives through a
+ * filter rather than being written into the screen itself.
+ *
+ * Everything this file declares is prefixed for this plugin alone, and this
+ * plugin's copy of the shared code calls these names rather than the paid
+ * edition's. That is deliberate, and it is the whole reason both plugins can be
+ * active at once: two declarations of one function name is a fatal, and which of
+ * the two declares first depends on the order WordPress happens to load them in.
+ * With no name in common there is nothing to collide, and the paid edition needs
+ * to know nothing about this one.
+ *
+ * @since 3.0.0
+ * @return string
+ */
+function powerpack_elements_lite_settings_upgrade_url() {
+	return 'https://powerpackelements.com/upgrade/';
+}
+add_filter( 'pp_settings_upgrade_url', 'powerpack_elements_lite_settings_upgrade_url' );

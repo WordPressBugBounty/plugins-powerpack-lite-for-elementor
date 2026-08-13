@@ -62,8 +62,8 @@
   padding: 3px;
   vertical-align: middle;
 }
-.pp-custom-radio-checkbox input[type=checkbox]:before,
-.pp-custom-radio-checkbox input[type=radio]:before {
+.pp-custom-radio-checkbox input[type=checkbox]::before,
+.pp-custom-radio-checkbox input[type=radio]::before {
   content: "";
   width: 100%;
   height: 100%;
@@ -71,8 +71,8 @@
   margin: 0;
   display: block;
 }
-.pp-custom-radio-checkbox input[type=checkbox]:checked:before,
-.pp-custom-radio-checkbox input[type=radio]:checked:before {
+.pp-custom-radio-checkbox input[type=checkbox]:checked::before,
+.pp-custom-radio-checkbox input[type=radio]:checked::before {
   background: #999;
   -webkit-transition: all 0.25s linear 0s;
   transition: all 0.25s linear 0s;
@@ -80,7 +80,7 @@
 .pp-custom-radio-checkbox input[type=radio] {
   border-radius: 50%;
 }
-.pp-custom-radio-checkbox input[type=radio]:before {
+.pp-custom-radio-checkbox input[type=radio]::before {
   border-radius: 50%;
 }
 
@@ -108,6 +108,14 @@
 .pp-wpforms .wpforms-container .wpforms-field textarea,
 .pp-wpforms .wpforms-container .wpforms-field select {
   max-width: 100% !important;
+}
+.pp-wpforms .wpforms-container .wpforms-field input:not([type=radio]):not([type=checkbox]):not([type=submit]):not([type=button]):not([type=image]):not([type=file]):focus,
+.pp-wpforms .wpforms-container .wpforms-field textarea:focus,
+.pp-wpforms .wpforms-container .wpforms-field select:focus {
+  outline: none;
+}
+.pp-wpforms .wpforms-container .wpforms-form .choices.is-focused .choices__inner {
+  outline: none;
 }
 .pp-wpforms-labels-yes .wpforms-container .wpforms-form .wpforms-field-label {
   display: block;

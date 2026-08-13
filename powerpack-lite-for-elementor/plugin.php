@@ -142,13 +142,6 @@ class PowerpackLitePlugin {
 		);
 
 		wp_register_style(
-			'pp-elementor-grid',
-			POWERPACK_ELEMENTS_LITE_URL . $path . 'elementor-grid' . $suffix . '.css',
-			array(),
-			POWERPACK_ELEMENTS_LITE_VER
-		);
-
-		wp_register_style(
 			'pp-swiper',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'pp-swiper' . $suffix . '.css',
 			array(),
@@ -272,6 +265,7 @@ class PowerpackLitePlugin {
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-instafeed' . $suffix . '.js',
 			array(
 				'jquery',
+				'pp-masonry',
 			),
 			POWERPACK_ELEMENTS_LITE_VER,
 			true
@@ -310,6 +304,37 @@ class PowerpackLitePlugin {
 		wp_register_script(
 			'pp-chart',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-charts' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		// Event Calendar widget. FullCalendar 6 injects its own CSS from the
+		// bundle, so it is registered as a script only.
+		wp_register_script(
+			'fullcalendar',
+			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/fullcalendar/index.global' . $suffix . '.js',
+			array(),
+			'6.1.19',
+			true
+		);
+
+		wp_register_script(
+			'pp-event-calendar',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-event-calendar' . $suffix . '.js',
+			array(
+				'jquery',
+				'fullcalendar',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-slide-menu',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'pp-slide-menu' . $suffix . '.js',
 			array(
 				'jquery',
 			),
@@ -358,12 +383,12 @@ class PowerpackLitePlugin {
 		);
 
 		wp_register_script(
-			'isotope',
-			POWERPACK_ELEMENTS_LITE_URL . 'assets/lib/isotope/isotope.pkgd' . $suffix . '.js',
+			'pp-masonry',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'pp-masonry' . $suffix . '.js',
 			array(
 				'jquery',
 			),
-			'0.5.3',
+			POWERPACK_ELEMENTS_LITE_VER,
 			true
 		);
 
@@ -402,6 +427,7 @@ class PowerpackLitePlugin {
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-posts' . $suffix . '.js',
 			[
 				'jquery',
+				'pp-masonry',
 			],
 			POWERPACK_ELEMENTS_LITE_VER,
 			true

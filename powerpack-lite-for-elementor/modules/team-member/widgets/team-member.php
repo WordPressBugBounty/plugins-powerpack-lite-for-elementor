@@ -75,7 +75,7 @@ class Team_Member extends Powerpack_Widget {
 	}
 
 	protected function is_dynamic_content(): bool {
-		return false;
+		return true;
 	}
 
 	/**
@@ -111,7 +111,6 @@ class Team_Member extends Powerpack_Widget {
 		$this->register_content_details_controls();
 		$this->register_content_social_links_controls();
 		$this->register_content_settings_controls();
-		$this->register_content_help_docs_controls();
 
 		/* Style Tab */
 		$this->register_style_content_controls();
@@ -604,7 +603,7 @@ class Team_Member extends Powerpack_Widget {
 			[
 				'label'                 => esc_html__( 'Divider after Description', 'powerpack-lite-for-elementor' ),
 				'type'                  => Controls_Manager::SWITCHER,
-				'default'               => 'hide',
+				'default'               => '',
 				'label_on'              => esc_html__( 'Show', 'powerpack-lite-for-elementor' ),
 				'label_off'             => esc_html__( 'Hide', 'powerpack-lite-for-elementor' ),
 				'return_value'          => 'yes',
@@ -617,41 +616,6 @@ class Team_Member extends Powerpack_Widget {
 		$this->end_controls_section();
 	}
 
-	/**
-	 * Content Tab: Help Doc Links
-	 *
-	 * @since 2.4.0
-	 * @access protected
-	 */
-	protected function register_content_help_docs_controls() {
-
-		$help_docs = PP_Config::get_widget_help_links( 'Team_Member' );
-		if ( ! empty( $help_docs ) ) {
-
-			$this->start_controls_section(
-				'section_help_docs',
-				array(
-					'label' => esc_html__( 'Help Docs', 'powerpack-lite-for-elementor' ),
-				)
-			);
-
-			$hd_counter = 1;
-			foreach ( $help_docs as $hd_title => $hd_link ) {
-				$this->add_control(
-					'help_doc_' . $hd_counter,
-					array(
-						'type'            => Controls_Manager::RAW_HTML,
-						'raw'             => sprintf( '%1$s ' . $hd_title . ' %2$s', '<a href="' . $hd_link . '" target="_blank" rel="noopener">', '</a>' ),
-						'content_classes' => 'pp-editor-doc-links',
-					)
-				);
-
-				$hd_counter++;
-			}
-
-			$this->end_controls_section();
-		}
-	}
 
 	/*-----------------------------------------------------------------------------------*/
 	/*	STYLE TAB
@@ -1558,6 +1522,43 @@ class Team_Member extends Powerpack_Widget {
 	}
 
 	/**
+	 * Conditions reused by the social-links style controls that should only
+	 * apply when the links render as plain icons, or as buttons with a
+	 * custom (non-official) color.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return array
+	 */
+	protected function get_social_links_style_conditions() {
+		return [
+			'relation' => 'or',
+			'terms'    => [
+				[
+					'name'     => 'social_links_style',
+					'operator' => '===',
+					'value'    => 'icon',
+				],
+				[
+					'relation' => 'and',
+					'terms'    => [
+						[
+							'name'     => 'social_links_style',
+							'operator' => '===',
+							'value'    => 'button',
+						],
+						[
+							'name'     => 'member_icon_color',
+							'operator' => '==',
+							'value'    => 'custom',
+						],
+					],
+				],
+			],
+		];
+	}
+
+	/**
 	 * Register social links style controls
 	 *
 	 * @return void
@@ -1644,31 +1645,7 @@ class Team_Member extends Powerpack_Widget {
 			'tab_links_normal',
 			[
 				'label'      => esc_html__( 'Normal', 'powerpack-lite-for-elementor' ),
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
@@ -1682,31 +1659,7 @@ class Team_Member extends Powerpack_Widget {
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap svg' => 'fill: {{VALUE}};',
 				],
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
@@ -1719,31 +1672,7 @@ class Team_Member extends Powerpack_Widget {
 				'selectors'  => [
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap' => 'background-color: {{VALUE}};',
 				],
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
@@ -1790,31 +1719,7 @@ class Team_Member extends Powerpack_Widget {
 			'tab_links_hover',
 			[
 				'label'      => esc_html__( 'Hover', 'powerpack-lite-for-elementor' ),
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
@@ -1828,31 +1733,7 @@ class Team_Member extends Powerpack_Widget {
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover svg' => 'fill: {{VALUE}};',
 				],
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
@@ -1865,31 +1746,7 @@ class Team_Member extends Powerpack_Widget {
 				'selectors'  => [
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover' => 'background-color: {{VALUE}};',
 				],
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
@@ -1902,31 +1759,7 @@ class Team_Member extends Powerpack_Widget {
 				'selectors'  => [
 					'{{WRAPPER}} .pp-tm-social-links .pp-tm-social-icon-wrap:hover' => 'border-color: {{VALUE}};',
 				],
-				'conditions' => array(
-					'relation' => 'or',
-					'terms'    => array(
-						array(
-							'name'     => 'social_links_style',
-							'operator' => '===',
-							'value'    => 'icon',
-						),
-						array(
-							'relation' => 'and',
-							'terms'    => array(
-								array(
-									'name'     => 'social_links_style',
-									'operator' => '===',
-									'value'    => 'button',
-								),
-								array(
-									'name'     => 'member_icon_color',
-									'operator' => '==',
-									'value'    => 'custom',
-								),
-							),
-						),
-					),
-				),
+				'conditions' => $this->get_social_links_style_conditions(),
 			]
 		);
 
