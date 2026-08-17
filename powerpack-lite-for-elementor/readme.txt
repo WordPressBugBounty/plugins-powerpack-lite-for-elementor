@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -275,6 +275,13 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 3.0.1 - August 17, 2026 =
+*	Enhancement: WPML - Added translation support for the Event Calendar and Slide Menu widgets
+*	Enhancement: WPML - Added translation support for the Custom Cursor and Wrapper Link extensions
+*	Enhancement: PowerPack settings - The Elements tab now links each widget that needs an API key to its Integration settings
+*	Fix: Content Reveal - Toggle button remained visible when the content was shorter than the visible lines limit
+*	Fix: Content Reveal - Setting Visible Amount to 0 lines threw a JavaScript error and left the toggle button unresponsive
 
 = 3.0.0 - August 13, 2026 =
 Important: After updating, please go to Elementor > Tools > Regenerate Files & Data and click "Regenerate Files" to flush the CSS cache. The Posts and Instagram Feed grids no longer use the plugin's own grid stylesheet, and several widgets now drive their styles through CSS variables.
