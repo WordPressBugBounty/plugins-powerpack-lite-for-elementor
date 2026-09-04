@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -275,6 +275,11 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 3.0.2 - September 4, 2026 =
+*	Enhancement: Content Reveal - Visible Amount can now be set to 0, in pixels or lines, to keep the content fully hidden and show only the toggle button
+*	Fix: Content Reveal - Setting Visible Amount to 0 pixels left the content stuck open, as the toggle button no longer collapsed it
+*	Fix: Advanced Accordion - An accordion nested inside another accordion collapsed immediately when one of its tabs was clicked
 
 = 3.0.1 - August 17, 2026 =
 *	Enhancement: WPML - Added translation support for the Event Calendar and Slide Menu widgets
