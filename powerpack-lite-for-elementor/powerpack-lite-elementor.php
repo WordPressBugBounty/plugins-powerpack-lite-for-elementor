@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack Lite for Elementor
  * Plugin URI: https://powerpackelements.com
  * Description: Extend Elementor Page Builder with 40+ Creative Widgets and exciting extensions.
- * Version: 3.0.2
+ * Version: 3.1.0
  * Author: PowerPack Addons Team - IdeaBox Creations
  * Author URI: http://ideabox.io/
  * License: GNU General Public License v2.0
@@ -50,11 +50,11 @@ foreach ( $pp_lite_active_plugins as $pp_lite_active_plugin ) {
 
 unset( $pp_lite_active_plugins, $pp_lite_active_plugin );
 
-define( 'POWERPACK_ELEMENTS_LITE_VER', '3.0.2' );
+define( 'POWERPACK_ELEMENTS_LITE_VER', '3.1.0' );
 define( 'POWERPACK_ELEMENTS_LITE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_BASE', plugin_basename( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_URL', plugins_url( '/', __FILE__ ) );
-define( 'POWERPACK_ELEMENTS_LITE_ELEMENTOR_VERSION_REQUIRED', '3.5.0' );
+define( 'POWERPACK_ELEMENTS_LITE_ELEMENTOR_VERSION_REQUIRED', '4.0.0' );
 define( 'POWERPACK_ELEMENTS_LITE_PHP_VERSION_REQUIRED', '7.4' );
 
 require_once POWERPACK_ELEMENTS_LITE_PATH . 'includes/helper-functions.php';

@@ -1300,6 +1300,8 @@ class Progress_Bar extends Powerpack_Widget {
 		$count_pos  = 'after' === $settings['percentage_position'] ? 'after' : 'before';
 
 		$bar_setting_key = 'bar_wrapper';
+		$label_id        = 'pp-progress-label-' . $this->get_id();
+		$has_label       = ! Utils::is_empty( $title ) && 'multiple' !== $settings['labels_type'];
 
 		$this->add_render_attribute(
 			$bar_setting_key,
@@ -1312,6 +1314,12 @@ class Progress_Bar extends Powerpack_Widget {
 				'data-value'    => $percentage,
 			]
 		);
+
+		if ( $has_label ) {
+			$this->add_render_attribute( $bar_setting_key, 'aria-labelledby', $label_id );
+		} else {
+			$this->add_render_attribute( $bar_setting_key, 'aria-label', esc_html__( 'Progress', 'powerpack-lite-for-elementor' ) );
+		}
 
 		if ( 'striped' === $style ) {
 			$this->add_render_attribute( $bar_setting_key, 'class', 'pp-progress-bar-striped' );
@@ -1328,7 +1336,7 @@ class Progress_Bar extends Powerpack_Widget {
 		?>
 		<div <?php $this->print_render_attribute_string( $bar_setting_key ); ?>>
 			<?php if ( 'single' === $settings['labels_type'] && ( ( 'line' === $type || 'dots' === $type ) && ! Utils::is_empty( $title ) ) ) : ?>
-				<<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?> class="pp-progress-label">
+				<<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?> id="<?php echo esc_attr( $label_id ); ?>" class="pp-progress-label">
 					<?php echo esc_html( $title ); ?>
 				</<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?>>
 			<?php endif; ?>
@@ -1342,12 +1350,12 @@ class Progress_Bar extends Powerpack_Widget {
 				)
 			) {
 				?>
-				<div class="pp-progress-count">0%</div>
+				<div class="pp-progress-count" aria-hidden="true">0%</div>
 				<?php
 			}
 
 			if ( 'multiple' === $settings['labels_type'] && ( 'line' === $type || 'vertical' === $type || 'dots' === $type ) ) {
-				echo $this->render_labels();
+				$this->print_labels();
 			}
 
 			switch ( $type ) :
@@ -1365,7 +1373,14 @@ class Progress_Bar extends Powerpack_Widget {
 						</div>
 						<div class="pp-bar-circle-inner"></div>
 						<div class="pp-bar-circle-content">
-							<?php $this->render_circle_label_and_count( $settings, $title, $show_count, $count_pos ); ?>
+							<?php if ( 'yes' === $settings['display_percentage'] ) { ?>
+								<div class="pp-progress-count" aria-hidden="true">0%</div>
+							<?php } ?>
+							<?php if ( ! Utils::is_empty( $title ) ) : ?>
+								<<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?> id="<?php echo esc_attr( $label_id ); ?>" class="pp-progress-label">
+									<?php echo esc_html( $title ); ?>
+								</<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?>>
+							<?php endif; ?>
 						</div>
 					</div>
 				<?php break;
@@ -1379,7 +1394,14 @@ class Progress_Bar extends Powerpack_Widget {
 							<div class="pp-bar-circle-inner"></div>
 						</div>
 						<div class="pp-bar-circle-content">
-							<?php $this->render_circle_label_and_count( $settings, $title, $show_count, $count_pos ); ?>
+							<?php if ( 'yes' === $settings['display_percentage'] ) { ?>
+								<div class="pp-progress-count" aria-hidden="true">0%</div>
+							<?php } ?>
+							<?php if ( ! Utils::is_empty( $title ) ) : ?>
+								<<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?> id="<?php echo esc_attr( $label_id ); ?>" class="pp-progress-label">
+									<?php echo esc_html( $title ); ?>
+								</<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?>>
+							<?php endif; ?>
 						</div>
 					</div>
 					<?php if ( 'show' === $settings['show_suffix'] ) { ?>
@@ -1414,12 +1436,12 @@ class Progress_Bar extends Powerpack_Widget {
 				'after' === $count_pos
 			) {
 				?>
-				<div class="pp-progress-count">0%</div>
+				<div class="pp-progress-count" aria-hidden="true">0%</div>
 				<?php
 			} ?>
 
 			<?php if ( 'single' === $settings['labels_type'] && 'vertical' === $type && ! Utils::is_empty( $title ) ) : ?>
-				<<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?> class="pp-progress-label">
+				<<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?> id="<?php echo esc_attr( $label_id ); ?>" class="pp-progress-label">
 					<?php echo esc_html( $title ); ?>
 				</<?php Utils::print_validated_html_tag( $settings['title_tag'] ); ?>>
 			<?php endif; ?>
@@ -1469,18 +1491,18 @@ class Progress_Bar extends Powerpack_Widget {
 	}
 
 	/**
-	 * Build the markup for the multi-label list rendered alongside the bar.
+	 * Print the markup for the multi-label list rendered alongside the bar.
 	 *
 	 * @since 2.8.0
 	 * @access protected
 	 *
-	 * @return string Rendered labels markup, or an empty string when no labels are configured.
+	 * @return void
 	 */
-	protected function render_labels() {
+	protected function print_labels() {
 		$settings = $this->get_settings_for_display();
 
 		if ( empty( $settings['labels'] ) ) {
-			return '';
+			return;
 		}
 
 		$indicator = 'none';
@@ -1490,59 +1512,54 @@ class Progress_Bar extends Powerpack_Widget {
 		} elseif ( 'line_pin' === $settings['labels_indicator'] ) {
 			$indicator = 'pin';
 		}
-
-		ob_start();
 		?>
 		<div class="pp-bar-container-label pp-bar-indicator-<?php echo esc_attr( $indicator ); ?> pp-bar-indicator-align-<?php echo esc_attr( $settings['labels_align'] ); ?>">
 			<?php
 			$direction = is_rtl() ? 'right' : 'left';
 
 			foreach ( $settings['labels'] as $item ) {
-				$number            = is_numeric( $item['number'] ) ? max( 0, min( 100, (int) $item['number'] ) ) : 0;
-				$text              = esc_html( $item['text'] );
-				$number_percentage = esc_attr( $number . '%' );
+				$number = is_numeric( $item['number'] ) ? max( 0, min( 100, (int) $item['number'] ) ) : 0;
 
 				if ( 'vertical' === $settings['type'] ) {
-					$direction_style = 'top:' . (100 - $number) . '%;';
+					$direction_style = 'top:' . ( 100 - $number ) . '%;';
 				} else {
-					$direction_style = esc_attr( $direction . ':' . $number . '%;' );
+					$direction_style = $direction . ':' . $number . '%;';
 				}
 
-				$indicator_markup = $this->get_indicator_markup( $settings['labels_indicator'] );
-
-				$label_content = '<p class="pp-bar-center-label">' . $text;
+				echo '<div class="pp-bar-label" style="' . esc_attr( $direction_style ) . '"><p class="pp-bar-center-label">' . esc_html( $item['text'] );
 
 				if ( 'yes' === $settings['display_percentage_labels'] ) {
-					$label_content .= ' <span class="pp-bar-label-percentage">' . $number_percentage . '</span>';
+					echo ' <span class="pp-bar-label-percentage">' . esc_html( $number . '%' ) . '</span>';
 				}
 
-				$label_content .= '</p>';
+				echo '</p>';
 
-				echo '<div class="pp-bar-label" style="' . esc_attr( $direction_style ) . '">' . $label_content . $indicator_markup . '</div>';
+				$this->print_indicator_markup( $settings['labels_indicator'] );
+
+				echo '</div>';
 			}
 			?>
 		</div>
 		<?php
-		return ob_get_clean();
 	}
 
 	/**
-	 * Get the markup for the label indicator.
+	 * Print the markup for the label indicator.
 	 *
 	 * @since 2.8.0
 	 * @access private
 	 *
 	 * @param string $indicator The type of label indicator.
-	 * @return string The markup for the label indicator.
+	 * @return void
 	 */
-	private function get_indicator_markup( $indicator ) {
+	private function print_indicator_markup( $indicator ) {
 		switch ( $indicator ) {
 			case 'arrow':
-				return '<p class="pp-bar-label-arrow"></p>';
+				echo '<p class="pp-bar-label-arrow"></p>';
+				break;
 			case 'line_pin':
-				return '<p class="pp-bar-label-pin"></p>';
-			default:
-				return '';
+				echo '<p class="pp-bar-label-pin"></p>';
+				break;
 		}
 	}
 
