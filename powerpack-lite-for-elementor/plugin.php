@@ -200,6 +200,14 @@ class PowerpackLitePlugin {
 			true
 		);
 
+		wp_localize_script(
+			'pp-carousel',
+			'ppCarouselScript',
+			[
+				'i18n' => PP_Helper::get_carousel_a11y_strings(),
+			]
+		);
+
 		wp_register_script(
 			'pp-content-reveal',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-content-reveal' . $suffix . '.js',
@@ -230,6 +238,36 @@ class PowerpackLitePlugin {
 			true
 		);
 
+		wp_localize_script(
+			'pp-gravity-forms',
+			'ppGravityFormsScript',
+			[
+				'form_has_errors' => esc_html__( 'The form has errors. Please review the highlighted fields.', 'powerpack-lite-for-elementor' ),
+				'submitting'      => esc_html__( 'Submitting form, please wait.', 'powerpack-lite-for-elementor' ),
+			]
+		);
+
+		wp_register_script(
+			'pp-wpforms',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-wpforms' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_localize_script(
+			'pp-wpforms',
+			'ppWPFormsScript',
+			[
+				'form_has_errors' => esc_html__( 'The form has errors. Please review the highlighted fields.', 'powerpack-lite-for-elementor' ),
+				'submitting'      => esc_html__( 'Submitting form, please wait.', 'powerpack-lite-for-elementor' ),
+				/* translators: 1: current page number, 2: total number of pages */
+				'page_status'     => esc_html__( 'Step %1$s of %2$s', 'powerpack-lite-for-elementor' ),
+			]
+		);
+
 		wp_register_script(
 			'pp-hotspots',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-hotspots' . $suffix . '.js',
@@ -243,6 +281,16 @@ class PowerpackLitePlugin {
 		wp_register_script(
 			'pp-image-accordion',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-image-accordion' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-flipbox',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-flipbox' . $suffix . '.js',
 			array(
 				'jquery',
 			),
@@ -269,6 +317,14 @@ class PowerpackLitePlugin {
 			),
 			POWERPACK_ELEMENTS_LITE_VER,
 			true
+		);
+
+		wp_localize_script(
+			'pp-instafeed',
+			'ppInstafeedScript',
+			[
+				'i18n' => PP_Helper::get_carousel_a11y_strings(),
+			]
 		);
 
 		wp_register_script(
@@ -301,9 +357,45 @@ class PowerpackLitePlugin {
 			true
 		);
 
+		// Other addons ship Chart.js 2.x/3.x under the same `window.Chart` global.
+		// Keep a private reference to our 4.x build and hand the global back.
+		// Guarded because this method can run more than once, duplicating inline scripts.
+		wp_add_inline_script( 'pp-chartjs', 'if ( ! window.ppChartJS ) { window.ppPrevChart = window.Chart; }', 'before' );
+		wp_add_inline_script( 'pp-chartjs', 'if ( ! window.ppChartJS ) { window.ppChartJS = window.Chart; if ( window.ppPrevChart ) { window.Chart = window.ppPrevChart; } delete window.ppPrevChart; }', 'after' );
+
 		wp_register_script(
 			'pp-chart',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-charts' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-contact-form-7',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-contact-form-7' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-fluent-forms',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-fluent-forms' . $suffix . '.js',
+			array(
+				'jquery',
+			),
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_register_script(
+			'pp-formidable-forms',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-formidable-forms' . $suffix . '.js',
 			array(
 				'jquery',
 			),
@@ -437,8 +529,12 @@ class PowerpackLitePlugin {
 			'powerpack-pp-posts',
 			'ppPostsScript',
 			[
-				'ajax_url'    => admin_url( 'admin-ajax.php' ),
-				'posts_nonce' => wp_create_nonce( 'pp-posts-widget-nonce' ),
+				'ajax_url'      => admin_url( 'admin-ajax.php' ),
+				'posts_nonce'   => wp_create_nonce( 'pp-posts-widget-nonce' ),
+				'posts_loaded'  => esc_html__( 'New posts loaded', 'powerpack-lite-for-elementor' ),
+				/* translators: %s: filter name */
+				'filter_status' => esc_html__( 'Showing posts for %s', 'powerpack-lite-for-elementor' ),
+				'i18n'          => PP_Helper::get_carousel_a11y_strings(),
 			]
 		);
 
