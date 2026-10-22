@@ -4,7 +4,7 @@ Tags: elementor, elementor addon, elementor addons, elementor widgets, elementor
 Requires at least: 6.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -275,6 +275,14 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 
 == Changelog ==
+
+= 3.1.2 - October 21, 2026 =
+*	Security Fix: Info Box Carousel - The item image URL is now escaped in the editor preview
+*	Security Fix: Posts, Content Ticker and Marquee - The author and post filter types are now limited to their allowed values, so the query can no longer return private, draft, pending or scheduled posts
+*	Fix: Info Box, Info Box Carousel - Icons with a background and rounded corners stretched to the full width of the icon area, so a circle showed as a pill and the icon sat to one side
+*	Fix: Info Box - Button style options were hidden when Link Type was set to Box with Show Button enabled
+*	Fix: Info Box - Editor preview added an empty link when no URL was set, and did not show a button that had only an icon
+*	Enhancement: Info Box - Icon Rotate option now shows its value in degrees
 
 = 3.1.1 - October 12, 2026 =
 *	Enhancement: Tested compatibility with Elementor 4.3.0

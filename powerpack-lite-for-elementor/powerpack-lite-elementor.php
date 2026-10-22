@@ -3,7 +3,7 @@
  * Plugin Name: PowerPack Lite for Elementor
  * Plugin URI: https://powerpackelements.com
  * Description: Extend Elementor Page Builder with 40+ Creative Widgets and exciting extensions.
- * Version: 3.1.1
+ * Version: 3.1.2
  * Author: PowerPack Addons Team - IdeaBox Creations
  * Author URI: http://ideabox.io/
  * License: GNU General Public License v2.0
@@ -50,7 +50,7 @@ foreach ( $pp_lite_active_plugins as $pp_lite_active_plugin ) {
 
 unset( $pp_lite_active_plugins, $pp_lite_active_plugin );
 
-define( 'POWERPACK_ELEMENTS_LITE_VER', '3.1.1' );
+define( 'POWERPACK_ELEMENTS_LITE_VER', '3.1.2' );
 define( 'POWERPACK_ELEMENTS_LITE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_BASE', plugin_basename( __FILE__ ) );
 define( 'POWERPACK_ELEMENTS_LITE_URL', plugins_url( '/', __FILE__ ) );
@@ -260,13 +260,19 @@ function powerpack_elements_add_description_links( $plugin_meta, $plugin_file ) 
 	if ( POWERPACK_ELEMENTS_LITE_BASE === $plugin_file ) {
 
 		$row_meta = [
-			'docs' => sprintf(
+			'docs'    => sprintf(
 				'<a href="%1$s" aria-label="%2$s" target="_blank" rel="noopener noreferrer">%3$s</a>',
 				esc_url( 'https://powerpackelements.com/docs/?utm_source=doclink&utm_medium=widget&utm_campaign=lite' ),
 				esc_attr__( 'View PowerPack Documentation', 'powerpack-lite-for-elementor' ),
 				esc_html__( 'Docs & FAQs', 'powerpack-lite-for-elementor' )
 			),
-			'pro'  => sprintf(
+			'support' => sprintf(
+				'<a href="%1$s" aria-label="%2$s" target="_blank" rel="noopener noreferrer">%3$s</a>',
+				esc_url( 'https://wordpress.org/support/plugin/powerpack-lite-for-elementor/' ),
+				esc_attr__( 'Get support on the WordPress.org forum', 'powerpack-lite-for-elementor' ),
+				esc_html__( 'Support', 'powerpack-lite-for-elementor' )
+			),
+			'pro'     => sprintf(
 				'<a href="%1$s" aria-label="%2$s" target="_blank" rel="noopener noreferrer" style="font-weight:bold;">%3$s</a>',
 				esc_url( 'https://powerpackelements.com/?utm_source=plugin&utm_medium=list&utm_campaign=lite' ),
 				esc_attr__( 'Upgrade to PowerPack Pro', 'powerpack-lite-for-elementor' ),
