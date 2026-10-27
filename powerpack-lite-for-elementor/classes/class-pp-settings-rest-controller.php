@@ -57,15 +57,6 @@ final class PP_Settings_REST_Controller {
 	 * @return void
 	 */
 	public static function init() {
-		/*
-		 * The paid edition registers the same routes under the same namespace,
-		 * so only one of the two may claim them. It wins: if both are installed
-		 * it is the one whose settings screen is shown.
-		 */
-		if ( function_exists( 'is_pp_elements_active' ) && is_pp_elements_active() ) {
-			return;
-		}
-
 		add_action( 'rest_api_init', [ __CLASS__, 'register_routes' ] );
 	}
 
@@ -115,7 +106,8 @@ final class PP_Settings_REST_Controller {
 		register_rest_route( self::REST_NAMESPACE, '/modules/usage', [
 			'methods'             => \WP_REST_Server::READABLE,
 			'callback'            => [ __CLASS__, 'get_module_usage' ],
-			'permission_callback' => [ __CLASS__, 'can_edit_posts' ],
+			// Administrator only: an uncached request walks every Elementor document on the site.
+			'permission_callback' => [ __CLASS__, 'can_manage' ],
 			'args'                => [
 				'refresh' => [
 					'type'              => 'boolean',

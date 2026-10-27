@@ -27,21 +27,6 @@ class Module extends Module_Base {
 	public function __construct() {
 		parent::__construct();
 
-		// ACF 5 and up
-		if ( class_exists( '\acf' ) && function_exists( 'acf_get_field_groups' ) ) {
-			$this->add_component( 'acf', new Types\Acf() );
-		}
-
-		// Pods
-		if ( function_exists( 'pods' ) ) {
-			$this->add_component( 'pods', new Types\Pods() );
-		}
-
-		// Toolset
-		if ( function_exists( 'wpcf_admin_fields_get_groups' ) ) {
-			$this->add_component( 'toolset', new Types\Toolset() );
-		}
-
 		$this->add_component( 'posts', new Types\Posts() );
 		$this->add_component( 'terms', new Types\Terms() );
 		$this->add_component( 'authors', new Types\Authors() );
@@ -91,7 +76,7 @@ class Module extends Module_Base {
 			throw new \Exception( 'Bad Request' );
 		}
 
-		$results = $this->get_component( $data['query_type'] )->get_autocomplete_values( $data );
+		$results = $this->get_query_component( $data['query_type'] )->get_autocomplete_values( $data );
 
 		return [
 			'results' => $results,
@@ -106,9 +91,37 @@ class Module extends Module_Base {
 	 */
 	public function ajax_call_control_value_titles( array $request ) {
 
-		$results = $this->get_component( $request['query_type'] )->get_value_titles( $request );
+		if ( empty( $request['query_type'] ) ) {
+			throw new \Exception( 'Bad Request' );
+		}
+
+		$results = $this->get_query_component( $request['query_type'] )->get_value_titles( $request );
 
 		return $results;
+	}
+
+	/**
+	 * Get the component for an ajax query type
+	 *
+	 * Elementor's ajax manager only checks its nonce, so the capability is
+	 * checked here before any query runs.
+	 *
+	 * @since  3.1.3
+	 * @param  string $query_type Query type from the request.
+	 * @return object
+	 */
+	private function get_query_component( $query_type ) {
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			throw new \Exception( 'Access Denied' );
+		}
+
+		$component = is_string( $query_type ) ? $this->get_component( $query_type ) : null;
+
+		if ( ! $component ) {
+			throw new \Exception( 'Bad Request' );
+		}
+
+		return $component;
 	}
 
 	/**

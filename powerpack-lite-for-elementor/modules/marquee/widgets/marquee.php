@@ -4,6 +4,7 @@ namespace PowerpackElementsLite\Modules\Marquee\Widgets;
 use PowerpackElementsLite\Base\Powerpack_Widget;
 use PowerpackElementsLite\Classes\PP_Config;
 use PowerpackElementsLite\Classes\PP_Posts_Helper;
+use PowerpackElementsLite\Modules\Posts\Module as Posts_Module;
 
 // Elementor Classes
 use Elementor\Controls_Manager;
@@ -1765,7 +1766,7 @@ class Marquee extends Powerpack_Widget {
 	protected function get_posts_query_arguments() {
 		$settings    = $this->get_settings_for_display();
 		$posts_count = ! empty( $settings['posts_per_page'] ) ? absint( $settings['posts_per_page'] ) : 5;
-		$post_type   = ! empty( $settings['post_type'] ) ? $settings['post_type'] : 'post';
+		$post_type   = PP_Posts_Helper::sanitize_post_type( ! empty( $settings['post_type'] ) ? $settings['post_type'] : 'post' );
 
 		$args = [
 			'post_status'         => [ 'publish' ],
@@ -1852,6 +1853,9 @@ class Marquee extends Powerpack_Widget {
 
 		$args        = $this->get_posts_query_arguments();
 		$posts_query = new \WP_Query( $args );
+
+		// So Posts widgets further down the page with Avoid Duplicates enabled leave these out.
+		Posts_Module::add_to_avoid_list( wp_list_pluck( $posts_query->posts, 'ID' ) );
 
 		if ( $posts_query->have_posts() ) {
 			while ( $posts_query->have_posts() ) {

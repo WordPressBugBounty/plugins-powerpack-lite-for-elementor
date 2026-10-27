@@ -655,6 +655,8 @@ abstract class Posts_Base extends Powerpack_Widget {
 		$tax_count = 0;
 		$post__not_in = array();
 
+		$settings['post_type'] = PP_Posts_Helper::sanitize_post_type( $settings['post_type'], array( 'related' ) );
+
 		if ( 'main' === $settings['query_type'] ) {
 			$current_query_vars = $GLOBALS['wp_query']->query_vars;
 
@@ -956,10 +958,10 @@ abstract class Posts_Base extends Powerpack_Widget {
 			$query_args['post__in'] = $post__in;
 		}
 
-		// Exclude current post.
+		// Exclude current post. Merged with the posts filter so neither replaces the other.
 		if ( 'yes' === $settings['exclude_current'] ) {
 			if ( is_singular() ) {
-				$query_args['post__not_in'] = array( get_queried_object_id() );
+				$post__not_in[] = get_queried_object_id();
 			}
 		}
 
