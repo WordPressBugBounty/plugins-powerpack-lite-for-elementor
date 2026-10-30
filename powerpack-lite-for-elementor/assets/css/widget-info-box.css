@@ -473,21 +473,74 @@
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
 }
+.elementor-widget-pp-info-box-carousel .pp-info-box > a:focus:not(:focus-visible) {
+  outline: none;
+}
 .elementor-widget-pp-info-box-carousel .pp-info-box > a:focus-visible {
-  outline: 2px solid #1a73e8;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: -2px;
+  -webkit-box-shadow: inset 0 0 0 4px #fff;
+          box-shadow: inset 0 0 0 4px #fff;
 }
-.elementor-widget-pp-info-box-carousel a.pp-info-box-title-container:focus-visible,
-.elementor-widget-pp-info-box-carousel .pp-info-box-icon-wrap a:focus-visible,
-.elementor-widget-pp-info-box-carousel a.pp-info-box-button:focus-visible {
-  outline: 2px solid #1a73e8;
-  outline-offset: 2px;
+@media (forced-colors: active) {
+  .elementor-widget-pp-info-box-carousel .pp-info-box > a:focus-visible {
+    outline-color: Highlight;
+  }
 }
-.elementor-widget-pp-info-box-carousel .pp-info-box > a:focus:not(:focus-visible),
 .elementor-widget-pp-info-box-carousel a.pp-info-box-title-container:focus:not(:focus-visible),
 .elementor-widget-pp-info-box-carousel .pp-info-box-icon-wrap a:focus:not(:focus-visible),
 .elementor-widget-pp-info-box-carousel a.pp-info-box-button:focus:not(:focus-visible) {
   outline: none;
+}
+.elementor-widget-pp-info-box-carousel a.pp-info-box-title-container:focus-visible,
+.elementor-widget-pp-info-box-carousel .pp-info-box-icon-wrap a:focus-visible,
+.elementor-widget-pp-info-box-carousel a.pp-info-box-button:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 2px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .elementor-widget-pp-info-box-carousel a.pp-info-box-title-container:focus-visible,
+  .elementor-widget-pp-info-box-carousel .pp-info-box-icon-wrap a:focus-visible,
+  .elementor-widget-pp-info-box-carousel a.pp-info-box-button:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
+.elementor-widget-pp-info-box .pp-info-box-container:focus:not(:focus-visible) {
+  outline: none;
+}
+.elementor-widget-pp-info-box .pp-info-box-container:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: -2px;
+  -webkit-box-shadow: inset 0 0 0 4px #fff;
+          box-shadow: inset 0 0 0 4px #fff;
+}
+@media (forced-colors: active) {
+  .elementor-widget-pp-info-box .pp-info-box-container:focus-visible {
+    outline-color: Highlight;
+  }
+}
+.elementor-widget-pp-info-box .pp-info-box-title-container:focus:not(:focus-visible),
+.elementor-widget-pp-info-box .pp-info-box-icon-wrap a:focus:not(:focus-visible),
+.elementor-widget-pp-info-box .pp-info-box-button:focus:not(:focus-visible) {
+  outline: none;
+}
+.elementor-widget-pp-info-box .pp-info-box-title-container:focus-visible,
+.elementor-widget-pp-info-box .pp-info-box-icon-wrap a:focus-visible,
+.elementor-widget-pp-info-box .pp-info-box-button:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 2px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .elementor-widget-pp-info-box .pp-info-box-title-container:focus-visible,
+  .elementor-widget-pp-info-box .pp-info-box-icon-wrap a:focus-visible,
+  .elementor-widget-pp-info-box .pp-info-box-button:focus-visible {
+    outline-color: Highlight;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

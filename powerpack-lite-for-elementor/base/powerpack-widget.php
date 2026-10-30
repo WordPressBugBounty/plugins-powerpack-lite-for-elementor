@@ -373,4 +373,52 @@ abstract class Powerpack_Widget extends Widget_Base {
 		#>
 		<?php
 	}
+
+	/**
+	 * Warning text for a link that opens in a new tab.
+	 *
+	 * Unescaped: escape it for its context, such as an aria-label or a JS string.
+	 *
+	 * @since 3.1.4
+	 * @access public
+	 *
+	 * @return string The translated text.
+	 */
+	public function get_new_tab_text() {
+		return __( '(opens in a new tab)', 'powerpack-lite-for-elementor' );
+	}
+
+	/**
+	 * Visually hidden warning markup for a link that opens in a new tab.
+	 *
+	 * Printed unconditionally, for content templates that test is_external in JS.
+	 *
+	 * @since 3.1.4
+	 * @access public
+	 *
+	 * @return string The notice markup.
+	 */
+	public function get_new_tab_notice_html() {
+		return '<span class="elementor-screen-only">' . esc_html( $this->get_new_tab_text() ) . '</span>';
+	}
+
+	/**
+	 * Visually hidden warning for a link that opens in a new tab.
+	 *
+	 * Nothing else tells a screen reader user that the tab is about to change, and
+	 * the link text itself is the author's, so the notice rides inside the link.
+	 *
+	 * @since 3.1.4
+	 * @access public
+	 *
+	 * @param array $link The link setting.
+	 * @return string The notice markup, or an empty string where the link stays in place.
+	 */
+	public function get_new_tab_notice( $link ) {
+		if ( empty( $link['is_external'] ) ) {
+			return '';
+		}
+
+		return $this->get_new_tab_notice_html();
+	}
 }

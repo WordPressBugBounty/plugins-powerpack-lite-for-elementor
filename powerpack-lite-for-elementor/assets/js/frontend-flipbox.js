@@ -111,8 +111,9 @@
 				} );
 
 				// WCAG 1.4.13: content revealed by hover must be dismissable without moving the pointer.
+				// A card left flipped by a tap or click closes on Escape from anywhere too.
 				$( document ).on( 'keydown' + this.eventNamespace, ( e ) => {
-					if ( ( 'Escape' === e.key || 'Esc' === e.key ) && ! $container[0].contains( e.target ) && $container[0].matches( ':hover' ) ) {
+					if ( ( 'Escape' === e.key || 'Esc' === e.key ) && ! $container[0].contains( e.target ) && ( this.isOpen() || $container[0].matches( ':hover' ) ) ) {
 						this.close( false );
 					}
 				} );

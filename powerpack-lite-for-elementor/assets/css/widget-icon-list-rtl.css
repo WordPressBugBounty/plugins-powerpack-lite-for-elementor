@@ -14,6 +14,21 @@
   display: block;
 }
 
+.pp-list-items a:focus:not(:focus-visible) {
+  outline: none;
+}
+.pp-list-items a:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 2px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-list-items a:focus-visible {
+    outline-color: Highlight;
+  }
+}
+
 .pp-list-container .pp-icon-wrapper {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;

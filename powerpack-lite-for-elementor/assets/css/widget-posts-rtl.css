@@ -534,9 +534,22 @@
   -webkit-appearance: none;
   -moz-appearance: none;
 }
-.pp-search-form button:focus,
-.pp-search-form input[type=search]:focus {
-  outline: 0;
+.pp-search-form button:focus:not(:focus-visible),
+.pp-search-form input[type=search]:focus:not(:focus-visible) {
+  outline: none;
+}
+.pp-search-form button:focus-visible,
+.pp-search-form input[type=search]:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: -2px;
+  -webkit-box-shadow: inset 0 0 0 4px #fff;
+          box-shadow: inset 0 0 0 4px #fff;
+}
+@media (forced-colors: active) {
+  .pp-search-form button:focus-visible,
+  .pp-search-form input[type=search]:focus-visible {
+    outline-color: Highlight;
+  }
 }
 .pp-search-form input[type=search] {
   background: #eceeef;
@@ -744,6 +757,16 @@
     float: none !important;
   }
 }
+.pp-posts-container .pp-post-filter:focus:not(:focus-visible),
+.pp-posts-container .pp-post-filters-dropdown-button:focus:not(:focus-visible),
+.pp-posts-container .pp-posts-button:focus:not(:focus-visible),
+.pp-posts-container .pp-post-load-more:focus:not(:focus-visible),
+.pp-posts-container .pp-posts-pagination a:focus:not(:focus-visible),
+.pp-posts-container .pp-slider-arrow:focus:not(:focus-visible),
+.pp-posts-container .swiper-pagination-bullet:focus:not(:focus-visible),
+.pp-posts-container .pp-post-title a:focus:not(:focus-visible) {
+  outline: none;
+}
 .pp-posts-container .pp-post-filter:focus-visible,
 .pp-posts-container .pp-post-filters-dropdown-button:focus-visible,
 .pp-posts-container .pp-posts-button:focus-visible,
@@ -752,8 +775,22 @@
 .pp-posts-container .pp-slider-arrow:focus-visible,
 .pp-posts-container .swiper-pagination-bullet:focus-visible,
 .pp-posts-container .pp-post-title a:focus-visible {
-  outline: 2px solid #1a73e8;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: 2px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-posts-container .pp-post-filter:focus-visible,
+  .pp-posts-container .pp-post-filters-dropdown-button:focus-visible,
+  .pp-posts-container .pp-posts-button:focus-visible,
+  .pp-posts-container .pp-post-load-more:focus-visible,
+  .pp-posts-container .pp-posts-pagination a:focus-visible,
+  .pp-posts-container .pp-slider-arrow:focus-visible,
+  .pp-posts-container .swiper-pagination-bullet:focus-visible,
+  .pp-posts-container .pp-post-title a:focus-visible {
+    outline-color: Highlight;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

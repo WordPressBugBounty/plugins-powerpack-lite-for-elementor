@@ -183,6 +183,16 @@
   border: 0 !important;
   white-space: nowrap !important;
 }
+.pp-gravity-form input:focus:not(:focus-visible),
+.pp-gravity-form textarea:focus:not(:focus-visible),
+.pp-gravity-form select:focus:not(:focus-visible),
+.pp-gravity-form button:focus:not(:focus-visible),
+.pp-gravity-form input[type=submit]:focus:not(:focus-visible),
+.pp-gravity-form button[type=submit]:focus:not(:focus-visible),
+.pp-gravity-form .gform_previous_button:focus:not(:focus-visible),
+.pp-gravity-form .gform_next_button:focus:not(:focus-visible) {
+  outline: none;
+}
 .pp-gravity-form input:focus-visible,
 .pp-gravity-form textarea:focus-visible,
 .pp-gravity-form select:focus-visible,
@@ -191,8 +201,22 @@
 .pp-gravity-form button[type=submit]:focus-visible,
 .pp-gravity-form .gform_previous_button:focus-visible,
 .pp-gravity-form .gform_next_button:focus-visible {
-  outline: 2px solid Highlight;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: 2px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-gravity-form input:focus-visible,
+  .pp-gravity-form textarea:focus-visible,
+  .pp-gravity-form select:focus-visible,
+  .pp-gravity-form button:focus-visible,
+  .pp-gravity-form input[type=submit]:focus-visible,
+  .pp-gravity-form button[type=submit]:focus-visible,
+  .pp-gravity-form .gform_previous_button:focus-visible,
+  .pp-gravity-form .gform_next_button:focus-visible {
+    outline-color: Highlight;
+  }
 }
 .pp-gravity-form .gform_confirmation_wrapper:focus,
 .pp-gravity-form .gform_confirmation_message:focus,
@@ -233,18 +257,6 @@
 .pp-gravity-form-pagination-buttons-full-width .gform_wrapper .gform_page_footer .gform_next_button {
   margin-top: 20px;
   width: 100%;
-}
-
-.pp-screen-only {
-  position: absolute !important;
-  top: -10000em !important;
-  width: 1px !important;
-  height: 1px !important;
-  margin: -1px !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  clip: rect(0, 0, 0, 0) !important;
-  border: 0 !important;
 }
 
 .pp-gravity-form-title {

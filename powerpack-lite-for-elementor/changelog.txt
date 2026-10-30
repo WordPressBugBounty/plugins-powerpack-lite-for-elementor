@@ -1,3 +1,14 @@
+== 3.1.4 ==
+Release date: October 30, 2026
+* Enhancement: Tested compatibility with Elementor 4.4.0
+* Enhancement: Accessibility - All widgets now show the same clearly visible keyboard focus indicator
+* Enhancement: Accessibility - Improved screen reader support in Icon List, Info Box, Info List, Info Table, Link Effects, Ninja Forms and the carousel widgets
+* Enhancement: Ninja Forms - Added Title HTML Tag option
+* Enhancement: Pricing Table - Tooltips can now be opened from the keyboard and closed with the Esc key
+* Fix: Charts, Counter, Dual Heading, Fancy Heading, Link Effects - Removed keyboard tab stops that did nothing
+* Fix: Info Table - The title and subtitle closing tags were missing from the page output
+* Fix: Ninja Forms - The submit button style options did not apply to every type of submit button
+
 == 3.1.3 ==
 Release date: October 27, 2026
 * Enhancement: Business Hours - Added a Day and Hours Spacing control under Rows Style

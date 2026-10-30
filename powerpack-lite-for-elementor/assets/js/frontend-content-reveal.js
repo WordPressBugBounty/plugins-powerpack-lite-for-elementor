@@ -123,7 +123,13 @@
 					if ( 'keydown' === e.type ) {
 						const isActivationKey = 'Enter' === e.key || ' ' === e.key || 'Spacebar' === e.key || 'Space' === e.code;
 
-						if ( ! isActivationKey ) {
+						if ( ! isActivationKey || e.altKey || e.ctrlKey || e.metaKey ) {
+							return;
+						}
+
+						// A held key fires keydown repeatedly; toggle once per press.
+						if ( e.originalEvent && e.originalEvent.repeat ) {
+							e.preventDefault();
 							return;
 						}
 					}

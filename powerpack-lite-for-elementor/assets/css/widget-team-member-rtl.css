@@ -126,16 +126,25 @@
     transition: none;
   }
 }
-.elementor-widget-pp-team-member-carousel .pp-tm-name a:focus-visible,
-.elementor-widget-pp-team-member-carousel .pp-tm-social-links a:focus-visible,
-.elementor-widget-pp-team-member-carousel .pp-tm-image a:focus-visible {
-  outline: 2px solid #1a73e8;
-  outline-offset: 2px;
-}
 .elementor-widget-pp-team-member-carousel .pp-tm-name a:focus:not(:focus-visible),
 .elementor-widget-pp-team-member-carousel .pp-tm-social-links a:focus:not(:focus-visible),
 .elementor-widget-pp-team-member-carousel .pp-tm-image a:focus:not(:focus-visible) {
   outline: none;
+}
+.elementor-widget-pp-team-member-carousel .pp-tm-name a:focus-visible,
+.elementor-widget-pp-team-member-carousel .pp-tm-social-links a:focus-visible,
+.elementor-widget-pp-team-member-carousel .pp-tm-image a:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 2px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .elementor-widget-pp-team-member-carousel .pp-tm-name a:focus-visible,
+  .elementor-widget-pp-team-member-carousel .pp-tm-social-links a:focus-visible,
+  .elementor-widget-pp-team-member-carousel .pp-tm-image a:focus-visible {
+    outline-color: Highlight;
+  }
 }
 .elementor-widget-pp-team-member-carousel .swiper-pagination-bullet {
   position: relative;

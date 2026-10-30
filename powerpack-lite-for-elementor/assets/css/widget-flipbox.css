@@ -36,18 +36,36 @@
             transition-duration: 500ms, 0s;
   }
 }
+.pp-flipbox-container .pp-flipbox-linked-title:focus:not(:focus-visible),
+.pp-flipbox-container .pp-flipbox-button:focus:not(:focus-visible) {
+  outline: none;
+}
 .pp-flipbox-container .pp-flipbox-linked-title:focus-visible,
 .pp-flipbox-container .pp-flipbox-button:focus-visible {
-  outline: 2px solid #101010;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: 2px;
-  -webkit-box-shadow: 0 0 0 4px #fff;
-          box-shadow: 0 0 0 4px #fff;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-flipbox-container .pp-flipbox-linked-title:focus-visible,
+  .pp-flipbox-container .pp-flipbox-button:focus-visible {
+    outline-color: Highlight;
+  }
+}
+.pp-flipbox-container .pp-flipbox-box-link:focus:not(:focus-visible) {
+  outline: none;
 }
 .pp-flipbox-container .pp-flipbox-box-link:focus-visible {
-  outline: 2px solid #fff;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: -6px;
-  -webkit-box-shadow: inset 0 0 0 4px #101010;
-          box-shadow: inset 0 0 0 4px #101010;
+  -webkit-box-shadow: inset 0 0 0 8px #fff;
+          box-shadow: inset 0 0 0 8px #fff;
+}
+@media (forced-colors: active) {
+  .pp-flipbox-container .pp-flipbox-box-link:focus-visible {
+    outline-color: Highlight;
+  }
 }
 
 @media (hover: none) {
@@ -151,10 +169,15 @@
   clip: auto;
   border: 1px solid #fff;
   border-radius: 3px;
-  outline: 2px solid #101010;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: 2px;
-  -webkit-box-shadow: 0 0 0 4px #fff;
-          box-shadow: 0 0 0 4px #fff;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-flipbox-flip-trigger:focus {
+    outline-color: Highlight;
+  }
 }
 
 .pp-flipbox-content,

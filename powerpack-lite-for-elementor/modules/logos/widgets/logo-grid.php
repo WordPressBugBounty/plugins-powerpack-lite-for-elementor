@@ -954,27 +954,6 @@ class Logo_Grid extends Powerpack_Widget {
 	}
 
 	/**
-	 * Visually hidden warning for a link that opens in a new tab.
-	 *
-	 * Nothing else tells a screen reader user that the tab is about to change, and
-	 * the link text itself is the author's, so the notice rides inside the link.
-	 *
-	 * @since 3.1.0
-	 * @access protected
-	 *
-	 * @param array $link The repeater item's link setting.
-	 *
-	 * @return string The notice markup, or an empty string where the link stays in place.
-	 */
-	protected function get_new_tab_notice( $link ) {
-		if ( empty( $link['is_external'] ) ) {
-			return '';
-		}
-
-		return '<span class="elementor-screen-only">' . esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) . '</span>';
-	}
-
-	/**
 	 * Render image HTML for a single logo grid item.
 	 *
 	 * @access protected
@@ -1012,7 +991,7 @@ class Logo_Grid extends Powerpack_Widget {
 		?>
 		<#
 			var generic_logo   = '<?php echo esc_js( __( 'Logo', 'powerpack-lite-for-elementor' ) ); ?>',
-				new_tab_notice = '<span class="elementor-screen-only"><?php echo esc_js( __( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) ); ?></span>';
+				new_tab_notice = <?php echo wp_json_encode( $this->get_new_tab_notice_html() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>;
 
 			view.addRenderAttribute( 'logo-grid', {
 				'class': 'pp-logo-grid elementor-grid',

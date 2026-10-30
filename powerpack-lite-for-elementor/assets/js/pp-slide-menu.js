@@ -92,11 +92,11 @@
 						event.stopPropagation();
 
 						if ( isAccordion ) {
-							self.toggleInlineSubmenu( $item, $arrow, $submenu, $triggers );
+							self.toggleInlineSubmenu( $item, $arrow, $submenu, $triggers, this );
 							return;
 						}
 
-						self.openSubmenu( $item, $arrow, $submenu, $triggers, $back );
+						self.openSubmenu( $item, $arrow, $submenu, $triggers, $back, this );
 					} );
 
 					// The arrow carries role="button", so it has to implement the
@@ -239,6 +239,25 @@
 				const element = $submenu.get( 0 );
 
 				this.openPanels = this.openPanels.filter( ( panel ) => panel.$submenu.get( 0 ) !== element );
+			}
+
+			/**
+			 * The control that opened a panel, for focus to return to.
+			 *
+			 * With link navigation on, the parent link opens the panel as well as
+			 * the arrow, so the arrow is only the fallback.
+			 *
+			 * @since x.x.x
+			 *
+			 * @param {jQuery} $submenu Sub-menu panel.
+			 * @param {jQuery} $arrow   Sub-menu toggle.
+			 * @return {jQuery} The element to focus.
+			 */
+			getPanelOpener( $submenu, $arrow ) {
+				const element = $submenu.get( 0 ),
+					panel     = this.openPanels.filter( ( entry ) => entry.$submenu.get( 0 ) === element )[ 0 ];
+
+				return ( panel && panel.$opener && panel.$opener.length ) ? panel.$opener : $arrow;
 			}
 
 			/**
@@ -459,8 +478,9 @@
 			 * @param {jQuery} $arrow    Sub-menu toggle.
 			 * @param {jQuery} $submenu  Sub-menu panel.
 			 * @param {jQuery} $triggers Elements that toggle this panel.
+			 * @param {Element} opener   The control that was activated, if any.
 			 */
-			toggleInlineSubmenu( $item, $arrow, $submenu, $triggers ) {
+			toggleInlineSubmenu( $item, $arrow, $submenu, $triggers, opener ) {
 				const classes = this.getSettings( 'classes' ),
 					isOpen    = $item.hasClass( classes.expanded );
 
@@ -468,12 +488,18 @@
 				$arrow.toggleClass( classes.active, ! isOpen );
 				$triggers.attr( 'aria-expanded', isOpen ? 'false' : 'true' );
 
+				// Closing from Escape inside the panel would otherwise leave focus on
+				// a node that is about to go inert, which drops it to the body.
+				if ( isOpen && $submenu.get( 0 ).contains( document.activeElement ) ) {
+					this.focusWithoutScroll( this.getPanelOpener( $submenu, $arrow ) );
+				}
+
 				this.setSubmenuHidden( $submenu, isOpen );
 
 				if ( isOpen ) {
 					this.deregisterPanel( $submenu );
 				} else {
-					this.registerPanel( { $item, $arrow, $submenu, $triggers, accordion: true } );
+					this.registerPanel( { $item, $arrow, $submenu, $triggers, $opener: $( opener || $arrow ), accordion: true } );
 				}
 			}
 
@@ -485,8 +511,9 @@
 			 * @param {jQuery} $submenu  Sub-menu panel.
 			 * @param {jQuery} $triggers Elements that open this panel.
 			 * @param {jQuery} $back     The panel's back row.
+			 * @param {Element} opener   The control that was activated, if any.
 			 */
-			openSubmenu( $item, $arrow, $submenu, $triggers, $back ) {
+			openSubmenu( $item, $arrow, $submenu, $triggers, $back, opener ) {
 				const classes = this.getSettings( 'classes' ),
 					$parent   = $submenu.parents( 'ul' ).first();
 
@@ -502,7 +529,7 @@
 				$triggers.attr( 'aria-expanded', 'true' );
 				this.setSubmenuHidden( $submenu, false );
 
-				this.registerPanel( { $item, $arrow, $submenu, $triggers, accordion: false } );
+				this.registerPanel( { $item, $arrow, $submenu, $triggers, $opener: $( opener || $arrow ), accordion: false } );
 
 				// Move focus into the panel that just became the active one.
 				this.focusWithoutScroll( $back.children( 'button' ) );
@@ -548,7 +575,7 @@
 				if ( this.$element.get( 0 ).contains( document.activeElement ) ) {
 					// Restored before the panel is made inert, otherwise focus lands on
 					// the body in between.
-					this.focusWithoutScroll( $arrow );
+					this.focusWithoutScroll( this.getPanelOpener( $submenu, $arrow ) );
 				}
 
 				this.setSubmenuHidden( $submenu, true );

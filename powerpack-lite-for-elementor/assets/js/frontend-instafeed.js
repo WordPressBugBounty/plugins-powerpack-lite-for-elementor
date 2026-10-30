@@ -313,7 +313,7 @@
 					this.userNavigated = true;
 				} );
 
-				const statusId = this.$element.find( '.pp-screen-only[aria-live]' ).attr( 'id' );
+				const statusId = this.$element.find( '.elementor-screen-only[aria-live]' ).attr( 'id' );
 
 				if ( statusId ) {
 					/*
@@ -376,7 +376,7 @@
 
 				const statusFormat = this.getI18n().slideStatus || 'Showing Slide %1$s of %2$s';
 
-				this.$element.find( '.pp-screen-only[aria-live]' ).text(
+				this.$element.find( '.elementor-screen-only[aria-live]' ).text(
 					statusFormat
 						.replace( '%1$s', this.swiper.realIndex + 1 )
 						.replace( '%2$s', this.getSlidesCount() )

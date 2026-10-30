@@ -190,11 +190,11 @@ class Link_Effects extends Powerpack_Widget {
 
 		$this->add_control(
 			'html_tag',
-			array(
+			[
 				'label'   => esc_html__( 'HTML Tag', 'powerpack-lite-for-elementor' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'div',
-				'options' => array(
+				'options' => [
 					'h1'   => esc_html__( 'H1', 'powerpack-lite-for-elementor' ),
 					'h2'   => esc_html__( 'H2', 'powerpack-lite-for-elementor' ),
 					'h3'   => esc_html__( 'H3', 'powerpack-lite-for-elementor' ),
@@ -204,8 +204,8 @@ class Link_Effects extends Powerpack_Widget {
 					'div'  => esc_html__( 'div', 'powerpack-lite-for-elementor' ),
 					'span' => esc_html__( 'span', 'powerpack-lite-for-elementor' ),
 					'p'    => esc_html__( 'p', 'powerpack-lite-for-elementor' ),
-				),
-			)
+				],
+			]
 		);
 
 		$this->add_responsive_control(
@@ -409,7 +409,7 @@ class Link_Effects extends Powerpack_Widget {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		$link_text = '' !== $settings['text'] ? $settings['text'] : '';
+		$link_text           = '' !== $settings['text'] ? $settings['text'] : '';
 		$link_secondary_text = ! empty( $settings['secondary_text'] ) ? $settings['secondary_text'] : '';
 
 		if ( ! empty( $settings['link']['url'] ) ) {
@@ -436,22 +436,39 @@ class Link_Effects extends Powerpack_Widget {
 			case 'effect-16':
 			case 'effect-17':
 			case 'effect-18':
-				$this->add_render_attribute( 'pp-link-text-2', 'data-hover', wp_strip_all_tags( $link_text ) );
+				$this->add_render_attribute( 'link', 'data-hover', wp_strip_all_tags( $link_text ) );
 				break;
 		}
 
+		$link_label = trim( wp_strip_all_tags( $link_text ) );
+
+		if ( 'effect-9' === $settings['effect'] && ! empty( $link_secondary_text ) ) {
+			$link_label .= ' - ' . trim( wp_strip_all_tags( $link_secondary_text ) );
+		}
+
+		if ( '' === $link_label ) {
+			$link_label = esc_html__( 'Read more', 'powerpack-lite-for-elementor' );
+		}
+
+		if ( ! empty( $settings['link']['is_external'] ) ) {
+			$link_label .= ' ' . esc_html( $this->get_new_tab_text() );
+		}
+
+		$this->add_render_attribute( 'link', 'aria-label', $link_label );
+
 		$title_tag = PP_Helper::validate_html_tag( $settings['html_tag'] );
 		?>
-		<<?php echo esc_html( $title_tag ); ?> class="pp-link-container">
-			<a <?php echo wp_kses_post( $this->get_render_attribute_string( 'link' ) ); ?> <?php echo wp_kses_post( $this->get_render_attribute_string( 'pp-link-text-2' ) ); ?>>
-				<span <?php echo wp_kses_post( $this->get_render_attribute_string( 'pp-link-text' ) ); ?>>
+		<<?php PP_Helper::print_validated_html_tag( $title_tag ); ?> class="pp-link-container">
+			<a <?php $this->print_render_attribute_string( 'link' ); ?>>
+				<span <?php $this->print_render_attribute_string( 'pp-link-text' ); ?> aria-hidden="true">
 					<?php echo wp_kses_post( $link_text ); ?>
 				</span>
 				<?php if ( 'effect-9' === $settings['effect'] ) { ?>
-					<span><?php echo wp_kses_post( $link_secondary_text ); ?></span>
+					<span aria-hidden="true"><?php echo wp_kses_post( $link_secondary_text ); ?></span>
 				<?php } ?>
+				<?php echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) ); ?>
 			</a>
-		</<?php echo esc_html( $title_tag ); ?>>
+		</<?php PP_Helper::print_validated_html_tag( $title_tag ); ?>>
 		<?php
 	}
 
@@ -468,7 +485,7 @@ class Link_Effects extends Powerpack_Widget {
 		<#
 		view.addRenderAttribute( 'link', 'class', ['pp-link', 'pp-link-' + settings.effect] );
 
-		var hasLink = settings.link.url;
+		var hasLink = settings.link && settings.link.url;
 
 		if ( hasLink ) {
 			view.addRenderAttribute( 'link', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
@@ -491,15 +508,40 @@ class Link_Effects extends Powerpack_Widget {
 				view.addRenderAttribute( 'link', 'data-hover', elementor.helpers.sanitize( settings.text ) );
 				break;
 		}
+
+		function stripTags( value ) {
+			return ( value || '' ).replace( /<[^>]*>/g, '' ).trim();
+		}
+
+		var linkText = stripTags( settings.text ),
+			secondaryText = stripTags( settings.secondary_text ),
+			linkLabel = linkText;
+
+		if ( 'effect-9' === settings.effect && secondaryText ) {
+			linkLabel += ' - ' + secondaryText;
+		}
+
+		if ( ! linkLabel ) {
+			linkLabel = '<?php echo esc_js( __( 'Read more', 'powerpack-lite-for-elementor' ) ); ?>';
+		}
+
+		if ( settings.link && settings.link.is_external ) {
+			linkLabel += ' <?php echo esc_js( $this->get_new_tab_text() ); ?>';
+		}
+
+		view.addRenderAttribute( 'link', 'aria-label', linkLabel );
 		#>
 		<# var htmlTag = elementor.helpers.validateHTMLTag( settings.html_tag ); #>
 		<{{{ htmlTag }}} class="pp-link-container">
 			<a {{{ view.getRenderAttributeString( 'link' ) }}}>
-				<span {{{ view.getRenderAttributeString( 'pp-link-text' ) }}}>
+				<span {{{ view.getRenderAttributeString( 'pp-link-text' ) }}} aria-hidden="true">
 					{{{ elementor.helpers.sanitize( settings.text ) }}}
 				</span>
 				<# if ( 'effect-9' === settings.effect ) { #>
-					<span>{{{ elementor.helpers.sanitize( settings.secondary_text ) }}}</span>
+					<span aria-hidden="true">{{{ elementor.helpers.sanitize( settings.secondary_text ) }}}</span>
+				<# } #>
+				<# if ( settings.link && settings.link.is_external ) { #>
+					<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
 				<# } #>
 			</a>
 		</{{{ htmlTag }}}>

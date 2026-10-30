@@ -84,7 +84,13 @@
 				this.elements.$title.on( 'click' + this.eventNamespace + ' keydown' + this.eventNamespace, ( e ) => {
 					if ( 'keydown' === e.type ) {
 						const isActivationKey = 'Enter' === e.key || ' ' === e.key || 'Spacebar' === e.key || 'Space' === e.code;
-						if ( ! isActivationKey ) {
+						if ( ! isActivationKey || e.altKey || e.ctrlKey || e.metaKey ) {
+							return;
+						}
+
+						// A held key fires keydown repeatedly; toggle once per press.
+						if ( e.originalEvent && e.originalEvent.repeat ) {
+							e.preventDefault();
 							return;
 						}
 					}
@@ -149,6 +155,10 @@
 
 				// Arrow-key navigation between accordion headers (WAI-ARIA accordion pattern).
 				this.elements.$title.on( 'keydown' + this.eventNamespace, ( e ) => {
+					if ( e.altKey || e.ctrlKey || e.metaKey ) {
+						return;
+					}
+
 					const titles = this.elements.$title.toArray();
 					const idx    = titles.indexOf( e.currentTarget );
 

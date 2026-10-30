@@ -353,12 +353,17 @@
 				// Tablist keyboard: arrows, Home and End move focus only; Enter or Space loads the filter,
 				// so browsing the tabs doesn't fire a request per key press.
 				this.elements.$filters.find( '.pp-post-filter' ).off( 'keydown' ).on( 'keydown', function(e) {
+					if ( e.altKey || e.ctrlKey || e.metaKey ) {
+						return;
+					}
+
 					const $items = self.elements.$filters.find( '.pp-post-filter' );
 					const currentIndex = $items.index( this );
+					const step = 'rtl' === window.getComputedStyle( this ).direction ? -1 : 1;
 					const targets = {
-						ArrowRight: currentIndex + 1,
+						ArrowRight: currentIndex + step,
 						ArrowDown: currentIndex + 1,
-						ArrowLeft: currentIndex - 1,
+						ArrowLeft: currentIndex - step,
 						ArrowUp: currentIndex - 1,
 						Home: 0,
 						End: $items.length - 1,
@@ -371,7 +376,10 @@
 						$next.attr( 'tabindex', '0' ).trigger( 'focus' );
 					} else if ( 'Enter' === e.key || ' ' === e.key ) {
 						e.preventDefault();
-						$(this).trigger( 'click' );
+
+						if ( ! e.originalEvent || ! e.originalEvent.repeat ) {
+							$(this).trigger( 'click' );
+						}
 					}
 				});
 
@@ -612,9 +620,12 @@
 
 				// Load More is a link with role="button": Space activates it too.
 				self.$element.off( 'keydown.ppLoadMore' ).on( 'keydown.ppLoadMore', '.pp-post-load-more[role="button"]', function(e) {
-					if ( ' ' === e.key ) {
+					if ( ' ' === e.key && ! e.altKey && ! e.ctrlKey && ! e.metaKey ) {
 						e.preventDefault();
-						$(this).trigger( 'click' );
+
+						if ( ! e.originalEvent || ! e.originalEvent.repeat ) {
+							$(this).trigger( 'click' );
+						}
 					}
 				} );
 
@@ -1025,9 +1036,12 @@
 				this.$element
 					.off( '.ppCoupon' )
 					.on( 'keydown.ppCoupon', '.pp-coupon-code[role="button"]', function(e) {
-						if ( 'Enter' === e.key || ' ' === e.key ) {
+						if ( ( 'Enter' === e.key || ' ' === e.key ) && ! e.altKey && ! e.ctrlKey && ! e.metaKey ) {
 							e.preventDefault();
-							$(this).trigger( 'click' );
+
+							if ( ! e.originalEvent || ! e.originalEvent.repeat ) {
+								$(this).trigger( 'click' );
+							}
 						}
 					} )
 					.on( 'click.ppCoupon', '.pp-coupon-code[role="button"]', function() {

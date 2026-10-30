@@ -924,6 +924,7 @@ class Icon_List extends Powerpack_Widget {
 		$this->add_render_attribute( [
 			'icon-list' => [
 				'class' => 'pp-list-items',
+				'role'  => 'list',
 			],
 			'icon'      => [
 				'class' => 'pp-icon-list-icon',
@@ -947,13 +948,16 @@ class Icon_List extends Powerpack_Widget {
 							$item_key = $this->get_repeater_setting_key( 'item', 'list_items', $index );
 							$text_key = $this->get_repeater_setting_key( 'text', 'list_items', $index );
 
-							$this->add_render_attribute( [
-								$item_key => [
-									'class' => [
-										'pp-icon-list-item',
-										'elementor-repeater-item-' . $item['_id'],
-									],
+							$item_attributes = [
+								'class' => [
+									'pp-icon-list-item',
+									'elementor-repeater-item-' . $item['_id'],
 								],
+								'role'  => 'listitem',
+							];
+
+							$this->add_render_attribute( [
+								$item_key => $item_attributes,
 								$text_key => [
 									'class' => 'pp-icon-list-text',
 								],
@@ -978,7 +982,9 @@ class Icon_List extends Powerpack_Widget {
 								<?php echo wp_kses_post( $item['text'] ); ?>
 							</span>
 							<?php
-							if ( '' !== $item['link']['url'] ) { ?>
+							if ( '' !== $item['link']['url'] ) {
+								echo $this->get_new_tab_notice( $item['link'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+								?>
 								</a>
 								<?php
 							}
@@ -1021,6 +1027,7 @@ class Icon_List extends Powerpack_Widget {
 		if ( 'none' !== $item['pp_icon_type'] ) {
 			$icon_key = 'icon_' . $i;
 			$this->add_render_attribute( $icon_key, 'class', 'pp-icon-wrapper' );
+			$this->add_render_attribute( $icon_key, 'aria-hidden', 'true' );
 
 			if ( $settings['icon_hover_animation'] ) {
 				$icon_animation = 'elementor-animation-' . $settings['icon_hover_animation'];
@@ -1032,7 +1039,7 @@ class Icon_List extends Powerpack_Widget {
 				<?php
 				if ( 'icon' === $item['pp_icon_type'] ) {
 					if ( ! empty( $item['list_icon'] ) || ( ! empty( $item['icon']['value'] ) && $is_new ) ) { ?>
-						<span class="pp-icon-list-icon pp-icon <?php echo esc_attr( $icon_animation ); ?>">
+						<span class="pp-icon-list-icon pp-icon <?php echo esc_attr( $icon_animation ); ?>" aria-hidden="true">
 						<?php
 						if ( $is_new || $migrated ) {
 							Icons_Manager::render_icon( $item['icon'], [ 'aria-hidden' => 'true' ] );
@@ -1046,21 +1053,21 @@ class Icon_List extends Powerpack_Widget {
 					$image_url = Group_Control_Image_Size::get_attachment_image_src( $item['list_image']['id'], 'image', $settings );
 
 					if ( $image_url ) {
-						$image_html = '<img src="' . esc_url( $image_url ) . '" alt="' . esc_attr( Control_Media::get_image_alt( $item['list_image'] ) ) . '">';
+						$image_html = '<img src="' . esc_url( $image_url ) . '" alt="" aria-hidden="true">';
 					} else {
-						$image_html = '<img src="' . esc_url( $item['list_image']['url'] ) . '">';
+						$image_html = '<img src="' . esc_url( $item['list_image']['url'] ) . '" alt="" aria-hidden="true">';
 					}
 					?>
-					<span class="pp-icon-list-image <?php echo esc_attr( $icon_animation ); ?>"><?php echo wp_kses_post( $image_html ); ?></span>
+					<span class="pp-icon-list-image <?php echo esc_attr( $icon_animation ); ?>" aria-hidden="true"><?php echo wp_kses_post( $image_html ); ?></span>
 					<?php
 				} elseif ( 'text' === $item['pp_icon_type'] ) {
-					if ( $item['icon_text'] ) {
+					if ( ! empty( $item['icon_text'] ) ) {
 						$number = $item['icon_text'];
 					} else {
 						$number = $i;
 					}
 					?>
-					<span class="pp-icon-list-icon <?php echo esc_attr( $icon_animation ); ?>"><?php echo esc_attr( $number ); ?></span>
+					<span class="pp-icon-list-icon <?php echo esc_attr( $icon_animation ); ?>" aria-hidden="true"><?php echo esc_attr( $number ); ?></span>
 					<?php
 				}
 				?>
@@ -1078,31 +1085,38 @@ class Icon_List extends Powerpack_Widget {
 	 */
 	protected function content_template() {
 		?>
+		<#
+			var iconsHTML = {},
+				migrated = {},
+				list_class = '';
+
+			if ( settings.view == 'inline' ) {
+				list_class = 'pp-inline-items';
+			}
+
+			view.addRenderAttribute( 'list_items', {
+				'class': [ 'pp-list-items', list_class ],
+				'role': 'list'
+			} );
+		#>
 		<div class="pp-list-container">
-			<#
-				var iconsHTML = {},
-					migrated = {},
-					list_class = '';
-			   
-				if ( settings.view == 'inline' ) {
-					list_class = 'pp-inline-items';
-				}
-			   
-				view.addRenderAttribute( 'list_items', 'class', [ 'pp-list-items', list_class ] );
-			#>
 			<ul {{{ view.getRenderAttributeString( 'list_items' ) }}}>
 				<# var i = 1; #>
 				<# _.each( settings.list_items, function( item, index ) {
 
 					var itemKey = view.getRepeaterSettingKey( 'item', 'list_items', index ),
-						textKey = view.getRepeaterSettingKey( 'text', 'list_items', index );
-				   
-					view.addRenderAttribute( itemKey, {
-						'class': [
-							'pp-icon-list-item',
-							'elementor-repeater-item-' + item._id,
-						]
-					});
+						textKey = view.getRepeaterSettingKey( 'text', 'list_items', index ),
+						hasLink = item.link && item.link.url,
+						newTabNotice = ( hasLink && item.link.is_external ) ? <?php echo wp_json_encode( $this->get_new_tab_notice_html() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> : '',
+						itemAttrs = {
+							'class': [
+								'pp-icon-list-item',
+								'elementor-repeater-item-' + item._id,
+							],
+							'role': 'listitem'
+						};
+
+					view.addRenderAttribute( itemKey, itemAttrs );
 					view.addRenderAttribute( textKey, {
 						'class': 'pp-icon-list-text'
 					});
@@ -1122,7 +1136,7 @@ class Icon_List extends Powerpack_Widget {
 										var icon_class = 'pp-icon-left';
 									}
 								#>
-								<span class="pp-icon-wrapper {{ icon_class }}">
+								<span class="pp-icon-wrapper {{ icon_class }}" aria-hidden="true">
 									<# if ( item.pp_icon_type == 'icon' ) { #>
 										<# if ( item.list_icon || item.icon.value ) { #>
 											<span class="pp-icon-list-icon pp-icon elementor-animation-{{ settings.icon_hover_animation }}" aria-hidden="true">
@@ -1138,7 +1152,7 @@ class Icon_List extends Powerpack_Widget {
 											</span>
 										<# } #>
 									<# } else if ( item.pp_icon_type == 'image' ) { #>
-										<span class="pp-icon-list-image elementor-animation-{{ settings.icon_hover_animation }}">
+										<span class="pp-icon-list-image elementor-animation-{{ settings.icon_hover_animation }}" aria-hidden="true">
 											<#
 											var image = {
 												id: item.list_image.id,
@@ -1149,7 +1163,7 @@ class Icon_List extends Powerpack_Widget {
 											};
 											var image_url = elementor.imagesManager.getImageUrl( image );
 											#>
-											<img src="{{ _.escape( image_url ) }}" />
+											<img src="{{ _.escape( image_url ) }}" alt="" aria-hidden="true" />
 										</span>
 									<# } else if ( item.pp_icon_type == 'text' ) { #>
 										<#
@@ -1159,7 +1173,7 @@ class Icon_List extends Powerpack_Widget {
 												var number = i;
 											}
 										#>
-										<span class="pp-icon-list-icon elementor-animation-{{ settings.icon_hover_animation }}">
+										<span class="pp-icon-list-icon elementor-animation-{{ settings.icon_hover_animation }}" aria-hidden="true">
 											{{ number }}
 										</span>
 									<# } #>
@@ -1175,6 +1189,7 @@ class Icon_List extends Powerpack_Widget {
 							#>
 
 							<# if ( item.link && item.link.url ) { #>
+								{{{ newTabNotice }}}
 								</a>
 							<# } #>
 						</li>

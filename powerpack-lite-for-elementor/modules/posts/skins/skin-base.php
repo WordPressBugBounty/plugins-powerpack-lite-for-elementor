@@ -5734,13 +5734,13 @@ abstract class Skin_Base extends Elementor_Skin_Base {
 						! empty( $first_post_title ) ? $first_post_title : ''
 					);
 					printf(
-						'<div class="pp-screen-only elementor-screen-only pp-post-carousel-status" aria-live="polite" aria-atomic="true" id="pp-post-carousel-status-%1$s">%2$s</div>',
+						'<div class="elementor-screen-only pp-post-carousel-status" aria-live="polite" aria-atomic="true" id="pp-post-carousel-status-%1$s">%2$s</div>',
 						esc_attr( $this->parent->get_id() ),
 						esc_html( $initial_status )
 					);
 				}
 			?>
-			<div class="pp-screen-only elementor-screen-only pp-posts-status" aria-live="polite" aria-atomic="true"></div>
+			<div class="elementor-screen-only pp-posts-status" aria-live="polite" aria-atomic="true"></div>
 
 			<?php
 			PP_Helper::do_deprecated_action(

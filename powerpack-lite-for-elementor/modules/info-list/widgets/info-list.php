@@ -1391,9 +1391,11 @@ class Info_List extends Powerpack_Widget {
 				),
 				'info-list-items'  => array(
 					'class' => 'pp-list-items',
+					'role'  => 'list',
 				),
 				'list-item'        => array(
 					'class' => 'pp-info-list-item',
+					'role'  => 'listitem',
 				),
 				'icon'             => array(
 					'class' => array( 'pp-info-list-icon', 'pp-icon' ),
@@ -1425,28 +1427,41 @@ class Info_List extends Powerpack_Widget {
 			<ul <?php echo wp_kses_post( $this->get_render_attribute_string( 'info-list-items' ) ); ?>>
 				<?php foreach ( $settings['list_items'] as $index => $item ) : ?>
 					<?php if ( $item['text'] || $item['description'] ) { ?>
-						<li <?php echo wp_kses_post( $this->get_render_attribute_string( 'list-item' ) ); ?>>
-							<?php
-								$text_key = $this->get_repeater_setting_key( 'text', 'list_items', $index );
-								$this->add_render_attribute( $text_key, 'class', 'pp-info-list-title' );
-								$this->add_inline_editing_attributes( $text_key, 'none' );
+						<?php
+							$item_key = $this->get_repeater_setting_key( 'item', 'list_items', $index );
+							$has_link = ! empty( $item['link']['url'] ) && 'none' !== $item['link_type'];
 
-								$description_key = $this->get_repeater_setting_key( 'description', 'list_items', $index );
-								$this->add_render_attribute( $description_key, 'class', 'pp-info-list-description' );
-								$this->add_inline_editing_attributes( $description_key, 'basic' );
+							$item_attributes = [
+								'class' => [
+									'pp-info-list-item',
+									'elementor-repeater-item-' . $item['_id'],
+								],
+								'role'  => 'listitem',
+							];
 
-								$button_key = $this->get_repeater_setting_key( 'button-wrap', 'list_items', $index );
-								$this->add_render_attribute( $button_key, 'class', 'pp-info-list-button-wrapper pp-info-list-button-icon-' . $item['button_icon_position'] );
+							$this->add_render_attribute( $item_key, $item_attributes );
 
-								if ( ! empty( $item['link']['url'] ) ) {
-									$link_key = 'link_' . $i;
+							$text_key = $this->get_repeater_setting_key( 'text', 'list_items', $index );
+							$this->add_render_attribute( $text_key, 'class', 'pp-info-list-title' );
+							$this->add_inline_editing_attributes( $text_key, 'none' );
 
-									$this->add_link_attributes( $link_key, $item['link'] );
-								}
-							?>
-							<?php if ( ! empty( $item['link']['url'] ) && 'box' === $item['link_type'] ) { ?>
+							$description_key = $this->get_repeater_setting_key( 'description', 'list_items', $index );
+							$this->add_render_attribute( $description_key, 'class', 'pp-info-list-description' );
+							$this->add_inline_editing_attributes( $description_key, 'basic' );
+
+							$button_key = $this->get_repeater_setting_key( 'button-wrap', 'list_items', $index );
+							$this->add_render_attribute( $button_key, 'class', 'pp-info-list-button-wrapper pp-info-list-button-icon-' . $item['button_icon_position'] );
+
+							if ( $has_link ) {
+								$link_key = 'link_' . $i;
+
+								$this->add_link_attributes( $link_key, $item['link'] );
+							}
+						?>
+						<li <?php echo wp_kses_post( $this->get_render_attribute_string( $item_key ) ); ?>>
+							<?php if ( $has_link && 'box' === $item['link_type'] ) { ?>
 								<a <?php echo wp_kses_post( $this->get_render_attribute_string( $link_key ) ); ?>>
-							<?php }  ?>
+							<?php } ?>
 								<div class="pp-info-list-item-inner">
 									<?php $this->render_infolist_icon( $item, $i ); ?>
 									<div class="pp-infolist-content-wrapper">
@@ -1459,7 +1474,10 @@ class Info_List extends Powerpack_Widget {
 												<a <?php echo wp_kses_post( $this->get_render_attribute_string( $link_key ) ); ?>>
 											<?php } ?>
 												<?php echo wp_kses_post( $item['text'] ); ?>
-											<?php if ( ! empty( $item['link']['url'] ) && 'title' === $item['link_type'] ) { ?>
+											<?php
+											if ( ! empty( $item['link']['url'] ) && 'title' === $item['link_type'] ) {
+												echo wp_kses_post( $this->get_new_tab_notice( $item['link'] ) );
+												?>
 												</a>
 											<?php } ?>
 											</<?php echo esc_html( $title_tag ); ?>>
@@ -1484,13 +1502,17 @@ class Info_List extends Powerpack_Widget {
 																<?php echo wp_kses_post( $item['button_text'] ); ?>
 															</span>
 														<?php } ?>
+														<?php echo wp_kses_post( $this->get_new_tab_notice( $item['link'] ) ); ?>
 													</div>
 												</a>
 											</div>
 										<?php } ?>
 									</div>
 								</div>
-							<?php if ( ! empty( $item['link']['url'] ) && 'box' === $item['link_type'] ) { ?>
+							<?php
+							if ( ! empty( $item['link']['url'] ) && 'box' === $item['link_type'] ) {
+								echo wp_kses_post( $this->get_new_tab_notice( $item['link'] ) );
+								?>
 								</a>
 							<?php } ?>
 						</li>
@@ -1615,7 +1637,7 @@ class Info_List extends Powerpack_Widget {
 						<?php
 					} else {
 						?>
-						<img src="<?php echo esc_url( $item['list_image']['url'] ); ?>">
+						<img src="<?php echo esc_url( $item['list_image']['url'] ); ?>" alt="<?php echo esc_attr( Control_Media::get_image_alt( $item['list_image'] ) ); ?>">
 						<?php
 					}
 				} elseif ( 'text' === $item['pp_icon_type'] ) {
@@ -1661,12 +1683,13 @@ class Info_List extends Powerpack_Widget {
 			buttonMigrated = {};
 		#>
 		<div {{{ view.getRenderAttributeString( 'info-list' ) }}}>
-			<ul class="pp-list-items">
+			<ul class="pp-list-items" role="list">
 				<# var i = 1; #>
 				<# _.each( settings.list_items, function( item, index ) { #>
 					<#
 						var text_key = 'list_items.' + (i - 1) + '.text';
 						var description_key = 'list_items.' + (i - 1) + '.description';
+						var hasLink = item.link && item.link.url && item.link_type !== 'none';
 
 						view.addInlineEditingAttributes( text_key );
 
@@ -1674,8 +1697,8 @@ class Info_List extends Powerpack_Widget {
 						view.addInlineEditingAttributes( description_key );
 					#>
 					<# if ( item.text || item.description ) { #>
-						<li class="pp-info-list-item">
-							<# if ( item.link.url != '' && item.link_type == 'box' ) { #>
+						<li class="pp-info-list-item elementor-repeater-item-{{ item._id }}" role="listitem">
+							<# if ( hasLink && item.link_type == 'box' ) { #>
 								<a href="{{ elementor.helpers.sanitizeUrl( item.link.url ) }}">
 							<# } #>
 								<div class="pp-info-list-item-inner">
@@ -1707,7 +1730,7 @@ class Info_List extends Powerpack_Widget {
 													};
 													var image_url = elementor.imagesManager.getImageUrl( image );
 													#>
-													<img src="{{ _.escape( image_url ) }}" />
+													<img src="{{ _.escape( image_url ) }}" alt="" />
 												</span>
 											<# } else if ( item.pp_icon_type == 'text' ) { #>
 												<span class="pp-info-list-icon pp-info-list-number elementor-animation-{{ settings.icon_hover_animation }}">
@@ -1720,13 +1743,16 @@ class Info_List extends Powerpack_Widget {
 										<# if ( item.text ) { #>
 											<# var titleHTMLTag = elementor.helpers.validateHTMLTag( settings.title_html_tag ); #>
 											<{{{ titleHTMLTag }}} class="pp-info-list-title">
-												<# if ( item.link.url != '' && item.link_type == 'title' ) { #>
+												<# if ( hasLink && item.link_type == 'title' ) { #>
 													<a href="{{ elementor.helpers.sanitizeUrl( item.link.url ) }}">
 												<# } #>
 												<span {{{ view.getRenderAttributeString( 'list_items.' + (i - 1) + '.text' ) }}}>
 												{{{ item.text }}}
 												</span>
-												<# if ( item.link.url != '' && item.link_type == 'title' ) { #>
+												<# if ( hasLink && item.link_type == 'title' ) { #>
+													<# if ( item.link.is_external ) { #>
+														<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+													<# } #>
 													</a>
 												<# } #>
 											</{{{ titleHTMLTag }}}>
@@ -1736,7 +1762,7 @@ class Info_List extends Powerpack_Widget {
 											{{{ item.description }}}
 										</div>
 										<# } #>
-										<# if ( item.link.url != '' && item.link_type == 'button' ) { #>
+										<# if ( hasLink && item.link_type == 'button' ) { #>
 											<div class="pp-info-list-button-wrapper pp-info-list-button-icon-{{ item.button_icon_position }}">
 												<a href="{{ elementor.helpers.sanitizeUrl( item.link.url ) }}">
 													<div class="pp-info-list-button elementor-button elementor-size-{{ settings.button_size }} elementor-animation-{{ settings.button_animation }}">
@@ -1759,13 +1785,19 @@ class Info_List extends Powerpack_Widget {
 																{{{ item.button_text }}}
 															</span>
 														<# } #>
+														<# if ( item.link.is_external ) { #>
+															<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+														<# } #>
 													</div>
 												</a>
 											</div>
 										<# } #>
 									</div>
 								</div>
-							<# if ( item.link_type == 'box' ) { #>
+							<# if ( hasLink && item.link_type == 'box' ) { #>
+								<# if ( item.link.is_external ) { #>
+									<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+								<# } #>
 								</a>
 							<# } #>
 						</li>

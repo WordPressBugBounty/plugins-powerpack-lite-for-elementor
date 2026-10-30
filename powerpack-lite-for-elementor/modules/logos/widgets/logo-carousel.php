@@ -1739,7 +1739,7 @@ class Logo_Carousel extends Powerpack_Widget {
 					$this->render_arrows();
 
 					printf(
-						'<div class="pp-screen-only elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-logo-carousel-status-%1$s">%2$s</div>',
+						'<div class="elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-logo-carousel-status-%1$s">%2$s</div>',
 						esc_attr( $this->get_id() ),
 						esc_html( PP_Helper::get_slide_status_text( 1, $total ) )
 					);
@@ -1747,26 +1747,6 @@ class Logo_Carousel extends Powerpack_Widget {
 			</div>
 		</div>
 		<?php
-	}
-
-	/**
-	 * Visually hidden warning for a link that opens in a new tab.
-	 *
-	 * Nothing else tells a screen reader user that the tab is about to change, and
-	 * the link text itself is the author's, so the notice rides inside the link.
-	 *
-	 * @since 3.1.0
-	 * @access protected
-	 *
-	 * @param array $link The repeater item's link setting.
-	 * @return string The notice markup, or an empty string where the link stays in place.
-	 */
-	protected function get_new_tab_notice( $link ) {
-		if ( empty( $link['is_external'] ) ) {
-			return '';
-		}
-
-		return '<span class="pp-screen-only elementor-screen-only">' . esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) . '</span>';
 	}
 
 	/**

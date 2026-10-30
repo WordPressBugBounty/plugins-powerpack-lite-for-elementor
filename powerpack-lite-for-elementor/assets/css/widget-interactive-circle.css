@@ -84,9 +84,21 @@
           animation-play-state: paused;
 }
 
+.pp-circle-wrapper .pp-circle-tab:focus:not(:focus-visible) {
+  outline: none;
+}
 .pp-circle-wrapper .pp-circle-tab:focus-visible {
-  outline: 2px solid currentcolor;
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
   outline-offset: 3px;
+  -webkit-box-shadow: 0 0 0 3px #fff;
+          box-shadow: 0 0 0 3px #fff;
+}
+@media (forced-colors: active) {
+  .pp-circle-wrapper .pp-circle-tab:focus-visible {
+    outline-color: Highlight;
+  }
+}
+.pp-circle-wrapper .pp-circle-tab:focus-visible {
   z-index: 100;
 }
 

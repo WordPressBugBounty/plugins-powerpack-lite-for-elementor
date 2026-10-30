@@ -2916,7 +2916,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 				 * wrapper, which reads the whole slide out again on every move.
 				 */
 				printf(
-					'<div class="pp-screen-only elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-info-box-carousel-status-%1$s">%2$s</div>',
+					'<div class="elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-info-box-carousel-status-%1$s">%2$s</div>',
 					esc_attr( $this->get_id() ),
 					esc_html( PP_Helper::get_slide_status_text( 1, count( $settings['pp_info_boxes'] ) ) )
 				);
@@ -3020,7 +3020,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 			 * types print as a child element has to be part of the name here.
 			 */
 			if ( ! empty( $item['link']['is_external'] ) ) {
-				$icon_link_label .= ' ' . esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' );
+				$icon_link_label .= ' ' . esc_html( $this->get_new_tab_text() );
 			}
 
 			$this->add_render_attribute( $link_setting_key, 'aria-label', $icon_link_label );
@@ -3105,23 +3105,6 @@ class Info_Box_Carousel extends Powerpack_Widget {
 			</span>
 			<?php
 		}
-	}
-
-	/**
-	 * The screen-reader note a link that opens in a new tab carries.
-	 *
-	 * @since 3.1.0
-	 * @access protected
-	 *
-	 * @param array $link The repeater item's link setting.
-	 * @return string The notice markup, or an empty string where the link stays in place.
-	 */
-	protected function get_new_tab_notice( $link ) {
-		if ( empty( $link['is_external'] ) ) {
-			return '';
-		}
-
-		return '<span class="pp-screen-only elementor-screen-only">' . esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) . '</span>';
 	}
 
 	/**
@@ -3318,7 +3301,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 							{{ item.title }}
 							</{{{ titleHTMLTag }}}>
 							<# if ( 'a' === $title_container_tag && item.link.is_external ) { #>
-								<span class="pp-screen-only elementor-screen-only"><?php echo esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ); ?></span>
+								<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
 							<# } #>
 							</{{{ $title_container_tag }}}>
 							<#
@@ -3498,7 +3481,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 						var iconLinkLabel = stripTags( item.title ) || stripTags( item.subtitle ) || '<?php echo esc_js( __( 'Read more', 'powerpack-lite-for-elementor' ) ); ?>';
 
 						if ( item.link.is_external ) {
-							iconLinkLabel += ' <?php echo esc_js( __( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) ); ?>';
+							iconLinkLabel += ' <?php echo esc_js( $this->get_new_tab_text() ); ?>';
 						}
 
 						view.addRenderAttribute( 'link' + i, 'aria-label', iconLinkLabel );
@@ -3556,7 +3539,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 											<# button_icon_template( item, index ); #>
 										<# } #>
 										<# if ( item.link_type == 'button' && item.link.is_external ) { #>
-											<span class="pp-screen-only elementor-screen-only"><?php echo esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ); ?></span>
+											<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
 										<# } #>
 									</{{{ $button_html_tag }}}>
 								</div>
@@ -3564,7 +3547,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 						</div>
 					<# if ( item.link_type == 'box' ) { #>
 							<# if ( item.link.is_external ) { #>
-								<span class="pp-screen-only elementor-screen-only"><?php echo esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ); ?></span>
+								<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
 							<# } #>
 						</a>
 					<# } #>
@@ -3572,7 +3555,7 @@ class Info_Box_Carousel extends Powerpack_Widget {
 			<# i++ } ); #>
 			<# if ( settings.layout == 'carousel' ) { #>
 				</div>
-				<div class="pp-screen-only elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-info-box-carousel-status-{{ view.getID() }}">{{ slideLabelTpl.replace( '%1$s', 1 ).replace( '%2$s', settings.pp_info_boxes.length ) }}</div>
+				<div class="elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-info-box-carousel-status-{{ view.getID() }}">{{ slideLabelTpl.replace( '%1$s', 1 ).replace( '%2$s', settings.pp_info_boxes.length ) }}</div>
 			<# } #>
 			<#
 			if ( settings.layout == 'carousel' ) {

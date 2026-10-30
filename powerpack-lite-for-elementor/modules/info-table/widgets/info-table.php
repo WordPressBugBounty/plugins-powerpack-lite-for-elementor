@@ -1588,6 +1588,11 @@ class Info_Table extends Powerpack_Widget {
 
 		$migrated = isset( $settings['__fa4_migrated']['selected_icon'] );
 		$is_new = empty( $settings['icon'] ) && Icons_Manager::is_migration_allowed();
+
+		if ( ! empty( $settings['icon'] ) ) {
+			$this->add_render_attribute( 'i', 'class', $settings['icon'] );
+			$this->add_render_attribute( 'i', 'aria-hidden', 'true' );
+		}
 		?>
 		<?php if ( 'none' !== $settings['icon_type'] ) { ?>
 			<div class="pp-info-table-icon-container">
@@ -1664,25 +1669,18 @@ class Info_Table extends Powerpack_Widget {
 			$this->add_render_attribute( 'info-table-button', 'class', 'elementor-animation-' . $settings['button_animation'] );
 		}
 
-		if ( 'none' !== $settings['link_type'] ) {
+		$has_link = 'none' !== $settings['link_type'] && ! empty( $settings['link']['url'] );
 
-			if ( ! empty( $settings['link']['url'] ) ) {
-
-				if ( 'box' === $settings['link_type'] ) {
-
-					$if_html_tag_a = 'a';
-					$this->add_link_attributes( 'info-table-container-a', $settings['link'] );
-
-				} elseif ( 'title' === $settings['link_type'] ) {
-
-					$title_html_tag = 'a';
-					$this->add_link_attributes( 'title-container', $settings['link'] );
-
-				} elseif ( 'button' === $settings['link_type'] ) {
-
-					$button_html_tag = 'a';
-					$this->add_link_attributes( 'info-table-button', $settings['link'] );
-				}
+		if ( $has_link ) {
+			if ( 'box' === $settings['link_type'] ) {
+				$if_html_tag_a = 'a';
+				$this->add_link_attributes( 'info-table-container-a', $settings['link'] );
+			} elseif ( 'title' === $settings['link_type'] ) {
+				$title_html_tag = 'a';
+				$this->add_link_attributes( 'title-container', $settings['link'] );
+			} elseif ( 'button' === $settings['link_type'] ) {
+				$button_html_tag = 'a';
+				$this->add_link_attributes( 'info-table-button', $settings['link'] );
 			}
 		}
 
@@ -1728,7 +1726,12 @@ class Info_Table extends Powerpack_Widget {
 							<?php $title_tag = PP_Helper::validate_html_tag( $settings['title_html_tag'] ); ?>
 							<<?php echo esc_html( $title_tag ); ?> <?php $this->print_render_attribute_string( 'heading' ); ?>>
 								<?php echo wp_kses_post( $settings['heading'] ); ?>
-							</<?php esc_html( $title_tag ); ?>>
+							</<?php echo esc_html( $title_tag ); ?>>
+							<?php
+							if ( 'a' === $title_html_tag ) {
+								echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) );
+							}
+							?>
 						</<?php echo esc_html( $title_html_tag ); ?>>
 						<?php
 					}
@@ -1737,7 +1740,7 @@ class Info_Table extends Powerpack_Widget {
 						?>
 						<<?php echo esc_html( $subtitle_tag ); ?> <?php $this->print_render_attribute_string( 'sub_heading' ); ?>>
 							<?php echo wp_kses_post( $settings['sub_heading'] ); ?>
-						</<?php esc_html( $subtitle_tag ); ?>>
+						</<?php echo esc_html( $subtitle_tag ); ?>>
 						<?php
 					}
 					?>
@@ -1782,11 +1785,17 @@ class Info_Table extends Powerpack_Widget {
 									?>
 								</span>
 							<?php } ?>
+							<?php
+							if ( 'button' === $settings['link_type'] ) {
+								echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) );
+							}
+							?>
 						</<?php echo esc_html( $button_html_tag ); ?>>
 					</div>
 				<?php } ?>
 			</div>
 			<?php if ( ! empty( $settings['link']['url'] ) && 'box' === $settings['link_type'] ) { ?>
+				<?php echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) ); ?>
 				</<?php echo esc_html( $if_html_tag_a ); ?>>
 			<?php } ?>
 		</<?php echo esc_html( $if_html_tag ); ?>>
@@ -1842,40 +1851,40 @@ class Info_Table extends Powerpack_Widget {
 				view.addRenderAttribute( 'info-table-button', 'class', 'elementor-animation-' + settings.button_animation );
 			}
 		   
-			if (settings.link_type != 'none' ) {
-				if ( settings.link.url != '' ) {
-					if ( settings.link_type == 'box' ) {
-						var if_html_tag = 'a';
-						view.addRenderAttribute( 'info-table-container-a', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
+			var hasLink = ( settings.link_type !== 'none' && settings.link && settings.link.url );
+
+			if ( hasLink ) {
+				if ( settings.link_type == 'box' ) {
+					if_html_tag_a = 'a';
+					view.addRenderAttribute( 'info-table-container-a', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
 
 					if ( settings.link.is_external ) {
-							view.addRenderAttribute( 'info-table-container-a', 'target', '_blank' );
-						}
-						if ( settings.link.nofollow ) {
-							view.addRenderAttribute( 'info-table-container-a', 'rel', 'nofollow' );
-						}
+						view.addRenderAttribute( 'info-table-container-a', 'target', '_blank' );
 					}
-					else if ( settings.link_type == 'title' ) {
-						var pp_title_html_tag = 'a';
-						view.addRenderAttribute( 'title-container', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
-
-						if ( settings.link.is_external ) {
-							view.addRenderAttribute( 'title-container', 'target', '_blank' );
-						}
-						if ( settings.link.nofollow ) {
-							view.addRenderAttribute( 'title-container', 'rel', 'nofollow' );
-						}
+					if ( settings.link.nofollow ) {
+						view.addRenderAttribute( 'info-table-container-a', 'rel', 'nofollow' );
 					}
-					else if ( settings.link_type == 'button' ) {
-						var button_html_tag = 'a';
-						view.addRenderAttribute( 'info-table-button', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
+				}
+				else if ( settings.link_type == 'title' ) {
+					pp_title_html_tag = 'a';
+					view.addRenderAttribute( 'title-container', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
 
-						if ( settings.link.is_external ) {
-							view.addRenderAttribute( 'info-table-button', 'target', '_blank' );
-						}
-						if ( settings.link.nofollow ) {
-							view.addRenderAttribute( 'info-table-button', 'rel', 'nofollow' );
-						}
+					if ( settings.link.is_external ) {
+						view.addRenderAttribute( 'title-container', 'target', '_blank' );
+					}
+					if ( settings.link.nofollow ) {
+						view.addRenderAttribute( 'title-container', 'rel', 'nofollow' );
+					}
+				}
+				else if ( settings.link_type == 'button' ) {
+					button_html_tag = 'a';
+					view.addRenderAttribute( 'info-table-button', 'href', elementor.helpers.sanitizeUrl( settings.link.url ) );
+
+					if ( settings.link.is_external ) {
+						view.addRenderAttribute( 'info-table-button', 'target', '_blank' );
+					}
+					if ( settings.link.nofollow ) {
+						view.addRenderAttribute( 'info-table-button', 'rel', 'nofollow' );
 					}
 				}
 			}
@@ -1905,7 +1914,7 @@ class Info_Table extends Powerpack_Widget {
 										};
 										var image_url = elementor.imagesManager.getImageUrl( image );
 										#>
-										<img src="{{ _.escape( image_url ) }}" />
+										<img src="{{ _.escape( image_url ) }}" alt="" />
 									<# } else if ( settings.icon_type == 'text' ) { #>
 										<span class="pp-icon-text">
 											{{{ settings.icon_text }}}
@@ -1919,7 +1928,9 @@ class Info_Table extends Powerpack_Widget {
 			}
 		#>
 		<{{{if_html_tag}}} {{{view.getRenderAttributeString('info-table-container')}}}>
+			<# if ( 'a' === if_html_tag_a ) { #>
 			<{{{if_html_tag_a}}} {{{view.getRenderAttributeString('info-table-container-a')}}}>
+			<# } #>
 			<div {{{view.getRenderAttributeString('info-table')}}}>
 				<#
 				if ( settings.sale_badge == 'show' && settings.sale_badge_text != '' ) {
@@ -1944,6 +1955,9 @@ class Info_Table extends Powerpack_Widget {
 						<{{{ titleHTMLTag }}} {{{ view.getRenderAttributeString('heading') }}}>
 							{{{ settings.heading }}}
 						</{{{ titleHTMLTag }}}>
+						<# if ( 'a' === pp_title_html_tag && settings.link.is_external ) { #>
+							<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+						<# } #>
 					</{{{ pp_title_html_tag }}}>
 					<#
 				}
@@ -1998,11 +2012,19 @@ class Info_Table extends Powerpack_Widget {
 								</span>
 								<# } #>
 							<# } #>
+							<# if ( 'a' === button_html_tag && settings.link.is_external ) { #>
+								<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+							<# } #>
 						</{{{button_html_tag}}}>
 					</div>
 				<# } #>
 			</div>
-			<# if ( if_html_tag_a ) { #></{{{if_html_tag_a}}}> <# } #>
+			<# if ( 'a' === if_html_tag_a ) { #>
+				<# if ( settings.link.is_external ) { #>
+					<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+				<# } #>
+				</{{{if_html_tag_a}}}>
+			<# } #>
 		</{{{if_html_tag}}}>
 		<?php
 	}

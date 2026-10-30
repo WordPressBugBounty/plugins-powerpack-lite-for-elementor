@@ -63,6 +63,20 @@ class Ninja_Forms extends Powerpack_Widget {
 		return [ 'widget-pp-ninja-forms' ];
 	}
 
+	/**
+	 * Get script dependencies.
+	 *
+	 * Retrieve the list of script dependencies the widget requires.
+	 *
+	 * @since 3.1.4
+	 * @access public
+	 *
+	 * @return array Widget script dependencies.
+	 */
+	public function get_script_depends(): array {
+		return [ 'pp-ninja-forms' ];
+	}
+
 	public function has_widget_inner_wrapper(): bool {
 		return ! PP_Helper::is_feature_active( 'e_optimized_markup' );
 	}
@@ -154,6 +168,32 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::TEXT,
 				'label_block'           => true,
 				'default'               => '',
+				'condition'             => [
+					'custom_title_description'   => 'yes',
+				],
+			]
+		);
+
+		/**
+		 * Heading level for the custom form title.
+		 *
+		 * @since 3.1.4
+		 */
+		$this->add_control(
+			'title_tag',
+			[
+				'label'                 => esc_html__( 'Title HTML Tag', 'powerpack-lite-for-elementor' ),
+				'type'                  => Controls_Manager::SELECT,
+				'options'               => [
+					'h1' => 'H1',
+					'h2' => 'H2',
+					'h3' => 'H3',
+					'h4' => 'H4',
+					'h5' => 'H5',
+					'h6' => 'H6',
+				],
+				'default'               => 'h3',
+				'description'           => esc_html__( 'Choose the heading level that fits this form\'s position in the page outline, so screen reader users navigating by heading get an accurate structure.', 'powerpack-lite-for-elementor' ),
 				'condition'             => [
 					'custom_title_description'   => 'yes',
 				],
@@ -1107,7 +1147,7 @@ class Ninja_Forms extends Powerpack_Widget {
 					],
 				],
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'width: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button' => 'width: {{SIZE}}{{UNIT}}',
 				],
 				'condition'             => [
 					'button_width_type' => 'custom',
@@ -1131,7 +1171,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -1143,7 +1183,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1155,7 +1195,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'label'                 => esc_html__( 'Border', 'powerpack-lite-for-elementor' ),
 				'placeholder'       => '1px',
 				'default'               => '1px',
-				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]',
+				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button',
 			]
 		);
 
@@ -1166,7 +1206,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => [ 'px', '%', 'em', 'rem', 'custom' ],
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1178,7 +1218,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::DIMENSIONS,
 				'size_units'            => [ 'px', '%', 'em', 'rem', 'vw', 'custom' ],
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -1197,7 +1237,7 @@ class Ninja_Forms extends Powerpack_Widget {
 					],
 				],
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]' => 'margin-top: {{SIZE}}{{UNIT}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button' => 'margin-top: {{SIZE}}{{UNIT}}',
 				],
 			]
 		);
@@ -1218,7 +1258,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]:hover' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]:hover, {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"]:hover, {{WRAPPER}} .pp-ninja-form .submit-container button:hover' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -1230,7 +1270,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]:hover, {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"]:hover, {{WRAPPER}} .pp-ninja-form .submit-container button:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1242,7 +1282,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'type'                  => Controls_Manager::COLOR,
 				'default'               => '',
 				'selectors'             => [
-					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]:hover' => 'border-color: {{VALUE}}',
+					'{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]:hover, {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"]:hover, {{WRAPPER}} .pp-ninja-form .submit-container button:hover' => 'border-color: {{VALUE}}',
 				],
 			]
 		);
@@ -1259,7 +1299,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				'global'                => [
 					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
 				],
-				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]',
+				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button',
 				'separator'             => 'before',
 			]
 		);
@@ -1268,7 +1308,7 @@ class Ninja_Forms extends Powerpack_Widget {
 			Group_Control_Box_Shadow::get_type(),
 			[
 				'name'                  => 'button_box_shadow',
-				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"]',
+				'selector'              => '{{WRAPPER}} .pp-ninja-form .submit-container input[type="button"], {{WRAPPER}} .pp-ninja-form .submit-container input[type="submit"], {{WRAPPER}} .pp-ninja-form .submit-container button',
 				'separator'             => 'before',
 			]
 		);
@@ -1486,17 +1526,27 @@ class Ninja_Forms extends Powerpack_Widget {
 	}
 
 	protected function render() {
-		$settings = $this->get_settings();
+		$settings = $this->get_settings_for_display();
+
+		$widget_id       = $this->get_id();
+		$custom_heading  = ( 'yes' === $settings['custom_title_description'] );
+		$has_title       = ( $custom_heading && ! empty( $settings['form_title_custom'] ) );
+		$has_description = ( $custom_heading && ! empty( $settings['form_description_custom'] ) );
+		$title_id        = 'pp-ninja-form-title-' . $widget_id;
+		$desc_id         = 'pp-ninja-form-desc-' . $widget_id;
+		$title_tag       = PP_Helper::validate_html_tag( ! empty( $settings['title_tag'] ) ? $settings['title_tag'] : 'h3' );
 
 		$this->add_render_attribute( 'contact-form', [
-			'class' => [
+			'class'      => [
 				'pp-contact-form',
 				'pp-ninja-form',
 			],
-			'id' => [
-				'pp-ninja-form-' . get_the_ID(),
+			'id'         => [
+				'pp-ninja-form-' . $widget_id,
 			],
-		]);
+			'role'       => 'region',
+			'aria-label' => $has_title ? esc_attr( $settings['form_title_custom'] ) : esc_attr( $this->get_title() ),
+		] );
 
 		if ( 'yes' !== $settings['placeholder_switch'] ) {
 			$this->add_render_attribute( 'contact-form', 'class', 'placeholder-hide' );
@@ -1512,16 +1562,16 @@ class Ninja_Forms extends Powerpack_Widget {
 
 		if ( class_exists( 'Ninja_Forms' ) ) {
 			if ( ! empty( $settings['contact_form_list'] ) ) { ?>
-				<div <?php echo wp_kses_post( $this->get_render_attribute_string( 'contact-form' ) ); ?>>
-					<?php if ( 'yes' === $settings['custom_title_description'] ) { ?>
+				<div <?php $this->print_render_attribute_string( 'contact-form' ); ?>>
+					<?php if ( $has_title || $has_description ) { ?>
 						<div class="pp-ninja-forms-heading">
-							<?php if ( $settings['form_title_custom'] ) { ?>
-								<h3 class="pp-contact-form-title pp-ninja-forms-title">
-									<?php echo esc_attr( $settings['form_title_custom'] ); ?>
-								</h3>
+							<?php if ( $has_title ) { ?>
+								<<?php PP_Helper::print_validated_html_tag( $title_tag ); ?> id="<?php echo esc_attr( $title_id ); ?>" class="pp-contact-form-title pp-ninja-forms-title">
+									<?php echo esc_html( $settings['form_title_custom'] ); ?>
+								</<?php PP_Helper::print_validated_html_tag( $title_tag ); ?>>
 							<?php } ?>
-							<?php if ( $settings['form_description_custom'] ) { ?>
-								<div class="pp-contact-form-description pp-ninja-forms-description">
+							<?php if ( $has_description ) { ?>
+								<div id="<?php echo esc_attr( $desc_id ); ?>" class="pp-contact-form-description pp-ninja-forms-description">
 									<?php echo $this->parse_text_editor( $settings['form_description_custom'] ); //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 								</div>
 							<?php } ?>
@@ -1532,6 +1582,7 @@ class Ninja_Forms extends Powerpack_Widget {
 
 						echo do_shortcode( '[ninja_form id="' . $form_id . '" ]' );
 					?>
+					<div id="pp-ninja-forms-status-<?php echo esc_attr( $widget_id ); ?>" class="elementor-screen-only" role="status" aria-live="polite" aria-atomic="true"></div>
 				</div>
 				<?php
 			} else {
@@ -1547,7 +1598,7 @@ class Ninja_Forms extends Powerpack_Widget {
 				echo esc_attr( $this->render_editor_placeholder(
 					[
 						'title' => esc_html__( 'No Contact Form Selected!', 'powerpack-lite-for-elementor' ),
-						'body' => $placeholder,
+						'body'  => $placeholder,
 					]
 				) );
 			}

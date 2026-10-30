@@ -71,8 +71,9 @@
 
 				var canvas = document.createElement( 'canvas' );
 				canvas.id = chartId;
+				// Not a tab stop: the canvas has no keyboard interaction, and screen
+				// readers reach its label and the data table in reading order.
 				canvas.setAttribute( 'role', 'img' );
-				canvas.setAttribute( 'tabindex', '0' );
 
 				if ( ariaLabel ) {
 					canvas.setAttribute( 'aria-label', ariaLabel );

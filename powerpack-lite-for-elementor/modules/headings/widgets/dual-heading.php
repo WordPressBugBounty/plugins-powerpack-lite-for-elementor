@@ -518,7 +518,6 @@ class Dual_Heading extends Powerpack_Widget {
 		$settings = $this->get_settings_for_display();
 
 		$this->add_render_attribute( 'dual-heading', 'class', 'pp-dual-heading' );
-		$this->add_render_attribute( 'dual-heading', 'tabindex', '0' );
 		$this->add_inline_editing_attributes( 'first_text', 'basic' );
 		$this->add_render_attribute( 'first_text', 'class', 'pp-first-text' );
 		$this->add_inline_editing_attributes( 'second_text', 'basic' );
@@ -549,9 +548,7 @@ class Dual_Heading extends Powerpack_Widget {
 			}
 
 			if ( ! empty( $settings['link']['url'] ) ) {
-				if ( ! empty( $settings['link']['is_external'] ) ) {
-					$html .= '<span class="elementor-screen-only">' . esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) . '</span>';
-				}
+				$html .= $this->get_new_tab_notice( $settings['link'] );
 				$html .= '</a>';
 			}
 
@@ -573,10 +570,9 @@ class Dual_Heading extends Powerpack_Widget {
 		<#
 		var headingHTMLTag = elementor.helpers.validateHTMLTag( settings.heading_html_tag );
 		var hasLink        = settings.link && settings.link.url;
-		var newTabNotice   = ( hasLink && settings.link.is_external ) ? '<span class="elementor-screen-only"><?php echo esc_js( __( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) ); ?></span>' : '';
+		var newTabNotice   = ( hasLink && settings.link.is_external ) ? <?php echo wp_json_encode( $this->get_new_tab_notice_html() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> : '';
 
 		view.addRenderAttribute( 'dual-heading', 'class', 'pp-dual-heading' );
-		view.addRenderAttribute( 'dual-heading', 'tabindex', '0' );
 		#>
 		<{{{ headingHTMLTag }}} {{{ view.getRenderAttributeString( 'dual-heading' ) }}}>
 			<# if ( hasLink ) { #><a href="{{ _.escape( elementor.helpers.sanitizeUrl( settings.link.url ) ) }}"><# } #>

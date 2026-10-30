@@ -97,16 +97,121 @@
   display: none;
 }
 .pp-ninja-form .nf-field-label {
-  display: none;
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  clip-path: inset(50%) !important;
+  border: 0 !important;
+  white-space: nowrap !important;
 }
-.pp-ninja-form-labels-yes .nf-field-label {
+.pp-ninja-form .nf-field-label:empty,
+.pp-ninja-form .nf-error-wrap:empty,
+.pp-ninja-form .submit-container .nf-field-label {
+  display: none !important;
+}
+.pp-ninja-form-labels-yes .nf-field-label:not(:empty) {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: 0;
+  margin: 0;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  white-space: normal !important;
   display: block;
 }
-.pp-ninja-form .submit-container input[type=button] {
+.pp-ninja-form-labels-yes .submit-container .nf-field-label {
+  display: none !important;
+}
+.pp-ninja-form .submit-container input[type=button],
+.pp-ninja-form .submit-container input[type=submit],
+.pp-ninja-form .submit-container button {
   border: 0;
   border-radius: 0;
+  cursor: pointer;
+}
+.pp-ninja-form input:focus:not(:focus-visible),
+.pp-ninja-form textarea:focus:not(:focus-visible),
+.pp-ninja-form select:focus:not(:focus-visible),
+.pp-ninja-form button:focus:not(:focus-visible),
+.pp-ninja-form .ninja-forms-field:focus:not(:focus-visible),
+.pp-ninja-form .submit-container input[type=button]:focus:not(:focus-visible),
+.pp-ninja-form .submit-container input[type=submit]:focus:not(:focus-visible),
+.pp-ninja-form .submit-container button:focus:not(:focus-visible) {
+  outline: none;
+}
+.pp-ninja-form input:focus-visible,
+.pp-ninja-form textarea:focus-visible,
+.pp-ninja-form select:focus-visible,
+.pp-ninja-form button:focus-visible,
+.pp-ninja-form .ninja-forms-field:focus-visible,
+.pp-ninja-form .submit-container input[type=button]:focus-visible,
+.pp-ninja-form .submit-container input[type=submit]:focus-visible,
+.pp-ninja-form .submit-container button:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 1px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-ninja-form input:focus-visible,
+  .pp-ninja-form textarea:focus-visible,
+  .pp-ninja-form select:focus-visible,
+  .pp-ninja-form button:focus-visible,
+  .pp-ninja-form .ninja-forms-field:focus-visible,
+  .pp-ninja-form .submit-container input[type=button]:focus-visible,
+  .pp-ninja-form .submit-container input[type=submit]:focus-visible,
+  .pp-ninja-form .submit-container button:focus-visible {
+    outline-color: Highlight;
+  }
+}
+.pp-ninja-form .nf-response-msg:focus,
+.pp-ninja-form .nf-form-errors:focus {
+  outline: none;
+}
+.pp-ninja-form.pp-custom-radio-checkbox input[type=checkbox]:focus:not(:focus-visible),
+.pp-ninja-form.pp-custom-radio-checkbox input[type=radio]:focus:not(:focus-visible) {
+  outline: none;
+}
+.pp-ninja-form.pp-custom-radio-checkbox input[type=checkbox]:focus-visible,
+.pp-ninja-form.pp-custom-radio-checkbox input[type=radio]:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 1px;
+  -webkit-box-shadow: 0 0 0 2px #fff;
+          box-shadow: 0 0 0 2px #fff;
+}
+@media (forced-colors: active) {
+  .pp-ninja-form.pp-custom-radio-checkbox input[type=checkbox]:focus-visible,
+  .pp-ninja-form.pp-custom-radio-checkbox input[type=radio]:focus-visible {
+    outline-color: Highlight;
+  }
 }
 
-.pp-ninja-form-button-full-width .submit-container input[type=button] {
+.pp-ninja-form-button-full-width .submit-container input[type=button],
+.pp-ninja-form-button-full-width .submit-container input[type=submit],
+.pp-ninja-form-button-full-width .submit-container button {
   width: 100%;
+}
+
+.pp-ninja-forms-title {
+  margin-bottom: 10px;
+}
+
+.pp-ninja-forms-description {
+  margin-bottom: 20px;
+}
+
+@media (forced-colors: active) {
+  .pp-ninja-form.pp-custom-radio-checkbox input[type=checkbox],
+  .pp-ninja-form.pp-custom-radio-checkbox input[type=radio] {
+    -webkit-appearance: auto;
+    -moz-appearance: auto;
+    appearance: auto;
+    forced-color-adjust: auto;
+  }
 }

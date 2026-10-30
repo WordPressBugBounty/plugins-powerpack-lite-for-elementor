@@ -2105,7 +2105,7 @@ class Content_Ticker extends Powerpack_Widget {
 					</div>
 					<?php
 					printf(
-						'<div class="pp-screen-only elementor-screen-only pp-content-ticker-status" aria-live="polite" id="pp-content-ticker-status-%1$s">%2$s</div>',
+						'<div class="elementor-screen-only pp-content-ticker-status" aria-live="polite" id="pp-content-ticker-status-%1$s">%2$s</div>',
 						esc_attr( $this->get_id() ),
 						esc_html( PP_Helper::get_slide_status_text( 1, $this->total_slides, $this->first_slide_label ) )
 					);

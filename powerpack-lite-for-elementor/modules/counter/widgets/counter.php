@@ -1381,7 +1381,6 @@ class Counter extends Powerpack_Widget {
 					'pp-counter',
 					'pp-counter-' . $settings['counter_layout'],
 				],
-				'tabindex'   => '0',
 				'role'       => 'group',
 				'aria-label' => $accessible_text,
 			],
@@ -1830,7 +1829,7 @@ class Counter extends Powerpack_Widget {
 		#>
 
 		<div class="pp-counter-container">
-			<div class="pp-counter pp-counter-{{ settings.counter_layout }}" tabindex="0" role="group" aria-label="{{ accessibleText }}">
+			<div class="pp-counter pp-counter-{{ settings.counter_layout }}" role="group" aria-label="{{ accessibleText }}">
 				<# if ( settings.counter_layout == 'layout-1' || settings.counter_layout == 'layout-5' || settings.counter_layout == 'layout-6' ) { #>
 					<# icon_template(); #>
 

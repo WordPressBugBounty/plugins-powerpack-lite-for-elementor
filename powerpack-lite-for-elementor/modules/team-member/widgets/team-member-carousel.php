@@ -3024,7 +3024,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 				$total = count( $settings['team_member_details'] );
 
 				printf(
-					'<div class="pp-screen-only elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-tm-carousel-status-%1$s">%2$s</div>',
+					'<div class="elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-tm-carousel-status-%1$s">%2$s</div>',
 					esc_attr( $this->get_id() ),
 					esc_html( PP_Helper::get_slide_status_text( 1, $total ) )
 				);
@@ -3250,7 +3250,7 @@ class Team_Member_Carousel extends Powerpack_Widget {
 									<?php self::render_share_icon( $network_name ); ?>
 								</span>
 								<?php if ( $new_window ) : ?>
-									<span class="pp-screen-only elementor-screen-only"><?php echo esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ); ?></span>
+									<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
 								<?php endif; ?>
 							</a>
 						</li>

@@ -248,6 +248,25 @@ class PowerpackLitePlugin {
 		);
 
 		wp_register_script(
+			'pp-ninja-forms',
+			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-ninja-forms' . $suffix . '.js',
+			[
+				'jquery',
+			],
+			POWERPACK_ELEMENTS_LITE_VER,
+			true
+		);
+
+		wp_localize_script(
+			'pp-ninja-forms',
+			'ppNinjaFormsScript',
+			[
+				'form_has_errors' => esc_html__( 'The form has errors. Please review the highlighted fields.', 'powerpack-lite-for-elementor' ),
+				'submitting'      => esc_html__( 'Submitting form, please wait.', 'powerpack-lite-for-elementor' ),
+			]
+		);
+
+		wp_register_script(
 			'pp-wpforms',
 			POWERPACK_ELEMENTS_LITE_URL . $path . 'frontend-wpforms' . $suffix . '.js',
 			array(

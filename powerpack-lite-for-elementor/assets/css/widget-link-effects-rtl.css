@@ -801,3 +801,31 @@
   -webkit-transform: translateY(0);
           transform: translateY(0);
 }
+
+.elementor-widget-pa-link-effects .pp-link:focus:not(:focus-visible) {
+  outline: none;
+}
+.elementor-widget-pa-link-effects .pp-link:focus-visible {
+  outline: var(--pp-focus-width, 2px) solid var(--pp-focus-color, #1a73e8);
+  outline-offset: 4px;
+  -webkit-box-shadow: 0 0 0 4px #fff;
+          box-shadow: 0 0 0 4px #fff;
+}
+@media (forced-colors: active) {
+  .elementor-widget-pa-link-effects .pp-link:focus-visible {
+    outline-color: Highlight;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .elementor-widget-pa-link-effects .pp-link,
+  .elementor-widget-pa-link-effects .pp-link::before,
+  .elementor-widget-pa-link-effects .pp-link::after,
+  .elementor-widget-pa-link-effects .pp-link span,
+  .elementor-widget-pa-link-effects .pp-link span::before,
+  .elementor-widget-pa-link-effects .pp-link span::after {
+    -webkit-transition-duration: 0ms !important;
+            transition-duration: 0ms !important;
+    -webkit-animation-duration: 0ms !important;
+            animation-duration: 0ms !important;
+  }
+}

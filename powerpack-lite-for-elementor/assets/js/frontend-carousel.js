@@ -282,12 +282,12 @@
 				}
 
 				/*
-				 * [aria-live] and not the class alone: .pp-screen-only is a plain visually
-				 * hidden marker, and slides carry their own — the "(opens in a new tab)"
-				 * note on external links — which a bare descendant match overwrites with
-				 * the slide count.
+				 * [aria-live] and not the class alone: .elementor-screen-only is a plain
+				 * visually hidden marker, and slides carry their own (the "(opens in a new
+				 * tab)" note on external links), which a bare descendant match overwrites
+				 * with the slide count.
 				 */
-				this.elements.$swiperContainer.find( '.pp-screen-only[aria-live]' ).text( statusText );
+				this.elements.$swiperContainer.find( '.elementor-screen-only[aria-live]' ).text( statusText );
 			}
 
 			async initSlider() {
@@ -364,7 +364,7 @@
 				 * than rebuilding it here: a widget that renders no status then leaves its
 				 * arrows alone instead of pointing them at an element that does not exist.
 				 */
-				const statusId = this.elements.$swiperContainer.find( '.pp-screen-only[aria-live]' ).attr( 'id' );
+				const statusId = this.elements.$swiperContainer.find( '.elementor-screen-only[aria-live]' ).attr( 'id' );
 
 				if ( statusId ) {
 					/*

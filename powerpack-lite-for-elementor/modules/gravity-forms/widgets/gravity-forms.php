@@ -2599,7 +2599,7 @@ class Gravity_Forms extends Powerpack_Widget {
 
 					echo do_shortcode( '[gravityform id="' . absint( $form_id ) . '" title="' . $form_title . '" description="' . $form_description . '" ajax="' . $form_ajax . '"' . ' ' . $shortcode_attrs . ']' );
 					?>
-					<div id="pp-gravity-form-status-<?php echo esc_attr( $widget_id ); ?>" class="pp-screen-only elementor-screen-only" role="status" aria-live="polite" aria-atomic="true"></div>
+					<div id="pp-gravity-form-status-<?php echo esc_attr( $widget_id ); ?>" class="elementor-screen-only" role="status" aria-live="polite" aria-atomic="true"></div>
 					<?php if ( 'icon' === $select_arrow && ! empty( $settings['select_arrow_icon']['value'] ) ) { ?>
 						<template class="pp-gf-select-icon-template">
 							<span class="pp-gf-select-icon" aria-hidden="true"><?php Icons_Manager::render_icon( $settings['select_arrow_icon'], [ 'aria-hidden' => 'true' ] ); ?></span>

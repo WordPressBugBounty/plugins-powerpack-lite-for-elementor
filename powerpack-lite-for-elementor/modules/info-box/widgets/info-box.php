@@ -2057,6 +2057,11 @@ class Info_Box extends Powerpack_Widget {
 								?>
 							</span>
 						<?php } ?>
+						<?php
+						if ( 'button' === $settings['link_type'] ) {
+							echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) );
+						}
+						?>
 					</<?php PP_Helper::print_validated_html_tag( $button_html_tag ); ?>>
 				</div>
 			<?php } ?>
@@ -2104,12 +2109,39 @@ class Info_Box extends Powerpack_Widget {
 		$this->add_inline_editing_attributes( 'sub_heading', 'none' );
 		$this->add_inline_editing_attributes( 'description', 'basic' );
 
-		if ( 'none' !== $settings['link_type'] && ! empty( $settings['link']['url'] ) ) {
+		$has_link = 'none' !== $settings['link_type'] && ! empty( $settings['link']['url'] );
+
+		if ( $has_link ) {
 			if ( 'box' === $settings['link_type'] ) {
 				$box_html_tag = 'a';
 				$this->add_link_attributes( 'info-box-container', $settings['link'] );
 			} elseif ( 'icon' === $settings['link_type'] ) {
 				$this->add_link_attributes( 'link', $settings['link'] );
+
+				/*
+				 * The anchor holds nothing but an icon or image. With an aria-hidden icon or an
+				 * unlabelled image, it reaches a screen reader as an empty link. The box's own
+				 * heading is the primary label for where the link goes.
+				 */
+				$icon_link_label = trim( wp_strip_all_tags( $settings['heading'] ) );
+
+				if ( '' === $icon_link_label ) {
+					$icon_link_label = trim( wp_strip_all_tags( $settings['sub_heading'] ) );
+				}
+
+				if ( '' === $icon_link_label ) {
+					$icon_link_label = esc_html__( 'Read more', 'powerpack-lite-for-elementor' );
+				}
+
+				/*
+				 * aria-label wins over anything inside the anchor, so the notice the other link
+				 * types print as a child element has to be part of the name here.
+				 */
+				if ( ! empty( $settings['link']['is_external'] ) ) {
+					$icon_link_label .= ' ' . esc_html( $this->get_new_tab_text() );
+				}
+
+				$this->add_render_attribute( 'link', 'aria-label', $icon_link_label );
 			} elseif ( 'title' === $settings['link_type'] ) {
 				$title_container_tag = 'a';
 				$this->add_link_attributes( 'title-container', $settings['link'] );
@@ -2150,6 +2182,11 @@ class Info_Box extends Powerpack_Widget {
 								<<?php PP_Helper::print_validated_html_tag( $title_tag ); ?> <?php $this->print_render_attribute_string( 'heading' ); ?>>
 									<?php echo wp_kses_post( $settings['heading'] ); ?>
 								</<?php PP_Helper::print_validated_html_tag( $title_tag ); ?>>
+								<?php
+								if ( 'a' === $title_container_tag ) {
+									echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) );
+								}
+								?>
 							</<?php PP_Helper::print_validated_html_tag( $title_container_tag ); ?>>
 							<?php
 						}
@@ -2182,6 +2219,11 @@ class Info_Box extends Powerpack_Widget {
 					?>
 				</div>
 			</div>
+			<?php
+			if ( 'box' === $settings['link_type'] ) {
+				echo wp_kses_post( $this->get_new_tab_notice( $settings['link'] ) );
+			}
+			?>
 		</<?php PP_Helper::print_validated_html_tag( $box_html_tag ); ?>>
 		<?php
 	}
@@ -2196,6 +2238,12 @@ class Info_Box extends Powerpack_Widget {
 	protected function content_template() {
 		?>
 		<#
+			// The title is a rich text control, so anything taken from it for an alt or an
+			// aria-label has to come out as plain text.
+			function stripTags( value ) {
+				return ( value || '' ).replace( /<[^>]*>/g, '' ).trim();
+			}
+
 			var pp_if_html_tag = 'div',
 				pp_title_html_tag = 'div',
 				pp_button_html_tag = 'div',
@@ -2216,6 +2264,17 @@ class Info_Box extends Powerpack_Widget {
 				}
 			}
 
+			if ( 'icon' === settings.link_type && hasLinkUrl ) {
+				var iconLinkLabel = stripTags( settings.heading ) || stripTags( settings.sub_heading ) || '<?php echo esc_js( __( 'Read more', 'powerpack-lite-for-elementor' ) ); ?>';
+
+				if ( settings.link.is_external ) {
+					iconLinkLabel += ' <?php echo esc_js( $this->get_new_tab_text() ); ?>';
+				}
+
+				view.addRenderAttribute( 'icon-link', 'aria-label', iconLinkLabel );
+			}
+			view.addRenderAttribute( 'icon-link', 'href', linkUrl );
+
 			view.addRenderAttribute( 'icon-wrap', 'class', 'pp-info-box-icon-wrap' );
 			view.addRenderAttribute( 'icon', 'class', [ 'pp-info-box-icon', 'pp-icon', 'elementor-animation-' + settings.hover_animation_icon ] );
 
@@ -2229,7 +2288,7 @@ class Info_Box extends Powerpack_Widget {
 				<# if ( 'none' !== settings.icon_type ) { #>
 					<div {{{ view.getRenderAttributeString( 'icon-wrap' ) }}}>
 						<# if ( 'icon' === settings.link_type && hasLinkUrl ) { #>
-							<a href="{{ linkUrl }}">
+							<a {{{ view.getRenderAttributeString( 'icon-link' ) }}}>
 						<# } #>
 						<span {{{ view.getRenderAttributeString( 'icon' ) }}}>
 							<# if ( 'icon' === settings.icon_type ) { #>
@@ -2250,8 +2309,14 @@ class Info_Box extends Powerpack_Widget {
 									model: view.getEditModel()
 								};
 								var image_url = elementor.imagesManager.getImageUrl( image );
+
+								/*
+								 * The title is announced from the heading below, so an unlinked image is
+								 * decorative. A linked one has to carry a name, or the link has none.
+								 */
+								var imageAlt = ( 'icon' === settings.link_type ) ? stripTags( settings.heading ) : '';
 								#>
-								<img src="{{ _.escape( image_url ) }}" />
+								<img src="{{ _.escape( image_url ) }}" alt="{{ imageAlt }}" />
 							<# } else if ( 'text' === settings.icon_type ) { #>
 								<span class="pp-icon-text elementor-inline-editing" data-elementor-setting-key="icon_text" data-elementor-inline-editing-toolbar="none">
 									{{{ elementor.helpers.sanitize( settings.icon_text ) }}}
@@ -2274,6 +2339,9 @@ class Info_Box extends Powerpack_Widget {
 								<{{{ titleHTMLTag }}} class="pp-info-box-title elementor-inline-editing" data-elementor-setting-key="heading" data-elementor-inline-editing-toolbar="none">
 									{{{ settings.heading }}}
 								</{{{ titleHTMLTag }}}>
+								<# if ( 'a' === pp_title_html_tag && settings.link.is_external ) { #>
+									<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+								<# } #>
 							</{{{ pp_title_html_tag }}}>
 						<# } #>
 						<# if ( settings.sub_heading ) { #>
@@ -2325,12 +2393,18 @@ class Info_Box extends Powerpack_Widget {
 											</span>
 										<# } #>
 									<# } #>
+									<# if ( 'a' === pp_button_html_tag && settings.link.is_external ) { #>
+										<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+									<# } #>
 								</{{{ pp_button_html_tag }}}>
 							</div>
 						<# } #>
 					<# } #>
 				</div>
 			</div>
+			<# if ( 'a' === pp_if_html_tag && settings.link.is_external ) { #>
+				<?php echo wp_kses_post( $this->get_new_tab_notice_html() ); ?>
+			<# } #>
 		</{{{ pp_if_html_tag }}}>
 		<?php
 	}

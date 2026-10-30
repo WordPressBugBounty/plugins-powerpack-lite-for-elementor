@@ -2982,9 +2982,7 @@ class Instafeed extends Powerpack_Widget {
 						}
 
 						if ( 'a' === $tag && ! empty( $settings['insta_profile_url']['is_external'] ) ) {
-							?>
-							<span class="pp-screen-only elementor-screen-only"><?php esc_html_e( '(opens in a new tab)', 'powerpack-lite-for-elementor' ); ?></span>
-							<?php
+							echo $this->get_new_tab_notice_html(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 						?>
 					</span>
@@ -3273,7 +3271,7 @@ class Instafeed extends Powerpack_Widget {
 
 				if ( 'carousel' === $settings['feed_layout'] ) {
 					printf(
-						'<div class="pp-screen-only elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-instafeed-status-%1$s">%2$s</div>',
+						'<div class="elementor-screen-only" aria-live="polite" aria-atomic="true" id="pp-instafeed-status-%1$s">%2$s</div>',
 						esc_attr( $this->get_id() ),
 						esc_html( PP_Helper::get_slide_status_text( 1, $total ) )
 					);
@@ -3332,7 +3330,7 @@ class Instafeed extends Powerpack_Widget {
 			] );
 
 			// Nothing else tells a screen reader user that the tab is about to change.
-			$new_tab = '<span class="pp-screen-only elementor-screen-only">' . esc_html__( '(opens in a new tab)', 'powerpack-lite-for-elementor' ) . '</span>';
+			$new_tab = $this->get_new_tab_notice_html();
 		}
 
 		$this->add_render_attribute( $link_key, 'href', $item_link );
